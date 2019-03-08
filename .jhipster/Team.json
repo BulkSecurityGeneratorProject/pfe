@@ -1,0 +1,34 @@
+{
+    "name": "Team",
+    "fields": [
+        {
+            "fieldName": "teamName",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "channel",
+            "otherEntityName": "channel",
+            "otherEntityRelationshipName": "team"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "team(teamName)",
+            "relationshipName": "user",
+            "otherEntityName": "user",
+            "otherEntityField": "id",
+            "ownerSide": true
+        }
+    ],
+    "changelogDate": "20190308223649",
+    "entityTableName": "team",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

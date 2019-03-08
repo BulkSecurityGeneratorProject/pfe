@@ -4,6 +4,22 @@ import { RouterModule } from '@angular/router';
 @NgModule({
     imports: [
         RouterModule.forChild([
+            {
+                path: 'team',
+                loadChildren: './team/team.module#ChatbotTeamModule'
+            },
+            {
+                path: 'channel',
+                loadChildren: './channel/channel.module#ChatbotChannelModule'
+            },
+            {
+                path: 'message',
+                loadChildren: './message/message.module#ChatbotMessageModule'
+            },
+            {
+                path: 'annotation',
+                loadChildren: './annotation/annotation.module#ChatbotAnnotationModule'
+            }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])
     ],

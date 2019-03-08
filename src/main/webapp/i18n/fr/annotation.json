@@ -1,0 +1,23 @@
+{
+    "chatbotApp": {
+        "annotation": {
+            "home": {
+                "title": "Annotations",
+                "createLabel": "Créer un nouveau Annotation",
+                "createOrEditLabel": "Créer ou éditer un Annotation"
+            },
+            "created": "Un nouveau Annotation a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Annotation avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Annotation avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Annotation {{ id }} ?"
+            },
+            "detail": {
+                "title": "Annotation"
+            },
+            "annotationType": "Annotation Type",
+            "annotationData": "Annotation Data",
+            "message": "Message"
+        }
+    }
+}

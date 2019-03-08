@@ -1,0 +1,48 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-message-heading" jhiTranslate="chatbotApp.message.home.createOrEditLabel">Create or edit a Message</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!message.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="message.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="chatbotApp.message.messageTitle" for="field_messageTitle">Message Title</label>
+                    <input type="text" class="form-control" name="messageTitle" id="field_messageTitle"
+                        [(ngModel)]="message.messageTitle" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="chatbotApp.message.messageText" for="field_messageText">Message Text</label>
+                    <input type="text" class="form-control" name="messageText" id="field_messageText"
+                        [(ngModel)]="message.messageText" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="chatbotApp.message.channel" for="field_channel">Channel</label>
+                    <select class="form-control" id="field_channel" name="channel" [(ngModel)]="message.channel" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="channelOption.id === message.channel?.id ? message.channel : channelOption" *ngFor="let channelOption of channels; trackBy: trackChannelById">{{channelOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="chatbotApp.message.user" for="field_user">User</label>
+                    <select class="form-control" id="field_user" name="user" [(ngModel)]="message.user" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="userOption.id === message.user?.id ? message.user : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

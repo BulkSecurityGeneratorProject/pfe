@@ -1,0 +1,33 @@
+{
+    "name": "Channel",
+    "fields": [
+        {
+            "fieldName": "channelName",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "team",
+            "otherEntityName": "team",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "channel"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "message",
+            "otherEntityName": "message",
+            "otherEntityRelationshipName": "channel"
+        }
+    ],
+    "changelogDate": "20190308223650",
+    "entityTableName": "channel",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

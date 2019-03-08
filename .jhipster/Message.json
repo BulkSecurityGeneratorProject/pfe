@@ -1,0 +1,44 @@
+{
+    "name": "Message",
+    "fields": [
+        {
+            "fieldName": "messageTitle",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "messageText",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "annotation",
+            "otherEntityName": "annotation",
+            "otherEntityRelationshipName": "message"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "channel",
+            "otherEntityName": "channel",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "message"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "user",
+            "otherEntityName": "user",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "message"
+        }
+    ],
+    "changelogDate": "20190308223651",
+    "entityTableName": "message",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

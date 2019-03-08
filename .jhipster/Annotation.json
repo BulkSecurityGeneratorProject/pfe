@@ -1,0 +1,30 @@
+{
+    "name": "Annotation",
+    "fields": [
+        {
+            "fieldName": "annotationType",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "annotationData",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipName": "message",
+            "otherEntityName": "message",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20190308223652",
+    "entityTableName": "annotation",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}
