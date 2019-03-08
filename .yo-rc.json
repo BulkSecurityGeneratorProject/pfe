@@ -1,0 +1,37 @@
+{
+    "generator-jhipster": {
+        "promptValues": {
+            "packageName": "org.chatbot.app",
+            "nativeLanguage": "fr"
+        },
+        "jhipsterVersion": "5.8.1",
+        "applicationType": "monolith",
+        "baseName": "chatbot",
+        "packageName": "org.chatbot.app",
+        "packageFolder": "org/chatbot/app",
+        "serverPort": "8080",
+        "authenticationType": "jwt",
+        "cacheProvider": "no",
+        "websocket": false,
+        "databaseType": "sql",
+        "devDatabaseType": "h2Disk",
+        "prodDatabaseType": "mysql",
+        "searchEngine": false,
+        "messageBroker": false,
+        "serviceDiscoveryType": false,
+        "buildTool": "maven",
+        "enableSwaggerCodegen": false,
+        "jwtSecretKey": "OWU2NTc4Yjc0YTUzZjU4Y2VjZmMwYmJkNzJkZjdhN2U1ZTViZTFlYWQ5NGEyODZmOGJkOGNiNTcwMWM0YTYyODI2N2UyYzQxNzBmZDI0ZTI3M2E5YzZjNzNkZDI1MDAwYTlmZGI2MjliNmI2NWJhZWRjMTEwYzgyNjQ1ZmNjNjc=",
+        "clientFramework": "angularX",
+        "useSass": true,
+        "clientPackageManager": "npm",
+        "testFrameworks": [],
+        "jhiPrefix": "jhi",
+        "entitySuffix": "",
+        "dtoSuffix": "DTO",
+        "otherModules": [],
+        "enableTranslation": true,
+        "nativeLanguage": "fr",
+        "languages": ["fr", "en"]
+    }
+}
