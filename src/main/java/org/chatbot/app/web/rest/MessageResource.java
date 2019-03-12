@@ -1,6 +1,8 @@
 package org.chatbot.app.web.rest;
+
 import org.chatbot.app.domain.Message;
 import org.chatbot.app.repository.MessageRepository;
+import org.chatbot.app.service.UserService;
 import org.chatbot.app.web.rest.errors.BadRequestAlertException;
 import org.chatbot.app.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -28,9 +30,11 @@ public class MessageResource {
 
     private final MessageRepository messageRepository;
 
-    public MessageResource(MessageRepository messageRepository) {
+    public MessageResource(MessageRepository messageRepository, UserService userService) {
         this.messageRepository = messageRepository;
+        this.userService = userService;
     }
+    private UserService userService;
 
     /**
      * POST  /messages : Create a new message.
@@ -80,7 +84,9 @@ public class MessageResource {
     @GetMapping("/messages")
     public List<Message> getAllMessages() {
         log.debug("REST request to get all Messages");
-        return messageRepository.findAll();
+        Long id=userService.getUserWithAuthorities().get().getId();
+        return messageRepository.findByUserTeamChannel(id);
+        //return messageRepository.findByUserTeamChannel();
     }
 
     /**
