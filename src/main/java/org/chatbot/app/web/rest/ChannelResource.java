@@ -1,6 +1,8 @@
 package org.chatbot.app.web.rest;
+
 import org.chatbot.app.domain.Channel;
 import org.chatbot.app.repository.ChannelRepository;
+import org.chatbot.app.service.UserService;
 import org.chatbot.app.web.rest.errors.BadRequestAlertException;
 import org.chatbot.app.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -27,9 +29,11 @@ public class ChannelResource {
     private static final String ENTITY_NAME = "channel";
 
     private final ChannelRepository channelRepository;
+    private UserService userService;
 
-    public ChannelResource(ChannelRepository channelRepository) {
+    public ChannelResource(ChannelRepository channelRepository, UserService userService) {
         this.channelRepository = channelRepository;
+        this.userService=userService;
     }
 
     /**
@@ -80,7 +84,9 @@ public class ChannelResource {
     @GetMapping("/channels")
     public List<Channel> getAllChannels() {
         log.debug("REST request to get all Channels");
-        return channelRepository.findAll();
+        //return channelRepository.findAll();
+        Long id=userService.getUserWithAuthorities().get().getId();
+        return channelRepository.findByTeamChannel(id);
     }
 
     /**

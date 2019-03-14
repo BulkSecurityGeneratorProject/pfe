@@ -34,6 +34,7 @@ public class MessageResource {
         this.messageRepository = messageRepository;
         this.userService = userService;
     }
+  
     private UserService userService;
 
     /**

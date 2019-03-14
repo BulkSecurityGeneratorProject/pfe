@@ -4,6 +4,7 @@ import org.chatbot.app.ChatbotApp;
 
 import org.chatbot.app.domain.Channel;
 import org.chatbot.app.repository.ChannelRepository;
+import org.chatbot.app.service.UserService;
 import org.chatbot.app.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -47,6 +48,9 @@ public class ChannelResourceIntTest {
     private ChannelRepository channelRepository;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -68,7 +72,7 @@ public class ChannelResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ChannelResource channelResource = new ChannelResource(channelRepository);
+        final ChannelResource channelResource = new ChannelResource(channelRepository,userService);
         this.restChannelMockMvc = MockMvcBuilders.standaloneSetup(channelResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

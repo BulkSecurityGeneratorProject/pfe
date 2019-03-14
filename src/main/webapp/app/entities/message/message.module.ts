@@ -13,7 +13,6 @@ import {
     messageRoute,
     messagePopupRoute
 } from './';
-
 const ENTITY_STATES = [...messageRoute, ...messagePopupRoute];
 
 @NgModule({
