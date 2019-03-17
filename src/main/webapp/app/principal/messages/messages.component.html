@@ -1,0 +1,25 @@
+<div>
+  <h2>
+      Messages
+  </h2>
+  <jhi-alert></jhi-alert>
+  <div class="container-fluid row">
+      <div class=" col-xs-12 col-md-5">
+          <table class="table table-striped">
+            <tr *ngFor="let message of messages" (click)="currentMessage=message">
+              <h3>{{message.id}} - {{message.messageTitle}}</h3>
+            </tr>
+          </table>
+        </div>
+        <div class="col-xs-12 col-md-5">
+            <h3>{{currentMessage.messageTitle}}</h3>
+            <p>{{currentMessage.messageText}}</p>
+            <p>{{currentMessage.channel.channelName}}</p>
+            <p>{{currentMessage.user.id}}</p>
+            <div>
+                <span *ngFor="let a of annotations">
+                  <span *ngIf="a.message.id===currentMessage.id"><button type="button" class="btn btn-secondary">{{a.annotationData}}</button></span>
+                </span>
+            </div>
+        </div>
+</div>

@@ -20,7 +20,7 @@ import { ChatbotEntityModule } from './entities/entity.module';
 import * as moment from 'moment';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ActiveMenuDirective, ErrorComponent } from './layouts';
-
+import { PrincipalModule } from './principal/principal.module';
 @NgModule({
     imports: [
         BrowserModule,
@@ -36,6 +36,7 @@ import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent
         ChatbotCoreModule,
         ChatbotHomeModule,
         ChatbotAccountModule,
+        PrincipalModule,
         // jhipster-needle-angular-add-module JHipster will add new module here
         ChatbotEntityModule,
         ChatbotAppRoutingModule
