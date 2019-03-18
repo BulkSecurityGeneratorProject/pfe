@@ -17,8 +17,10 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
 
     @Query("select message from Message message where message.user.login = ?#{principal.username}")
     List<Message> findByUserIsCurrentUser();
-    String req = "select m.* from message m, channel c, team_user tr " + "where m.channel_id=c.id and "
-            + "c.team_id=tr.team_id and " + "tr.user_id= :id ";
+    String req = "select distinct m.* from ((message m "+
+    " inner join channel c on m.channel_id=c.id) "+
+    "inner join team_user tr on c.team_id=tr.team_id) "+
+    " where tr.user_id =:id";
     @Query(value = req, nativeQuery = true)
     List<Message> findByUserTeamChannel(@Param("id") Long id);
 }
