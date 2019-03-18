@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.zendesk.client.v2.model.Ticket;
 
 @RestController
 @RequestMapping("/inject")
@@ -17,7 +18,11 @@ public class MessageInjectorRessource {
         this.messageRepository = messageRepository;
     }
     @PostMapping("/zendesk")
-    public boolean inject(@RequestBody Message message) {
+    public boolean inject(@RequestBody Ticket ticket) {
+        Message message=new Message();
+        System.out.println("ticket receaved");
+        message.setMessageTitle(ticket.getSubject());
+        message.setMessageText(ticket.getDescription());
     messageRepository.save(message);
     return true;
 }

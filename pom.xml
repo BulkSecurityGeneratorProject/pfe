@@ -304,6 +304,12 @@
             <groupId>io.dropwizard.metrics</groupId>
             <artifactId>metrics-core</artifactId>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.cloudbees.thirdparty/zendesk-java-client -->
+        <dependency>
+            <groupId>com.cloudbees.thirdparty</groupId>
+            <artifactId>zendesk-java-client</artifactId>
+            <version>0.8.0</version>
+        </dependency>
         <!-- jhipster-needle-maven-add-dependency -->
     </dependencies>
 
