@@ -4,6 +4,7 @@ import org.chatbot.app.ChatbotApp;
 
 import org.chatbot.app.domain.Annotation;
 import org.chatbot.app.repository.AnnotationRepository;
+import org.chatbot.app.service.UserService;
 import org.chatbot.app.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -48,6 +49,8 @@ public class AnnotationResourceIntTest {
 
     @Autowired
     private AnnotationRepository annotationRepository;
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -71,7 +74,7 @@ public class AnnotationResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final AnnotationResource annotationResource = new AnnotationResource(annotationRepository);
+        final AnnotationResource annotationResource = new AnnotationResource(annotationRepository,userService);
         this.restAnnotationMockMvc = MockMvcBuilders.standaloneSetup(annotationResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

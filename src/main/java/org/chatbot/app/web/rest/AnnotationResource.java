@@ -1,6 +1,8 @@
 package org.chatbot.app.web.rest;
+
 import org.chatbot.app.domain.Annotation;
 import org.chatbot.app.repository.AnnotationRepository;
+import org.chatbot.app.service.UserService;
 import org.chatbot.app.web.rest.errors.BadRequestAlertException;
 import org.chatbot.app.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -27,9 +29,11 @@ public class AnnotationResource {
     private static final String ENTITY_NAME = "annotation";
 
     private final AnnotationRepository annotationRepository;
+    private final UserService userService;
 
-    public AnnotationResource(AnnotationRepository annotationRepository) {
+    public AnnotationResource(AnnotationRepository annotationRepository,UserService userService) {
         this.annotationRepository = annotationRepository;
+        this.userService=userService;
     }
 
     /**
@@ -80,7 +84,8 @@ public class AnnotationResource {
     @GetMapping("/annotations")
     public List<Annotation> getAllAnnotations() {
         log.debug("REST request to get all Annotations");
-        return annotationRepository.findAll();
+        Long id=userService.getUserWithAuthorities().get().getId();
+        return annotationRepository.findByUserId(id);
     }
 
     /**

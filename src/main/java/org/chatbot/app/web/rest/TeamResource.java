@@ -1,6 +1,7 @@
 package org.chatbot.app.web.rest;
 import org.chatbot.app.domain.Team;
 import org.chatbot.app.repository.TeamRepository;
+import org.chatbot.app.service.UserService;
 import org.chatbot.app.web.rest.errors.BadRequestAlertException;
 import org.chatbot.app.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -27,9 +28,11 @@ public class TeamResource {
     private static final String ENTITY_NAME = "team";
 
     private final TeamRepository teamRepository;
+    private final UserService userService;
 
-    public TeamResource(TeamRepository teamRepository) {
+    public TeamResource(TeamRepository teamRepository,UserService userService) {
         this.teamRepository = teamRepository;
+        this.userService=userService;
     }
 
     /**
@@ -81,7 +84,9 @@ public class TeamResource {
     @GetMapping("/teams")
     public List<Team> getAllTeams(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get all Teams");
-        return teamRepository.findAllWithEagerRelationships();
+        //return teamRepository.findAllWithEagerRelationships();
+        Long id=userService.getUserWithAuthorities().get().getId();
+        return teamRepository.findTeamByUserId(id);
     }
 
     /**

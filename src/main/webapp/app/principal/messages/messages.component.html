@@ -21,10 +21,16 @@
       </table>
     </div>
     <div class="col-xs-12 col-md-6" *ngIf="currentMessage!=null">
-      <h3><span jhiTranslate='messages.currentMessage.titre'>Titre </span> : {{currentMessage.messageTitle}}</h3>
-      <p>Contenu : {{currentMessage.messageText}}</p>
-      <p>Chaine : {{currentMessage.channel.channelName}}</p>
-      <p>User : {{currentMessage.user?.login}}</p>
+      <dl>
+        <dt><span jhiTranslate='messages.currentMessage.titre'>Titre </span></dt>
+        <dd>{{currentMessage.messageTitle}}</dd>
+        <dt>Description</dt>
+        <dd><span>{{currentMessage.messageText}}</span></dd>
+        <dt><span>Chaine</span></dt>
+        <dd> {{currentMessage.channel.channelName}}</dd>
+        <dt><span>User</span></dt>
+        <dd>{{currentMessage.user?.login}}</dd>
+      </dl>
       <div>
         <h3>Annotations</h3>
         <span *ngFor="let a of annotations">

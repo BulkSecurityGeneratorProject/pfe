@@ -20,7 +20,6 @@ public class MessageInjectorRessource {
     @PostMapping("/zendesk")
     public boolean inject(@RequestBody Ticket ticket) {
         Message message=new Message();
-        System.out.println("ticket receaved");
         message.setMessageTitle(ticket.getSubject());
         message.setMessageText(ticket.getDescription());
     messageRepository.save(message);

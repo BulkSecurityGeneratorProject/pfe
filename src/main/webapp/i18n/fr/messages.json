@@ -1,7 +1,8 @@
 {
     "messages": {
         "home": {
-            "chaine": "Chaine"
+            "chaine": "Chaine",
+            "title": "Messages"
         },
         "currentMessage": {
             "titre": "Titre"

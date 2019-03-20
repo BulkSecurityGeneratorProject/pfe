@@ -27,4 +27,6 @@ public interface TeamRepository extends JpaRepository<Team, Long> {
     @Query("select team from Team team left join fetch team.users where team.id =:id")
     Optional<Team> findOneWithEagerRelationships(@Param("id") Long id);
 
+    @Query(value = "select distinct t.* from Team t inner join team_user tr on tr.user_id=t.id where tr.user_id=:id", nativeQuery = true)
+    List<Team>findTeamByUserId(@Param("id") Long id);
 }

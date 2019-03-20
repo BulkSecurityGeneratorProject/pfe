@@ -4,6 +4,7 @@ import org.chatbot.app.ChatbotApp;
 
 import org.chatbot.app.domain.Team;
 import org.chatbot.app.repository.TeamRepository;
+import org.chatbot.app.service.UserService;
 import org.chatbot.app.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -72,11 +73,12 @@ public class TeamResourceIntTest {
     private MockMvc restTeamMockMvc;
 
     private Team team;
-
+    @Autowired
+    private UserService userService;
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final TeamResource teamResource = new TeamResource(teamRepository);
+        final TeamResource teamResource = new TeamResource(teamRepository,userService);
         this.restTeamMockMvc = MockMvcBuilders.standaloneSetup(teamResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -155,7 +157,7 @@ public class TeamResourceIntTest {
     
     @SuppressWarnings({"unchecked"})
     public void getAllTeamsWithEagerRelationshipsIsEnabled() throws Exception {
-        TeamResource teamResource = new TeamResource(teamRepositoryMock);
+        TeamResource teamResource = new TeamResource(teamRepositoryMock,userService);
         when(teamRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
 
         MockMvc restTeamMockMvc = MockMvcBuilders.standaloneSetup(teamResource)
@@ -172,7 +174,7 @@ public class TeamResourceIntTest {
 
     @SuppressWarnings({"unchecked"})
     public void getAllTeamsWithEagerRelationshipsIsNotEnabled() throws Exception {
-        TeamResource teamResource = new TeamResource(teamRepositoryMock);
+        TeamResource teamResource = new TeamResource(teamRepositoryMock,userService);
             when(teamRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
             MockMvc restTeamMockMvc = MockMvcBuilders.standaloneSetup(teamResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)

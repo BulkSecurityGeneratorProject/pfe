@@ -10,7 +10,7 @@ const principalRoute: Routes = [
         component: MessagesComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'chatbotApp.message.home.title'
+            pageTitle: 'messages.home.title'
         },
         canActivate: [UserRouteAccessService]
     }
