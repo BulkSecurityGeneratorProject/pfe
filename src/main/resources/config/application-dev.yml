@@ -59,10 +59,10 @@ spring:
     liquibase:
         contexts: dev
     mail:
-        host: localhost
+        host: smtp.mailtrap.io
         port: 25
-        username:
-        password:
+        username: 55c3b276118748
+        password: 0d975718f564d0
     messages:
         cache-duration: PT1S # 1 second, see the ISO 8601 standard
     thymeleaf:

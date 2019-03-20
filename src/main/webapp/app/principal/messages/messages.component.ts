@@ -18,7 +18,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
     messages: IMessage[];
     currentAccount: any;
     eventSubscriber: Subscription;
-    currentMessage: IMessage;
+    currentMessage: IMessage = null;
     annotations: IAnnotation[];
 
     constructor(
@@ -40,7 +40,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
                 (res: IMessage[]) => {
                     this.messages = res;
                     /*lancer une requete pour avoir les annotation pour chaque message*/
-                    this.currentMessage = res[0];
+                    if (res) this.currentMessage = res[0];
                 },
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
