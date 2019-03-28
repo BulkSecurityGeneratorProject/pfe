@@ -17,20 +17,15 @@ import { AnnotationService } from 'app/entities/annotation';
 export class MessagesComponent implements OnInit, OnDestroy {
     messages: IMessage[];
     currentAccount: any;
-    eventSubscriber1: Subscription;
-    eventSubscriber2: Subscription;
+    eventSubscriber: Subscription;
     currentMessage: IMessage = null;
-    annotations: IAnnotation[];
 
     constructor(
         protected messageService: MessageService,
         protected jhiAlertService: JhiAlertService,
-        protected eventManager1: JhiEventManager,
-        protected eventManager2: JhiEventManager,
-        protected accountService: AccountService,
-        protected annotationService: AnnotationService
+        protected eventManager: JhiEventManager,
+        protected accountService: AccountService
     ) {}
-
     loadAll() {
         this.messageService
             .query()
@@ -41,30 +36,9 @@ export class MessagesComponent implements OnInit, OnDestroy {
             .subscribe(
                 (res: IMessage[]) => {
                     this.messages = res;
-                    /*lancer une requete pour avoir les annotation pour chaque message*/
-                    if (res) {
-                        this.currentMessage = res[0];
-                    }
                 },
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
-        this.annotationService
-            .query()
-            .pipe(
-                filter((res: HttpResponse<IAnnotation[]>) => res.ok),
-                map((res: HttpResponse<IAnnotation[]>) => res.body)
-            )
-            .subscribe(
-                (res: IAnnotation[]) => {
-                    this.annotations = res;
-                },
-                (res: HttpErrorResponse) => {
-                    this.onError(res.message);
-                }
-            );
-    }
-    protected onError(errorMessage: string) {
-        this.jhiAlertService.error(errorMessage, null, null);
     }
     ngOnInit() {
         this.loadAll();
@@ -72,21 +46,20 @@ export class MessagesComponent implements OnInit, OnDestroy {
             this.currentAccount = account;
         });
         this.registerChangeInMessages();
-        this.registerChangeInAnnotation();
+    }
+    ngOnDestroy() {
+        this.eventManager.destroy(this.eventSubscriber);
     }
 
-    ngOnDestroy() {
-        this.eventManager1.destroy(this.eventSubscriber1);
-        this.eventManager2.destroy(this.eventSubscriber2);
-    }
     trackId(index: number, item: IMessage) {
         return item.id;
     }
 
     registerChangeInMessages() {
-        this.eventSubscriber1 = this.eventManager1.subscribe('messageListModification', response => this.loadAll());
+        this.eventSubscriber = this.eventManager.subscribe('messageListModification', response => this.loadAll());
     }
-    registerChangeInAnnotation() {
-        this.eventSubscriber2 = this.eventManager2.subscribe('annotationListModification', response => this.loadAll());
+
+    protected onError(errorMessage: string) {
+        this.jhiAlertService.error(errorMessage, null, null);
     }
 }

@@ -1,0 +1,48 @@
+<dl>
+  <dt><span jhiTranslate='messages.currentMessage.titre'>Titre </span></dt>
+  <dd>{{currentMessage.messageTitle}}</dd>
+  <dt>Description</dt>
+  <dd><span>{{currentMessage.messageText}}</span></dd>
+  <dt><span>Chaine</span></dt>
+  <dd> {{currentMessage.channel.channelName}}</dd>
+
+  <!--
+    Vérifier si user existe, sioui change, sinon add
+  -->
+  <dt><span>User</span></dt>
+  <ng-container *ngIf="currentMessage.user==null; then add; else change">
+  </ng-container>
+  <dd>
+    <ng-template #change>
+      {{currentMessage.user?.login}} &nbsp; <button type="button" class="btn btn-danger"
+        (click)="edited=true;">Change</button>
+    </ng-template>
+    <ng-template #add>
+      {{currentMessage.user?.login}}<button type="button" class="btn btn-info" (click)="edited=true;">Add</button>
+    </ng-template>
+  </dd>
+</dl>
+<div *ngIf="edited==true">
+  <hr>
+  <form>
+    <div class="form-group">
+      <label for="choosingUser">Choose User</label>
+      <select class="form-control" [(ngModel)]="currentMessage.user">
+        <option [ngValue]="userOption" id="choosingUser" *ngFor="let userOption of users;">{{userOption.login}}</option>
+      </select>
+    </div>
+    <button (click)="edited=false;save()" class="btn btn-primary">
+      <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+    </button>
+  </form>
+  <hr>
+</div>
+
+<div>
+  <h3>Annotations</h3>
+  <jhi-alert></jhi-alert>
+  <span *ngFor="let a of annotations">
+    <span *ngIf="a.message.id===currentMessage.id"><button type="button"
+        class="btn btn-secondary">{{a.annotationData}}</button></span>
+  </span>
+</div>

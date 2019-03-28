@@ -1,9 +1,10 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-
+import { FormsModule } from '@angular/forms';
 import { MessagesComponent } from './messages/messages.component';
 import { UserRouteAccessService } from 'app/core';
+import { MessageDetailComponent } from './message-detail/message-detail.component';
 const principalRoute: Routes = [
     {
         path: 'pm',
@@ -16,8 +17,8 @@ const principalRoute: Routes = [
     }
 ];
 @NgModule({
-    declarations: [MessagesComponent],
-    imports: [CommonModule, RouterModule.forChild(principalRoute)],
+    declarations: [MessagesComponent, MessageDetailComponent],
+    imports: [CommonModule, RouterModule.forChild(principalRoute), FormsModule],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class PrincipalModule {}
