@@ -34,7 +34,7 @@ export class MessageDetailComponent implements OnInit, OnDestroy {
         this.edited = false;
     }
 
-    loadAll() {
+    loadAllAnnotations() {
         this.annotationService
             .query()
             .pipe(
@@ -49,7 +49,7 @@ export class MessageDetailComponent implements OnInit, OnDestroy {
             );
     }
     ngOnInit() {
-        this.loadAll();
+        this.loadAllAnnotations();
         this.accountService.identity().then(account => {
             this.currentAccount = account;
         });
@@ -68,7 +68,7 @@ export class MessageDetailComponent implements OnInit, OnDestroy {
     }
 
     registerChangeInAnnotations() {
-        this.eventSubscriber = this.eventManager.subscribe('annotationListModification', response => this.loadAll());
+        this.eventSubscriber = this.eventManager.subscribe('annotationListModification', response => this.loadAllAnnotations());
     }
     protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);

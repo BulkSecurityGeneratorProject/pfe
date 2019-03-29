@@ -5,10 +5,11 @@ import { FormsModule } from '@angular/forms';
 import { MessagesComponent } from './messages/messages.component';
 import { UserRouteAccessService } from 'app/core';
 import { MessageDetailComponent } from './message-detail/message-detail.component';
+import { NavigationComponent } from './navigation/navigation.component';
 const principalRoute: Routes = [
     {
         path: 'pm',
-        component: MessagesComponent,
+        component: NavigationComponent,
         data: {
             authorities: ['ROLE_USER'],
             pageTitle: 'messages.home.title'
@@ -17,7 +18,7 @@ const principalRoute: Routes = [
     }
 ];
 @NgModule({
-    declarations: [MessagesComponent, MessageDetailComponent],
+    declarations: [MessagesComponent, MessageDetailComponent, NavigationComponent],
     imports: [CommonModule, RouterModule.forChild(principalRoute), FormsModule],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

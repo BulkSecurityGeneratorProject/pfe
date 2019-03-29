@@ -37,12 +37,9 @@
   </form>
   <hr>
 </div>
-
-<div>
-  <h3>Annotations</h3>
-  <jhi-alert></jhi-alert>
-  <span *ngFor="let a of annotations">
-    <span *ngIf="a.message.id===currentMessage.id"><button type="button"
-        class="btn btn-secondary">{{a.annotationData}}</button></span>
-  </span>
-</div>
+<h3>Annotations</h3>
+<jhi-alert></jhi-alert>
+<span *ngFor="let a of annotations">
+  <span *ngIf="a.message.id===currentMessage.id"><button type="button"
+      class="btn btn-secondary">{{a.annotationData}}</button></span>
+</span>

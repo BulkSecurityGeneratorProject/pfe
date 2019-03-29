@@ -1,26 +1,17 @@
-<div>
-  <h2>
-    Messages
-  </h2>
-  <jhi-alert></jhi-alert>
-  <div class="container-fluid row">
-    <div class=" col-xs-12 col-md-6">
-      <table class="table table-hover">
-        <thead>
-          <tr class="thead-dark">
-            <th>Id</th>
-            <th>Titre</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let message of messages" (click)="currentMessage=message">
-            <td>{{message.id}}</td>
-            <td>{{message.messageTitle}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="col-xs-12 col-md-6" *ngIf="currentMessage!=null">
+  <table class="table table-hover">
+    <thead>
+      <tr class="thead-dark">
+        <th>Id</th>
+        <th>Titre</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let message of messagesDisp" (click)="currentMessage=message">
+        <td>{{message.id}}</td>
+        <td>{{message.messageTitle}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <span *ngIf="currentMessage!=null">
     <jhi-message-detail [currentMessage]="currentMessage"></jhi-message-detail>
-    </div>
-  </div>
+  </span>

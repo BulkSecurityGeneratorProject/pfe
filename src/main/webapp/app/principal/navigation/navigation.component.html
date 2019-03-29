@@ -1,0 +1,16 @@
+<div class="container-fluid row">
+  <div class="col">
+      <ul class="list-group">
+          <li class="list-group-item" *ngFor="let team of teams"> <span (click)="filterByTeam(team)">{{team.teamName}}</span>
+            <ul class="list-group">
+              <span *ngFor="let channel of channels">
+                <li class="list-group-item" *ngIf="channel.team.id===team.id" (click)="filterByChannel(channel)">{{channel.channelName}}</li>
+              </span>
+            </ul>
+          </li>
+      </ul>
+  </div>
+  <div class="col">
+      <jhi-messages [messagesDisp]="messagesDisp"></jhi-messages>
+  </div>  
+</div>
