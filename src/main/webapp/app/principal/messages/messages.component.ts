@@ -17,10 +17,15 @@ export class MessagesComponent implements OnInit {
     eventSubscriber: Subscription;
     currentMessage: IMessage = null;
     @Input() messagesDisp: IMessage[];
-    constructor(protected accountService: AccountService) {}
+    constructor(protected accountService: AccountService) {
+        this.currentMessage = null;
+    }
     ngOnInit() {
         this.accountService.identity().then(account => {
             this.currentAccount = account;
         });
+    }
+    changeCurrentMessage(message: IMessage) {
+        this.currentMessage = message;
     }
 }

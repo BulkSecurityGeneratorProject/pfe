@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { IMessage } from 'app/shared/model/message.model';
+import { IMessage, Message } from 'app/shared/model/message.model';
 import { IAnnotation } from 'app/shared/model/annotation.model';
 import { Subscription, Observable } from 'rxjs';
 import { AnnotationService } from 'app/entities/annotation';
@@ -9,6 +9,7 @@ import { filter, map } from 'rxjs/operators';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { MessageService } from 'app/entities/message/message.service';
 import { FormGroup } from '@angular/forms';
+import { CurrentMessageService } from '../current-message.service';
 
 @Component({
     selector: 'jhi-message-detail',
@@ -22,6 +23,7 @@ export class MessageDetailComponent implements OnInit, OnDestroy {
     eventSubscriber: Subscription;
     users: IUser[];
     public edited = false;
+    m: IMessage;
 
     constructor(
         protected annotationService: AnnotationService,
@@ -29,7 +31,8 @@ export class MessageDetailComponent implements OnInit, OnDestroy {
         protected eventManager: JhiEventManager,
         protected accountService: AccountService,
         protected userService: UserService,
-        protected messageService: MessageService
+        protected messageService: MessageService,
+        protected cr: CurrentMessageService
     ) {
         this.edited = false;
     }

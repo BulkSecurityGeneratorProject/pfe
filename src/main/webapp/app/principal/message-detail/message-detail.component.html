@@ -1,4 +1,5 @@
-<dl>
+<div>
+  <dl>
   <dt><span jhiTranslate='messages.currentMessage.titre'>Titre </span></dt>
   <dd>{{currentMessage.messageTitle}}</dd>
   <dt>Description</dt>
@@ -43,3 +44,8 @@
   <span *ngIf="a.message.id===currentMessage.id"><button type="button"
       class="btn btn-secondary">{{a.annotationData}}</button></span>
 </span>
+<a class="btn btn-info btn-lg">
+  <span class="glyphicon glyphicon-plus"></span> Plus 
+</a>
+<span class="glyphicon glyphicon-plus"></span>
+</div>
