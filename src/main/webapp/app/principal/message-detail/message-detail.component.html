@@ -1,51 +1,173 @@
-<div>
-  <dl>
-  <dt><span jhiTranslate='messages.currentMessage.titre'>Titre </span></dt>
-  <dd>{{currentMessage.messageTitle}}</dd>
-  <dt>Description</dt>
-  <dd><span>{{currentMessage.messageText}}</span></dd>
-  <dt><span>Chaine</span></dt>
-  <dd> {{currentMessage.channel.channelName}}</dd>
+  <div class="az-content az-content-app pd-b-0">
+    <div class="container">
+      <div class="az-content-left az-content-left-chat">
+         <div id="azChatList" class="az-chat-list">
+          <div class="media new">
+            <div class="az-img-user online">
+              <img src="https://via.placeholder.com/500x500" alt="">
+              <span>2</span>
+            </div>
+            <div class="media-body">
+              <div class="media-contact-name">
+                <span>Socrates Itumay</span>
+                <span>2 hours</span>
+              </div>
+              <p>Nam quam nunc, blandit vel aecenas et ante tincid</p>
+            </div><!-- media-body -->
+          </div><!-- media -->
+          <div class="media">
+            <div class="az-img-user"><img src="https://via.placeholder.com/500x500" alt=""></div>
+            <div class="media-body">
+              <div class="media-contact-name">
+                <span>Lovely Dela Cruz</span>
+                <span>5 days</span>
+              </div>
+              <p>Mae cenas tempus, tellus eget co ndimen tum rhoncus, sem quam</p>
+            </div><!-- media-body -->
+          </div><!-- media -->
+          <div class="media">
+            <div class="az-img-user"><img src="https://via.placeholder.com/500x500" alt=""></div>
+            <div class="media-body">
+              <div class="media-contact-name">
+                <span>Daniel Padilla</span>
+                <span>5 days</span>
+              </div>
+              <p>Mae cenas tempus, tellus eget co ndimen tum rhoncus, sem quam</p>
+            </div><!-- media-body -->
+          </div><!-- media -->
+          <div class="media">
+            <div class="az-img-user"><img src="https://via.placeholder.com/500x500" alt=""></div>
+            <div class="media-body">
+              <div class="media-contact-name">
+                <span>John Pratts</span>
+                <span>6 days</span>
+              </div>
+              <p>Mae cenas tempus, tellus eget co ndimen tum rhoncus, sem quam</p>
+            </div><!-- media-body -->
+          </div><!-- media -->
+          <div class="media">
+            <div class="az-img-user"><img src="https://via.placeholder.com/500x500" alt=""></div>
+            <div class="media-body">
+              <div class="media-contact-name">
+                <span>Raymart Santiago</span>
+                <span>6 days</span>
+              </div>
+              <p>Nam quam nunc, blandit vel aecenas et ante tincid</p>
+            </div><!-- media-body -->
+          </div><!-- media -->
+          <div class="media">
+            <div class="az-img-user"><img src="https://via.placeholder.com/500x500" alt=""></div>
+            <div class="media-body">
+              <div class="media-contact-name">
+                <span>Samuel Lerin</span>
+                <span>7 days</span>
+              </div>
+              <p>Nam quam nunc, blandit vel aecenas et ante tincid</p>
+            </div><!-- media-body -->
+          </div><!-- media -->
+        </div><!-- az-chat-list -->
 
-  <!--
-    Vérifier si user existe, sioui change, sinon add
-  -->
-  <dt><span>User</span></dt>
-  <ng-container *ngIf="currentMessage.user==null; then add; else change">
-  </ng-container>
-  <dd>
-    <ng-template #change>
-      {{currentMessage.user?.login}} &nbsp; <button type="button" class="btn btn-danger"
-        (click)="edited=true;">Change</button>
-    </ng-template>
-    <ng-template #add>
-      {{currentMessage.user?.login}}<button type="button" class="btn btn-info" (click)="edited=true;">Add</button>
-    </ng-template>
-  </dd>
-</dl>
-<div *ngIf="edited==true">
-  <hr>
-  <form>
-    <div class="form-group">
-      <label for="choosingUser">Choose User</label>
-      <select class="form-control" [(ngModel)]="currentMessage.user">
-        <option [ngValue]="userOption" id="choosingUser" *ngFor="let userOption of users;">{{userOption.login}}</option>
-      </select>
+      </div><!-- az-content-left -->
+      <div class="az-content-body az-content-body-chat">
+        <div class="az-chat-header">
+          <div class="az-img-user"><img src="https://via.placeholder.com/500x500" alt=""></div>
+          <div class="az-chat-msg-name">
+            <h6>Reynante Labares</h6>
+            <small>Last seen: 2 minutes ago</small>
+          </div>
+          <nav class="nav">
+            <a href="" class="nav-link"><i class="icon ion-md-more"></i></a>
+            <a href="" class="nav-link" data-toggle="tooltip" title="Call"><i class="icon ion-ios-call"></i></a>
+            <a href="" class="nav-link" data-toggle="tooltip" title="Archive"><i class="icon ion-ios-filing"></i></a>
+            <a href="" class="nav-link" data-toggle="tooltip" title="Trash"><i class="icon ion-md-trash"></i></a>
+            <a href="" class="nav-link" data-toggle="tooltip" title="View Info"><i class="icon ion-md-information-circle"></i></a>
+          </nav>
+        </div><!-- az-chat-header -->
+        <div id="azChatBody" class="az-chat-body">
+          <div class="content-inner">
+            <label class="az-chat-time"><span>3 days ago</span></label>
+            <div class="media flex-row-reverse">
+              <div class="az-img-user online"><img src="https://via.placeholder.com/500x500" alt=""></div>
+              <div class="media-body">
+                <div class="az-msg-wrapper">
+                  Nulla consequat massa quis enim. Donec pede justo, fringilla vel...
+                </div><!-- az-msg-wrapper -->
+                <div class="az-msg-wrapper">rhoncus ut, imperdiet a, venenatis vitae, justo...</div>
+                <div class="az-msg-wrapper pd-0">
+                  <img src="https://via.placeholder.com/500x334" class="wd-200" alt="">
+                </div><!-- az-msg-wrapper -->
+                <div><span>9:48 am</span> <a href=""><i class="icon ion-android-more-horizontal"></i></a></div>
+              </div><!-- media-body -->
+            </div><!-- media -->
+            <div class="media">
+              <div class="az-img-user online"><img src="https://via.placeholder.com/500x500" alt=""></div>
+              <div class="media-body">
+                <div class="az-msg-wrapper">
+                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
+                </div><!-- az-msg-wrapper -->
+                <div><span>9:32 am</span> <a href=""><i class="icon ion-android-more-horizontal"></i></a></div>
+              </div><!-- media-body -->
+            </div><!-- media -->
+            <div class="media flex-row-reverse">
+              <div class="az-img-user online"><img src="https://via.placeholder.com/500x500" alt=""></div>
+              <div class="media-body">
+                <div class="az-msg-wrapper">
+                  Nullam dictum felis eu pede mollis pretium
+                </div><!-- az-msg-wrapper -->
+                <div><span>11:22 am</span> <a href=""><i class="icon ion-android-more-horizontal"></i></a></div>
+              </div><!-- media-body -->
+            </div><!-- media -->
+            <label class="az-chat-time"><span>Yesterday</span></label>
+            <div class="media">
+              <div class="az-img-user online"><img src="https://via.placeholder.com/500x500" alt=""></div>
+              <div class="media-body">
+                <div class="az-msg-wrapper">
+                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
+                </div><!-- az-msg-wrapper -->
+                <div><span>9:32 am</span> <a href=""><i class="icon ion-android-more-horizontal"></i></a></div>
+              </div><!-- media-body -->
+            </div><!-- media -->
+            <div class="media flex-row-reverse">
+              <div class="az-img-user online"><img src="https://via.placeholder.com/500x500" alt=""></div>
+              <div class="media-body">
+                <div class="az-msg-wrapper">
+                  Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.
+                </div><!-- az-msg-wrapper -->
+                <div class="az-msg-wrapper">
+                  Nullam dictum felis eu pede mollis pretium
+                </div><!-- az-msg-wrapper -->
+                <div><span>9:48 am</span> <a href=""><i class="icon ion-android-more-horizontal"></i></a></div>
+              </div><!-- media-body -->
+            </div><!-- media -->
+
+            <label class="az-chat-time"><span>Today</span></label>
+            <div class="media">
+              <div class="az-img-user online"><img src="https://via.placeholder.com/500x500" alt=""></div>
+              <div class="media-body">
+                <div class="az-msg-wrapper">
+                  Maecenas tempus, tellus eget condimentum rhoncus
+                </div><!-- az-msg-wrapper -->
+                <div class="az-msg-wrapper">
+                  Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus.
+                </div><!-- az-msg-wrapper -->
+                <div><span>10:12 am</span> <a href=""><i class="icon ion-android-more-horizontal"></i></a></div>
+              </div><!-- media-body -->
+            </div><!-- media -->
+            <div class="media flex-row-reverse">
+              <div class="az-img-user online"><img src="https://via.placeholder.com/500x500" alt=""></div>
+              <div class="media-body">
+                <div class="az-msg-wrapper">
+                  Maecenas tempus, tellus eget condimentum rhoncus
+                </div><!-- az-msg-wrapper -->
+                <div class="az-msg-wrapper">
+                  Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus.
+                </div><!-- az-msg-wrapper -->
+                <div><span>09:40 am</span> <a href=""><i class="icon ion-android-more-horizontal"></i></a></div>
+              </div><!-- media-body -->
+            </div><!-- media -->
+          </div><!-- content-inner -->
+        </div><!-- az-chat-body -->
+      </div><!-- az-content-body -->
     </div>
-    <button (click)="edited=false;save()" class="btn btn-primary">
-      <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
-    </button>
-  </form>
-  <hr>
-</div>
-<h3>Annotations</h3>
-<jhi-alert></jhi-alert>
-<span *ngFor="let a of annotations">
-  <span *ngIf="a.message.id===currentMessage.id"><button type="button"
-      class="btn btn-secondary">{{a.annotationData}}</button></span>
-</span>
-<a class="btn btn-info btn-lg">
-  <span class="glyphicon glyphicon-plus"></span> Plus 
-</a>
-<span class="glyphicon glyphicon-plus"></span>
-</div>
+  </div><!-- az-content -->
+  

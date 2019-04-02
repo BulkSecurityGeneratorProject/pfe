@@ -15,6 +15,10 @@ const principalRoute: Routes = [
             pageTitle: 'messages.home.title'
         },
         canActivate: [UserRouteAccessService]
+    },
+    {
+        path: 'm',
+        component: MessageDetailComponent
     }
 ];
 @NgModule({
