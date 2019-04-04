@@ -1,6 +1,11 @@
 <div class="az-signin-wrapper">
     <div class="az-card-signin">
-      <h1 class="az-logo">az<span>i</span>a</h1>
+        <div>
+            <div class="alert alert-danger" *ngIf="authenticationError" jhiTranslate="login.messages.error.authentication">
+              <strong>Failed to sign in!</strong> Please check your credentials and try again.
+            </div>
+          </div>
+      <h1 class="az-logo">Ino<span>va</span>Bot</h1>
       <div class="az-signin-header">
         <h2>Welcome back!</h2>
         <h4>Please sign in to continue</h4>
@@ -25,8 +30,15 @@
         </form>
       </div><!-- az-signin-header -->
       <div class="az-signin-footer">
-        <p><a href="">Forgot password?</a></p>
-        <p>Don't have an account? <a href="page-signup.html">Create an Account</a></p>
+          <div>
+              <a class="alert-link" (click)="requestResetPassword()">Did you forget your
+                password?</a>
+          </div>
+          <div>
+              <span>You don't have an account yet?</span>
+              <a class="alert-link" (click)="register()">Register a new
+                account</a>
+          </div>
       </div><!-- az-signin-footer -->
     </div><!-- az-card-signin -->
   </div><!-- az-signin-wrapper -->

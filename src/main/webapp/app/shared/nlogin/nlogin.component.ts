@@ -15,7 +15,7 @@ export class NloginComponent {
     rememberMe: boolean;
     username: string;
     credentials: any;
-    constructor(private loginService: LoginService) {
+    constructor(private loginService: LoginService, private router: Router) {
         this.credentials = {};
     }
     login() {
@@ -28,9 +28,18 @@ export class NloginComponent {
             })
             .then(() => {
                 this.authenticationError = false;
+                this.router.navigate(['']);
+                // window.history.back();
             })
             .catch(() => {
                 this.authenticationError = true;
             });
+    }
+    register() {
+        this.router.navigate(['/register']);
+    }
+
+    requestResetPassword() {
+        this.router.navigate(['/reset', 'request']);
     }
 }

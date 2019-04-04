@@ -9,7 +9,7 @@ import { StateStorageService } from './state-storage.service';
 export class UserRouteAccessService implements CanActivate {
     constructor(
         private router: Router,
-        private loginModalService: LoginModalService,
+        // private loginModalService: LoginModalService,
         private accountService: AccountService,
         private stateStorageService: StateStorageService
     ) {}
@@ -43,7 +43,8 @@ export class UserRouteAccessService implements CanActivate {
             this.router.navigate(['accessdenied']).then(() => {
                 // only show the login dialog, if the user hasn't logged in yet
                 if (!account) {
-                    this.loginModalService.open();
+                    // this.loginModalService.open();
+                    this.router.navigate(['login']);
                 }
             });
             return false;
