@@ -18,6 +18,7 @@ import { ChatbotHomeModule } from './home/home.module';
 import { ChatbotAccountModule } from './account/account.module';
 import { ChatbotEntityModule } from './entities/entity.module';
 import * as moment from 'moment';
+import { NloginComponent } from './shared/nlogin/nlogin.component';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ActiveMenuDirective, ErrorComponent } from './layouts';
 import { PrincipalModule } from './principal/principal.module';
@@ -41,7 +42,15 @@ import { PrincipalModule } from './principal/principal.module';
         ChatbotEntityModule,
         ChatbotAppRoutingModule
     ],
-    declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
+    declarations: [
+        JhiMainComponent,
+        NavbarComponent,
+        ErrorComponent,
+        PageRibbonComponent,
+        NloginComponent,
+        ActiveMenuDirective,
+        FooterComponent
+    ],
     providers: [
         {
             provide: HTTP_INTERCEPTORS,
