@@ -1,7 +1,14 @@
 package org.chatbot.app.web.rest;
 
-
+import org.chatbot.app.domain.Annotation;
+import org.chatbot.app.domain.Channel;
+import org.chatbot.app.domain.Message;
+import org.chatbot.app.domain.Team;
 import org.chatbot.app.domain.User;
+import org.chatbot.app.repository.AnnotationRepository;
+import org.chatbot.app.repository.ChannelRepository;
+import org.chatbot.app.repository.MessageRepository;
+import org.chatbot.app.repository.TeamRepository;
 import org.chatbot.app.repository.UserRepository;
 import org.chatbot.app.security.SecurityUtils;
 import org.chatbot.app.service.MailService;
@@ -11,7 +18,7 @@ import org.chatbot.app.service.dto.UserDTO;
 import org.chatbot.app.web.rest.errors.*;
 import org.chatbot.app.web.rest.vm.KeyAndPasswordVM;
 import org.chatbot.app.web.rest.vm.ManagedUserVM;
-
+import org.chatbot.app.web.rest.vm.ManagedUserVMCompany;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,12 +43,20 @@ public class AccountResource {
     private final UserService userService;
 
     private final MailService mailService;
+    private final MessageRepository messageRepository;
+    private final ChannelRepository channelRepository;
+    private final AnnotationRepository annotationRepository;
+    private final TeamRepository teamRepository;
 
-    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService) {
+    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService, MessageRepository messageRepository,ChannelRepository channelRepository,AnnotationRepository annotationRepository,TeamRepository teamRepository) {
 
         this.userRepository = userRepository;
         this.userService = userService;
         this.mailService = mailService;
+        this.channelRepository=channelRepository;
+        this.teamRepository=teamRepository;
+        this.annotationRepository=annotationRepository;
+        this.messageRepository=messageRepository;
     }
 
     /**
@@ -54,12 +69,106 @@ public class AccountResource {
      */
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    public void registerAccount(@Valid @RequestBody ManagedUserVM managedUserVM) {
+    public void registerAccount(@Valid @RequestBody ManagedUserVMCompany managedUserVM) {
         if (!checkPasswordLength(managedUserVM.getPassword())) {
             throw new InvalidPasswordException();
         }
         User user = userService.registerUser(managedUserVM, managedUserVM.getPassword());
         mailService.sendActivationEmail(user);
+        if(user!=null)
+        {
+            List<Annotation> a=new ArrayList<Annotation>();
+            List<Message> m=new ArrayList<Message>();
+            List<Channel> c=new ArrayList<Channel>();
+
+            Team t= new Team();
+            t.getUsers().add(user);
+            t.setTeamName(managedUserVM.getCompany());
+            t=teamRepository.save(t);
+
+            Channel c1=new Channel();
+            c1.setChannelName("channel 1");
+            c1.setTeam(t);
+            c.add(c1);
+            c1=new Channel();
+            c1.setChannelName("channel 2");
+            c1.setTeam(t);
+            c.add(c1);
+            c=channelRepository.saveAll(c);
+
+            Message m1=new Message();
+            m1.setMessageTitle("frustration");
+            m1.setMessageText("I just wanted to let you know that all of your help with getting endeavors. Keep in touch.");
+            m1.setChannel(c.get(0));
+            m1.setUser(user);
+            m.add(m1);
+            m1=new Message();
+            m1.setMessageTitle("Thanks a lot");
+            m1.setMessageText("I can’t believe that you billed me without letting me know ahead of time! I was not expecting a charge at all, let alone one that was SO EXPENSIVE. How can you guys get away with this!?!?");
+            m1.setChannel(c.get(1));
+            m.add(m1);
+            m1=new Message();
+            m1.setMessageTitle("I have lost my data");
+            m1.setMessageText("I don’t understand what you are telling me. Earlier you said that I could fix the problem by doing one thing, now you’re saying that I have to do something else? Am I ever going to be able to get my data back?");
+            m1.setChannel(c.get(0));
+            m.add(m1);
+            m1=new Message();
+            m1.setMessageTitle("Hbd");
+            m1.setMessageText("Our sincerest wishes from Chatbot team on your birthday. May all your dreams come true! We are looking forward to continuing our relationship with you this year.");
+            m1.setChannel(c.get(1));
+            m.add(m1);
+            m=messageRepository.saveAll(m);
+
+            Annotation a1=new Annotation();
+            a1.setAnnotationType(1);
+            a1.setAnnotationData("Satisfaction");
+            a1.setMessage(m.get(0));
+            a.add(a1);
+            a1=new Annotation();
+            a1.setAnnotationType(1);
+            a1.setAnnotationData("Happy");
+            a1.setMessage(m.get(0));
+            a.add(a1);
+            a1=new Annotation();
+            a1.setAnnotationType(1);
+            a1.setAnnotationData("Positive");
+            a1.setMessage(m.get(0));
+            a.add(a1);
+            a1=new Annotation();
+            a1.setAnnotationType(1);
+            a1.setAnnotationData("NotIssue");
+            a1.setMessage(m.get(0));
+            a.add(a1);
+
+            a1.setAnnotationType(0);
+            a1.setAnnotationData("Insatisfaction");
+            a1.setMessage(m.get(1));
+            a.add(a1);
+            a1=new Annotation();
+            a1.setAnnotationType(0);
+            a1.setAnnotationData("Unhappy");
+            a1.setMessage(m.get(1));
+            a.add(a1);
+            a1=new Annotation();
+            a1.setAnnotationType(0);
+            a1.setAnnotationData("Issue");
+            a1.setMessage(m.get(1));
+            a.add(a1);
+
+            a1=new Annotation();
+            a1.setAnnotationType(0);
+            a1.setAnnotationData("happy");
+            a1.setMessage(m.get(3));
+            a.add(a1);
+            a1=new Annotation();
+            a1.setAnnotationType(0);
+            a1.setAnnotationData("Joy");
+            a1.setMessage(m.get(3));
+            a.add(a1);
+
+            a=annotationRepository.saveAll(a);
+
+        }
     }
 
     /**
