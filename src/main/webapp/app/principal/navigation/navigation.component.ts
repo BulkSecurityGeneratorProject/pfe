@@ -7,6 +7,8 @@ import { ChannelService } from 'app/entities/channel';
 import { filter, map } from 'rxjs/operators';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { MessageService } from 'app/entities/message';
+import { IAnnotation } from 'app/shared/model/annotation.model';
+import { AnnotationService } from 'app/entities/annotation';
 
 @Component({
     selector: 'jhi-navigation',
@@ -18,11 +20,18 @@ export class NavigationComponent implements OnInit {
     channels: IChannel[];
     messagesDisp: IMessage[];
     messages: IMessage[];
-    constructor(protected teamService: TeamService, protected channelService: ChannelService, protected messageService: MessageService) {}
+    annotations: IAnnotation[];
+    constructor(
+        protected teamService: TeamService,
+        protected channelService: ChannelService,
+        protected messageService: MessageService,
+        protected annotationService: AnnotationService
+    ) {}
     ngOnInit() {
         this.loadAllTaams();
         this.laodAllChannels();
         this.loadAllMessages();
+        this.loadAllAnnotations();
     }
     loadAllMessages() {
         this.messageService
@@ -34,6 +43,17 @@ export class NavigationComponent implements OnInit {
             .subscribe((res: IMessage[]) => {
                 this.messages = res;
                 this.messagesDisp = res;
+            });
+    }
+    loadAllAnnotations() {
+        this.annotationService
+            .query()
+            .pipe(
+                filter((res: HttpResponse<IAnnotation[]>) => res.ok),
+                map((res: HttpResponse<IAnnotation[]>) => res.body)
+            )
+            .subscribe((res: IAnnotation[]) => {
+                this.annotations = res;
             });
     }
     loadAllTaams() {

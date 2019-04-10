@@ -12,74 +12,162 @@
       </tr>
     </tbody>
   </table> -->
-<div class="row">
-  <div class="az-mail-list col-lg-5 col-xm-12">
-    <div class="az-mail-item unread" *ngFor="let message of messagesDisp" (click)="changeCurrentMessage(message)">
-      <div class="az-img-user"><img src="https://via.placeholder.com/500x500" alt=""></div>
-      <div class="az-mail-body">
-        <div class="az-mail-from">{{message.user?.login}}</div>
-        <div class="az-mail-subject">
-          <strong>{{message.messageTitle}}</strong>
-          <span>{{message.messageText}}
-          </span>
-          <div><span *ngFor="let a of annotations">
-              <span *ngIf="a.message.id===message.id"><span class="badge badge-pill badge-info">{{a.annotationData}}</span></span>
-          </span></div>
-        </div>
-      </div><!-- az-mail-body -->
-    </div><!-- az-mail-item -->
-  </div>
-  <div class="col-lg-2">
+<div class="az-body">
+  <div class="az-content az-content-app pd-b-0">
+    <div class="container">
+      <div class="az-content-left az-content-left-chat">
 
-  </div>
-  <div class="col-lg-5 col-xm-12">
-    <div>
-      <dl>
-        <dt><span jhiTranslate='messages.currentMessage.titre'>Titre </span></dt>
-        <dd>{{currentMessage.messageTitle}}</dd>
-        <dt>Description</dt>
-        <dd><span>{{currentMessage.messageText}}</span></dd>
-        <dt><span>Chaine</span></dt>
-        <dd> {{currentMessage.channel.channelName}}</dd>
+        <nav class="nav az-nav-line az-nav-line-chat">
+          <a href="" data-toggle="tab" class="nav-link active">Recent Chat</a>
+          <a href="" data-toggle="tab" class="nav-link">Groups</a>
+          <a href="" data-toggle="tab" class="nav-link">Calls</a>
+        </nav>
 
-        <!--
-      Vérifier si user existe, sioui change, sinon add
-    -->
-        <dt><span>User</span></dt>
-        <ng-container *ngIf="currentMessage.user==null; then add; else change">
-        </ng-container>
-        <dd>
-          <ng-template #change>
-            {{currentMessage.user?.login}} &nbsp; <button type="button" class="btn btn-danger"
-              (click)="edited=true;">Change</button>
-          </ng-template>
-          <ng-template #add>
-            {{currentMessage.user?.login}}<button type="button" class="btn btn-info" (click)="edited=true;">Add</button>
-          </ng-template>
-        </dd>
-      </dl>
-      <div *ngIf="edited==true">
-        <hr>
-        <form>
-          <div class="form-group">
-            <label for="choosingUser">Choose User</label>
-            <select class="form-control" [(ngModel)]="currentMessage.user">
-              <option [ngValue]="userOption" id="choosingUser" *ngFor="let userOption of users;">{{userOption.login}}
-              </option>
-            </select>
+        <div class="az-chat-contacts-wrapper">
+          <label class="az-content-label az-content-label-sm">Active Contacts (5)</label>
+          <div id="chatActiveContacts" class="az-chat-contacts">
+            <div>
+              <div class="az-img-user online"><img src="https://via.placeholder.com/500x500" alt=""></div>
+              <small>Adrian</small>
+            </div>
+            <div>
+              <div class="az-img-user online"><img src="https://via.placeholder.com/500x500" alt=""></div>
+              <small>John</small>
+            </div>
+            <div>
+              <div class="az-img-user online"><img src="https://via.placeholder.com/500x500" alt=""></div>
+              <small>Daniel</small>
+            </div>
+            <div>
+              <div class="az-img-user online"><img src="https://via.placeholder.com/500x500" alt=""></div>
+              <small>Katherine</small>
+            </div>
+            <div>
+              <div class="az-img-user online"><img src="https://via.placeholder.com/500x500" alt=""></div>
+              <small>Raymart</small>
+            </div>
+            <div>
+              <div class="az-img-user online"><img src="https://via.placeholder.com/500x500" alt=""></div>
+              <small>Junrisk</small>
+            </div>
+            <div>
+              <div class="az-img-user online"><img src="https://via.placeholder.com/500x500" alt=""></div>
+              <small>George</small>
+            </div>
+            <div>
+              <div class="az-img-user online"><img src="https://via.placeholder.com/500x500" alt=""></div>
+              <small>Maryjane</small>
+            </div>
+            <div>
+              <div class="az-chat-contacts-more">20+</div>
+              <small>More</small>
+            </div>
+          </div><!-- az-active-contacts -->
+        </div><!-- az-chat-active-contacts -->
+
+        <div id="azChatList" class="az-chat-list">
+          <div class="media" *ngFor="let message of messagesDisp" (click)="changeCurrentMessage(message)">
+            <div class="az-img-user"><img src="https://via.placeholder.com/500x500" alt=""></div>
+            <div class="media-body">
+              <div class="media-contact-name">
+                <span>{{message.messageTitle}}</span>
+                <span>2 days</span>
+              </div>
+              <p>
+                <div><span *ngFor="let a of annotations">
+                    <span *ngIf="a.message.id===message.id"><span
+                        class="badge badge-pill badge-success">{{a.annotationData}}</span></span>
+                  </span></div>
+              </p>
+            </div><!-- media-body -->
+          </div><!-- media -->
+        </div><!-- az-chat-list -->
+      </div><!-- az-content-left -->
+      <div class="az-content-body az-content-body-chat">
+        <div class="az-chat-header">
+          <div class="az-img-user"><img src="https://via.placeholder.com/500x500" alt=""></div>
+          <div class="az-chat-msg-name">
+            <h6>{{currentMessage.messageTitle}}</h6>
+            {{currentMessage.user?.login}}
           </div>
-          <button (click)="edited=false;save()" class="btn btn-primary">
-            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
-          </button>
-        </form>
-        <hr>
+          <nav class="nav">
+            <a href="" class="nav-link"><i class="icon ion-md-more"></i></a>
+            <a href="" class="nav-link" data-toggle="tooltip" title="Call"><i class="icon ion-ios-call"></i></a>
+            <a href="" class="nav-link" data-toggle="tooltip" title="Archive"><i class="icon ion-ios-filing"></i></a>
+            <a href="" class="nav-link" data-toggle="tooltip" title="Trash"><i class="icon ion-md-trash"></i></a>
+            <a href="" class="nav-link" data-toggle="tooltip" title="View Info"><i
+                class="icon ion-md-information-circle"></i></a>
+          </nav>
+        </div><!-- az-chat-header -->
+        <div id="azChatBody" class="az-chat-body">
+          <div class="content-inner">
+            <div class="media">
+              <div class="media-body">
+                <div class="az-msg-wrapper">
+                  <h6>Message</h6>
+                  {{currentMessage.messageText}}
+                </div><!-- az-msg-wrapper -->
+              </div><!-- media-body -->
+            </div><!-- media -->
+            <div class="media">
+              <div class="media-body">
+                <div class="az-msg-wrapper">
+                  <h6>User : </h6>
+                  <ng-container *ngIf="currentMessage.user==null; then add; else change">
+                  </ng-container>
+                  <ng-template #change>
+                    {{currentMessage.user?.login}} &nbsp; <button type="button" class="btn btn-danger"
+                      (click)="edited=true;">Change</button>
+                  </ng-template>
+                  <ng-template #add>
+                    {{currentMessage.user?.login}}<button type="button" class="btn btn-info"
+                      (click)="edited=true;">Add</button>
+                  </ng-template>
+                </div>
+              </div>
+            </div>
+            <div class="media">
+              <div class="media-body">
+                <div class="az-msg-wrapper" *ngIf="edited==true">
+                  <form>
+                    <div class="form-group">
+                      <label for="choosingUser"><h6> choose User</h6></label>
+                      <select class="form-control" [(ngModel)]="currentMessage.user">
+                        <option [ngValue]="userOption" id="choosingUser" *ngFor="let userOption of users;">
+                          {{userOption.login}}
+                        </option>
+                      </select>
+                    </div>
+                    <button (click)="edited=false;save()" class="btn btn-primary">
+                      <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                    </button>
+                  </form>
+                  <hr>
+                </div>
+              </div><!-- media-body -->
+            </div><!-- media -->
+            <div class="media">
+              <div class="media-body">
+                <div class="az-msg-wrapper">
+                  <h6>channel : </h6>
+                  {{currentMessage.channel.channelName}}
+                </div>
+              </div>
+            </div>
+            <div class="media">
+              <div class="media-body">
+                <div class="az-msg-wrapper">
+                  <h6>Annotations</h6>
+                  <h6><span *ngFor="let a of annotations">
+                      <span *ngIf="a.message.id===currentMessage.id">
+                        <span class="badge badge-pill badge-info">{{a.annotationData}}
+                        </span></span></span></h6>
+                </div>
+              </div><!-- media-body -->
+            </div><!-- media -->
+          </div><!-- az-chat-body -->
+        </div><!-- az-content-body -->
       </div>
-      <h3>Annotations</h3>
-      <span *ngFor="let a of annotations">
-        <span *ngIf="a.message.id===currentMessage.id">
-          <h1><span class="badge badge-pill badge-info">{{a.annotationData}}</h1>
-        </span></span>
-      </span>
-    </div>
+    </div><!-- az-content -->
   </div>
 </div>
