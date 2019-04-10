@@ -5,10 +5,12 @@ import org.chatbot.app.domain.Channel;
 import org.chatbot.app.domain.Message;
 import org.chatbot.app.domain.Team;
 import org.chatbot.app.domain.User;
+import org.chatbot.app.domain.UserInfo;
 import org.chatbot.app.repository.AnnotationRepository;
 import org.chatbot.app.repository.ChannelRepository;
 import org.chatbot.app.repository.MessageRepository;
 import org.chatbot.app.repository.TeamRepository;
+import org.chatbot.app.repository.UserInfoRepository;
 import org.chatbot.app.repository.UserRepository;
 import org.chatbot.app.security.SecurityUtils;
 import org.chatbot.app.service.MailService;
@@ -47,8 +49,9 @@ public class AccountResource {
     private final ChannelRepository channelRepository;
     private final AnnotationRepository annotationRepository;
     private final TeamRepository teamRepository;
+    private final UserInfoRepository userInfoRepository;
 
-    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService, MessageRepository messageRepository,ChannelRepository channelRepository,AnnotationRepository annotationRepository,TeamRepository teamRepository) {
+    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService, MessageRepository messageRepository,ChannelRepository channelRepository,AnnotationRepository annotationRepository,TeamRepository teamRepository,UserInfoRepository userInfoRepository) {
 
         this.userRepository = userRepository;
         this.userService = userService;
@@ -57,6 +60,7 @@ public class AccountResource {
         this.teamRepository=teamRepository;
         this.annotationRepository=annotationRepository;
         this.messageRepository=messageRepository;
+        this.userInfoRepository=userInfoRepository;
     }
 
     /**
@@ -167,7 +171,10 @@ public class AccountResource {
             a.add(a1);
 
             a=annotationRepository.saveAll(a);
-
+            UserInfo uf=new UserInfo();
+            uf.setUser(user);
+            uf.setCompanyName(managedUserVM.getCompany());
+            userInfoRepository.save(uf);
         }
     }
 

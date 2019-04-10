@@ -1,0 +1,7 @@
+entity UserInfo{
+companyName String
+}
+
+relationship OneToOne {
+	UserInfo{user} to User
+}
