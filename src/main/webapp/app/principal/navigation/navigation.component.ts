@@ -9,6 +9,8 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { MessageService } from 'app/entities/message';
 import { IAnnotation } from 'app/shared/model/annotation.model';
 import { AnnotationService } from 'app/entities/annotation';
+import { AccountService, LoginService } from 'app/core';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'jhi-navigation',
@@ -21,17 +23,28 @@ export class NavigationComponent implements OnInit {
     messagesDisp: IMessage[];
     messages: IMessage[];
     annotations: IAnnotation[];
+    currentAccount: Account;
     constructor(
         protected teamService: TeamService,
         protected channelService: ChannelService,
         protected messageService: MessageService,
-        protected annotationService: AnnotationService
+        protected annotationService: AnnotationService,
+        protected accountService: AccountService,
+        protected loginService: LoginService,
+        protected route: Router
     ) {}
     ngOnInit() {
         this.loadAllTaams();
         this.laodAllChannels();
         this.loadAllMessages();
         this.loadAllAnnotations();
+        this.accountService.identity().then(account => {
+            this.currentAccount = account;
+        });
+    }
+    logout() {
+        this.loginService.logout();
+        this.route.navigate(['']);
     }
     loadAllMessages() {
         this.messageService

@@ -9,6 +9,7 @@ import org.chatbot.app.repository.AuthorityRepository;
 import org.chatbot.app.repository.ChannelRepository;
 import org.chatbot.app.repository.MessageRepository;
 import org.chatbot.app.repository.TeamRepository;
+import org.chatbot.app.repository.UserInfoRepository;
 import org.chatbot.app.repository.UserRepository;
 import org.chatbot.app.security.AuthoritiesConstants;
 import org.chatbot.app.service.MailService;
@@ -90,16 +91,17 @@ public class AccountResourceIntTest {
     private MockMvc restMvc;
 
     private MockMvc restUserMockMvc;
+    private UserInfoRepository userInfoRepository;
 
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
         doNothing().when(mockMailService).sendActivationEmail(any());
         AccountResource accountResource =
-            new AccountResource(userRepository, userService, mockMailService,messageRepository,channelRepository,annotationRepository,teamRepository);
+            new AccountResource(userRepository, userService, mockMailService,messageRepository,channelRepository,annotationRepository,teamRepository, userInfoRepository);
 
         AccountResource accountUserMockResource =
-            new AccountResource(userRepository, userService, mockMailService,messageRepository,channelRepository,annotationRepository,teamRepository);
+            new AccountResource(userRepository, userService, mockMailService,messageRepository,channelRepository,annotationRepository,teamRepository,userInfoRepository);
         this.restMvc = MockMvcBuilders.standaloneSetup(accountResource)
             .setMessageConverters(httpMessageConverters)
             .setControllerAdvice(exceptionTranslator)

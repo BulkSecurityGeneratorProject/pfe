@@ -4,6 +4,7 @@ import org.chatbot.app.ChatbotApp;
 
 import org.chatbot.app.domain.UserInfo;
 import org.chatbot.app.repository.UserInfoRepository;
+import org.chatbot.app.service.UserService;
 import org.chatbot.app.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -64,11 +65,12 @@ public class UserInfoResourceIntTest {
     private MockMvc restUserInfoMockMvc;
 
     private UserInfo userInfo;
+    private UserService userService;
 
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final UserInfoResource userInfoResource = new UserInfoResource(userInfoRepository);
+        final UserInfoResource userInfoResource = new UserInfoResource(userInfoRepository,userService);
         this.restUserInfoMockMvc = MockMvcBuilders.standaloneSetup(userInfoResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
