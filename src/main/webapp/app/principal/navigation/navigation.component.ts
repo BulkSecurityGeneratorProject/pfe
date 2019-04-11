@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
 import { ITeam } from 'app/shared/model/team.model';
 import { IChannel } from 'app/shared/model/channel.model';
 import { IMessage } from 'app/shared/model/message.model';
@@ -9,20 +9,25 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { MessageService } from 'app/entities/message';
 import { IAnnotation } from 'app/shared/model/annotation.model';
 import { AnnotationService } from 'app/entities/annotation';
-import { AccountService, LoginService } from 'app/core';
+import { AccountService, LoginService, IUser, UserService } from 'app/core';
 import { Router } from '@angular/router';
 
 @Component({
     selector: 'jhi-navigation',
     templateUrl: './navigation.component.html',
-    styles: []
+    styles: ['messages.scss']
 })
 export class NavigationComponent implements OnInit {
     teams: ITeam[];
     channels: IChannel[];
     messagesDisp: IMessage[];
     messages: IMessage[];
+    annotData: String[];
+    currentMessage: IMessage = null;
     annotations: IAnnotation[];
+    users: IUser[];
+    public edited = false;
+    t: number[];
     currentAccount: Account;
     constructor(
         protected teamService: TeamService,
@@ -31,13 +36,18 @@ export class NavigationComponent implements OnInit {
         protected annotationService: AnnotationService,
         protected accountService: AccountService,
         protected loginService: LoginService,
-        protected route: Router
-    ) {}
+        protected route: Router,
+        protected userService: UserService
+    ) {
+        this.currentMessage = null;
+        this.edited = false;
+    }
     ngOnInit() {
         this.loadAllTaams();
         this.laodAllChannels();
         this.loadAllMessages();
         this.loadAllAnnotations();
+        this.loadAllUsers();
         this.accountService.identity().then(account => {
             this.currentAccount = account;
         });
@@ -55,6 +65,7 @@ export class NavigationComponent implements OnInit {
             )
             .subscribe((res: IMessage[]) => {
                 this.messages = res;
+                this.currentMessage = res[0];
                 this.messagesDisp = res;
             });
     }
@@ -67,6 +78,12 @@ export class NavigationComponent implements OnInit {
             )
             .subscribe((res: IAnnotation[]) => {
                 this.annotations = res;
+                this.annotData = res.map(a => a.annotationData.toLowerCase());
+                this.t = [];
+                res.forEach(element => {
+                    this.t[element.annotationData.toLowerCase()] = (this.t[element.annotationData.toLowerCase()] || 0) + 1;
+                });
+                console.log(this.t);
             });
     }
     loadAllTaams() {
@@ -91,10 +108,43 @@ export class NavigationComponent implements OnInit {
                 this.channels = res;
             });
     }
+    loadAllUsers() {
+        this.userService
+            .query()
+            .pipe(
+                filter((mayBeOk: HttpResponse<IUser[]>) => mayBeOk.ok),
+                map((response: HttpResponse<IUser[]>) => response.body)
+            )
+            .subscribe((res: IUser[]) => (this.users = res));
+    }
     filterByTeam(team: ITeam) {
         this.messagesDisp = this.messages.filter(message => message.channel.team.id === team.id);
     }
     filterByChannel(channel: IChannel) {
         this.messagesDisp = this.messages.filter(message => message.channel.id === channel.id);
+    }
+    save() {
+        if (this.currentMessage.id !== undefined) {
+            this.messageService.update(this.currentMessage).subscribe((res: HttpResponse<IMessage>) => {
+                console.log('update');
+            });
+        } else {
+            this.messageService.create(this.currentMessage).subscribe((res: HttpResponse<IMessage>) => {
+                console.log('save');
+            });
+        }
+    }
+    changeCurrentMessage(message: IMessage) {
+        this.currentMessage = message;
+    }
+}
+@Pipe({
+    name: 'filterUnique',
+    pure: false
+})
+export class FilterPipe implements PipeTransform {
+    transform(value: any, args?: any): any {
+        const uniqueArray = Array.from(new Set(value));
+        return uniqueArray;
     }
 }

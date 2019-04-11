@@ -2,10 +2,9 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { MessagesComponent } from './messages/messages.component';
 import { UserRouteAccessService } from 'app/core';
-import { MessageDetailComponent } from './message-detail/message-detail.component';
 import { NavigationComponent } from './navigation/navigation.component';
+import { FilterPipe } from './navigation/navigation.component';
 const principalRoute: Routes = [
     {
         path: 'pm',
@@ -15,14 +14,10 @@ const principalRoute: Routes = [
             pageTitle: 'messages.home.title'
         },
         canActivate: [UserRouteAccessService]
-    },
-    {
-        path: 'm',
-        component: MessageDetailComponent
     }
 ];
 @NgModule({
-    declarations: [MessagesComponent, MessageDetailComponent, NavigationComponent],
+    declarations: [NavigationComponent, FilterPipe],
     imports: [CommonModule, RouterModule.forChild(principalRoute), FormsModule],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
