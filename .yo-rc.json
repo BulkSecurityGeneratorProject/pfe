@@ -2,7 +2,7 @@
     "generator-jhipster": {
         "promptValues": {
             "packageName": "org.chatbot.app",
-            "nativeLanguage": "fr"
+            "nativeLanguage": "en"
         },
         "jhipsterVersion": "5.8.1",
         "applicationType": "monolith",
@@ -31,7 +31,7 @@
         "dtoSuffix": "DTO",
         "otherModules": [],
         "enableTranslation": true,
-        "nativeLanguage": "fr",
+        "nativeLanguage": "en",
         "languages": ["fr", "en"]
     }
 }

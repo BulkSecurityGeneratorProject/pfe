@@ -11,6 +11,7 @@ import { IAnnotation } from 'app/shared/model/annotation.model';
 import { AnnotationService } from 'app/entities/annotation';
 import { AccountService, LoginService, IUser, UserService } from 'app/core';
 import { Router } from '@angular/router';
+import { element } from '@angular/core/src/render3';
 
 @Component({
     selector: 'jhi-navigation',
@@ -27,7 +28,7 @@ export class NavigationComponent implements OnInit {
     annotations: IAnnotation[];
     users: IUser[];
     public edited = false;
-    t: number[];
+    t: Map<String, number>;
     currentAccount: Account;
     constructor(
         protected teamService: TeamService,
@@ -79,11 +80,10 @@ export class NavigationComponent implements OnInit {
             .subscribe((res: IAnnotation[]) => {
                 this.annotations = res;
                 this.annotData = res.map(a => a.annotationData.toLowerCase());
-                this.t = [];
-                res.forEach(element => {
-                    this.t[element.annotationData.toLowerCase()] = (this.t[element.annotationData.toLowerCase()] || 0) + 1;
-                });
-                console.log(this.t);
+                this.t = this.annotData.reduce((map, value) => {
+                    map.set(value, (map.get(value) || 0) + 1);
+                    return map;
+                }, new Map());
             });
     }
     loadAllTaams() {

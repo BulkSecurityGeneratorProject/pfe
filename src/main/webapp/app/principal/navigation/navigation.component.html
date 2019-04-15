@@ -26,7 +26,7 @@
       <div class="az-img-user online"><img src="https://via.placeholder.com/500x500" alt=""></div>
       <div class="media-body">
         <h6>{{currentAccount?.login}}</h6>
-        <span>Premium Member</span>
+        <span>Premium Member </span>
       </div><!-- media-body -->
     </div><!-- az-sidebar-loggedin -->
     <div class="az-sidebar-body">
@@ -44,11 +44,14 @@
         </li><!-- nav-item -->
       </ul><!-- nav -->
       <ul class="nav">
-        <li class="nav-label">Annotations</li>
+        <li class="nav-label">Annotations <span class="badge badge-dark">{{t.size}}</span></li>
         <li>
-            <p *ngFor="let a of annotData |filterUnique">
+            <!-- <p *ngFor="let a of annotData |filterUnique">
                 {{a}} <span class="badge badge-dark">{{t[a]}}</span>
-            </p><!-- nav-item -->
+            </p> nav-item --> 
+            <div><span *ngFor="let a of t.keys()">
+              <p> {{a}} <span class="badge badge-dark">{{t.get(a)}}</span></p>
+             </span></div>
         </li>
       </ul><!-- nav -->
     </div><!-- az-sidebar-body -->
@@ -240,11 +243,11 @@
                         <ng-container *ngIf="currentMessage.user==null; then add; else change">
                         </ng-container>
                         <ng-template #change>
-                          {{currentMessage.user?.login}} &nbsp; <button type="button" class="btn btn-danger"
+                          {{currentMessage.user?.login}} &nbsp; <button type="button" class="btn btn-danger btn-xs"
                             (click)="edited=true;">Change</button>
                         </ng-template>
                         <ng-template #add>
-                          {{currentMessage.user?.login}}<button type="button" class="btn btn-info"
+                          {{currentMessage.user?.login}}<button type="button" class="btn btn-info btn-xs"
                             (click)="edited=true;">Add</button>
                         </ng-template>
                       </div>
@@ -281,12 +284,13 @@
                   </div>
                   <div class="media">
                     <div class="media-body">
-                      <div class="az-msg-wrapper">
+                      <div class="az-msg-wrapper col-lg-12">
                         <h6>Annotations</h6>
                         <h6><span *ngFor="let a of annotations">
                             <span *ngIf="a.message.id===currentMessage.id">
                               <span class="badge badge-pill badge-info">{{a.annotationData}}
                               </span></span></span></h6>
+                              <jhi-addannotation [msg]="currentMessage" [annotations]="annotations"></jhi-addannotation>
                       </div>
                     </div><!-- media-body -->
                   </div><!-- media -->
@@ -300,4 +304,5 @@
     </div><!-- az-content-header -->
   </div><!-- az-content -->
 </div>
+
 

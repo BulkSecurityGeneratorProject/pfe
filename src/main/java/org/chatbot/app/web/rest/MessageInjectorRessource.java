@@ -23,16 +23,17 @@ public class MessageInjectorRessource {
     @PostMapping("/zendesk")
     public String inject(@RequestBody Ticket ticket) {
         /* verification*/
-        Channel c = channelRepository.findOneByChannelName(ticket.getUrl()).get();
-        if(c != null)
-       {
+        Channel c = null;
+        //channelRepository.findOneByChannelName(ticket.getUrl()).get();
+       // if(c != null)
+     //  {
         Message message=new Message();
         message.setMessageTitle(ticket.getSubject());
         message.setMessageText(ticket.getDescription());
         message.setChannel(c);
         messageRepository.save(message);
         return new String("succes");
-       } 
-       return new String("failure");
+     //  } 
+       //return new String("failure");
 }
 }
