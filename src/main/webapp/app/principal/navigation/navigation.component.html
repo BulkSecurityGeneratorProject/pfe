@@ -31,7 +31,7 @@
     </div><!-- az-sidebar-loggedin -->
     <div class="az-sidebar-body">
       <ul class="nav">
-        <li class="nav-label">Teams</li>
+        <li class="nav-label">Teams    <jhi-addteam [users]="users" (addingTeamEvent)="receiveAddedTeam($event)"></jhi-addteam></li>
         <li class="nav-item active show" *ngFor="let team of teams">
           <a class="nav-link with-sub"><i class="typcn typcn-clipboard"></i><span
               (click)="filterByTeam(team)">{{team.teamName}}</span></a>
@@ -40,6 +40,7 @@
               <a class="nav-sub-link" *ngIf="channel.team.id===team.id"
                 (click)="filterByChannel(channel)">{{channel.channelName}}</a>
             </span>
+            <a class="nav-sub-link"><jhi-addchannel [team]="team" (addingChannelEvent)="receiveAddedChannel($event)"></jhi-addchannel></a>
           </nav>
         </li><!-- nav-item -->
       </ul><!-- nav -->
@@ -290,7 +291,7 @@
                             <span *ngIf="a.message.id===currentMessage.id">
                               <span class="badge badge-pill badge-info">{{a.annotationData}}
                               </span></span></span></h6>
-                              <jhi-addannotation [msg]="currentMessage" [annotations]="annotations"></jhi-addannotation>
+                              <jhi-addannotation [msg]="currentMessage" (addingEvent)="receiveAddAnnotation($event)"></jhi-addannotation>
                       </div>
                     </div><!-- media-body -->
                   </div><!-- media -->

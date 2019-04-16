@@ -1,0 +1,15 @@
+<span class="dropright">
+  <span class="badge badge-pill badge-dark" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    +<span class="sr-only">Toggle Dropdown</span>
+  </span>
+  <div class="dropdown-menu">
+    <form (ngSubmit)="save()">
+      <div class="form-group">
+        <label>Channel Name</label>
+        <input type="text" placeholder="name" required name="name" [(ngModel)]="channel.channelName">
+      </div>
+      <div>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
+    </form>
+  </div>

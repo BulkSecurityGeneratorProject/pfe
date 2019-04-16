@@ -1,0 +1,28 @@
+<span class="dropright">
+  <span class="badge badge-pill badge-dark" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    +<span class="sr-only">Toggle Dropdown</span>
+  </span>
+  <div class="dropdown-menu">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+      <div>
+          <div class="form-group">
+              <label class="form-control-label" for="field_teamName">Add Team</label>
+              <input type="text" class="form-control" required placeholder="name" name="teamName" id="field_teamName"
+                  [(ngModel)]="team.teamName" />
+          </div>
+
+     <!--      <div class="form-group">
+              <label for="field_user">User</label>
+              <select class="form-control" id="field_user" multiple name="user" [(ngModel)]="team.users">
+                  <option [ngValue]="getSelected(team.users, userOption)" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
+              </select>
+          </div> -->
+      </div>
+      <div>
+          <button type="submit" id="save-entity" class="btn btn-primary">
+              <span>Save</span>
+          </button>
+      </div>
+  </form>
+  </div>
+</span>

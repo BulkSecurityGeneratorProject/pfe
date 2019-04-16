@@ -79,11 +79,7 @@ export class NavigationComponent implements OnInit {
             )
             .subscribe((res: IAnnotation[]) => {
                 this.annotations = res;
-                this.annotData = res.map(a => a.annotationData.toLowerCase());
-                this.t = this.annotData.reduce((map, value) => {
-                    map.set(value, (map.get(value) || 0) + 1);
-                    return map;
-                }, new Map());
+                this.filteringAnnotations();
             });
     }
     loadAllTaams() {
@@ -136,6 +132,23 @@ export class NavigationComponent implements OnInit {
     }
     changeCurrentMessage(message: IMessage) {
         this.currentMessage = message;
+    }
+    receiveAddAnnotation($event) {
+        this.annotations.push($event);
+        this.filteringAnnotations();
+    }
+    receiveAddedTeam($event) {
+        this.teams.push($event);
+    }
+    receiveAddedChannel($event) {
+        this.channels.push($event);
+    }
+    filteringAnnotations() {
+        this.annotData = this.annotations.map(a => a.annotationData.toLowerCase());
+        this.t = this.annotData.reduce((map, value) => {
+            map.set(value, (map.get(value) || 0) + 1);
+            return map;
+        }, new Map());
     }
 }
 @Pipe({

@@ -6,6 +6,9 @@ import { UserRouteAccessService } from 'app/core';
 import { NavigationComponent } from './navigation/navigation.component';
 import { FilterPipe } from './navigation/navigation.component';
 import { AddannotationComponent } from './addannotation/addannotation.component';
+import { AddchannelComponent } from './addchannel/addchannel.component';
+import { AddteamComponent } from './addteam/addteam.component';
+import { InviteteammateComponent } from './inviteteammate/inviteteammate.component';
 const principalRoute: Routes = [
     {
         path: 'pm',
@@ -18,11 +21,11 @@ const principalRoute: Routes = [
     },
     {
         path: 'm',
-        component: AddannotationComponent
+        component: AddteamComponent
     }
 ];
 @NgModule({
-    declarations: [NavigationComponent, FilterPipe, AddannotationComponent],
+    declarations: [NavigationComponent, FilterPipe, AddannotationComponent, AddchannelComponent, AddteamComponent, InviteteammateComponent],
     imports: [CommonModule, RouterModule.forChild(principalRoute), FormsModule],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IMessage } from 'app/shared/model/message.model';
 import { IAnnotation } from 'app/shared/model/annotation.model';
 import { AnnotationService } from 'app/entities/annotation/annotation.service';
@@ -11,19 +11,17 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 })
 export class AddannotationComponent implements OnInit {
     @Input() msg: IMessage;
-    @Input() annotations: IAnnotation[];
+    @Output() addingEvent = new EventEmitter<IAnnotation>();
     annotation: IAnnotation = {};
     constructor(protected annotationService: AnnotationService) {}
-
     ngOnInit() {}
     save() {
-        console.log('saving');
         if (this.annotation !== null) {
             this.annotation.message = this.msg;
-            this.annotations.push(this.annotation);
             this.annotationService.create(this.annotation).subscribe(
                 (res: HttpResponse<IAnnotation>) => {
                     console.log('succes');
+                    this.addingEvent.emit(res.body);
                     this.annotation = {};
                 },
                 (res: HttpErrorResponse) => {

@@ -8,16 +8,16 @@
                     <div class="form-group">
                         <label class="form-control-label" for="field_annotationType">Annotation Type</label>
                         <input type="number" class="form-control" name="annotationType" id="field_annotationType"
-                            [(ngModel)]="annotation.annotationType" />
+                        placeholder="type"  [(ngModel)]="annotation.annotationType" />
                     </div>
                     <div class="form-group">
                         <label class="form-control-label" for="field_annotationData">Annotation Data</label>
-                        <input type="text" class="form-control" name="annotationData" id="field_annotationData"
-                            [(ngModel)]="annotation.annotationData" />
+                        <input type="text" class="form-control" name="annotationData" id="field_annotationData" placeholder="label"
+                        required  [(ngModel)]="annotation.annotationData" />
                     </div>
                 </div>
                 <div>
-                    <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <button type="submit" id="save-entity" class="btn btn-primary">
                         Save
                     </button>
                 </div>
