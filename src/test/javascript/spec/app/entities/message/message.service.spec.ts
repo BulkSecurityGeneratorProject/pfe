@@ -21,7 +21,7 @@ describe('Service Tests', () => {
             service = injector.get(MessageService);
             httpMock = injector.get(HttpTestingController);
 
-            elemDefault = new Message(0, 'AAAAAAA', 'AAAAAAA');
+            elemDefault = new Message(0, 'AAAAAAA', 'AAAAAAA', false);
         });
 
         describe('Service methods', async () => {
@@ -56,7 +56,8 @@ describe('Service Tests', () => {
                 const returnedFromService = Object.assign(
                     {
                         messageTitle: 'BBBBBB',
-                        messageText: 'BBBBBB'
+                        messageText: 'BBBBBB',
+                        archived: true
                     },
                     elemDefault
                 );
@@ -74,7 +75,8 @@ describe('Service Tests', () => {
                 const returnedFromService = Object.assign(
                     {
                         messageTitle: 'BBBBBB',
-                        messageText: 'BBBBBB'
+                        messageText: 'BBBBBB',
+                        archived: true
                     },
                     elemDefault
                 );

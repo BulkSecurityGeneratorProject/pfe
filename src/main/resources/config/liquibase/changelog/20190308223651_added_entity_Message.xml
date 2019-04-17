@@ -26,7 +26,11 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="message_text" type="varchar(255)">
+            <column name="message_text" type="varchar(1000)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="archived" type="boolean" defaultValue="false">
                 <constraints nullable="true" />
             </column>
 

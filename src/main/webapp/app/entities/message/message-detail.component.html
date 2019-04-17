@@ -13,6 +13,10 @@
                 <dd>
                     <span>{{message.messageText}}</span>
                 </dd>
+                <dt><span jhiTranslate="chatbotApp.message.archived">Archived</span></dt>
+                <dd>
+                    <span>{{message.archived}}</span>
+                </dd>
                 <dt><span jhiTranslate="chatbotApp.message.channel">Channel</span></dt>
                 <dd>
                     <div *ngIf="message.channel">

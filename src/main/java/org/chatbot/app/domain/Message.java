@@ -1,6 +1,7 @@
 package org.chatbot.app.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -28,6 +29,9 @@ public class Message implements Serializable {
 
     @Column(name = "message_text")
     private String messageText;
+
+    @Column(name = "archived")
+    private Boolean archived;
 
     @OneToMany(mappedBy = "message")
     private Set<Annotation> annotations = new HashSet<>();
@@ -72,6 +76,19 @@ public class Message implements Serializable {
 
     public void setMessageText(String messageText) {
         this.messageText = messageText;
+    }
+
+    public Boolean isArchived() {
+        return archived;
+    }
+
+    public Message archived(Boolean archived) {
+        this.archived = archived;
+        return this;
+    }
+
+    public void setArchived(Boolean archived) {
+        this.archived = archived;
     }
 
     public Set<Annotation> getAnnotations() {
@@ -152,6 +169,7 @@ public class Message implements Serializable {
             "id=" + getId() +
             ", messageTitle='" + getMessageTitle() + "'" +
             ", messageText='" + getMessageText() + "'" +
+            ", archived='" + isArchived() + "'" +
             "}";
     }
 }

@@ -50,6 +50,7 @@ public class MessageResource {
         if (message.getId() != null) {
             throw new BadRequestAlertException("A new message cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        message.setArchived(false);
         Message result = messageRepository.save(message);
         return ResponseEntity.created(new URI("/api/messages/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))

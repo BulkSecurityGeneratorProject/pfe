@@ -9,6 +9,7 @@ import { AddannotationComponent } from './addannotation/addannotation.component'
 import { AddchannelComponent } from './addchannel/addchannel.component';
 import { AddteamComponent } from './addteam/addteam.component';
 import { InviteteammateComponent } from './inviteteammate/inviteteammate.component';
+import { ArchivemessageComponent } from './archivemessage/archivemessage.component';
 const principalRoute: Routes = [
     {
         path: 'pm',
@@ -25,7 +26,15 @@ const principalRoute: Routes = [
     }
 ];
 @NgModule({
-    declarations: [NavigationComponent, FilterPipe, AddannotationComponent, AddchannelComponent, AddteamComponent, InviteteammateComponent],
+    declarations: [
+        NavigationComponent,
+        FilterPipe,
+        AddannotationComponent,
+        AddchannelComponent,
+        AddteamComponent,
+        InviteteammateComponent,
+        ArchivemessageComponent
+    ],
     imports: [CommonModule, RouterModule.forChild(principalRoute), FormsModule],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

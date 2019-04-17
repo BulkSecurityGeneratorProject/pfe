@@ -20,7 +20,7 @@ public interface AnnotationRepository extends JpaRepository<Annotation, Long> {
     "inner join message m on m.id=a.message_id) "+
     " inner join channel c on m.channel_id=c.id) "+
     " inner join team_user tr on c.team_id=tr.team_id)"+
-    " where tr.user_id =:id";
+    " where tr.user_id =:id and m.archived=false";
     @Query(value = req,nativeQuery = true)
     List<Annotation> findByUserId(@Param("id") Long id);
 }

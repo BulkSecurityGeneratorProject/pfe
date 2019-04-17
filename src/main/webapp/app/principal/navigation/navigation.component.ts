@@ -142,6 +142,11 @@ export class NavigationComponent implements OnInit {
     receiveAddedChannel($event) {
         this.channels.push($event);
     }
+    receiveArchiveMsg($event) {
+        this.loadAllMessages();
+        this.loadAllAnnotations();
+        this.currentMessage = this.messages[0];
+    }
     filteringAnnotations() {
         this.annotData = this.annotations.map(a => a.annotationData.toLowerCase());
         this.t = this.annotData.reduce((map, value) => {

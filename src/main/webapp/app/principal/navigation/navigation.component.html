@@ -46,7 +46,7 @@
         </li><!-- nav-item -->
       </ul><!-- nav -->
       <ul class="nav">
-        <li class="nav-label">Annotations <span class="badge badge-dark">{{t.size}}</span></li>
+        <li class="nav-label">Annotations <span class="badge badge-dark">{{annotData.length}}</span></li>
         <li>
             <!-- <p *ngFor="let a of annotData |filterUnique">
                 {{a}} <span class="badge badge-dark">{{t[a]}}</span>
@@ -222,7 +222,7 @@
                 <nav class="nav">
                   <a href="" class="nav-link"><i class="icon ion-md-more"></i></a>
                   <a href="" class="nav-link" data-toggle="tooltip" title="Call"><i class="icon ion-ios-call"></i></a>
-                  <a href="" class="nav-link" data-toggle="tooltip" title="Archive"><i class="icon ion-ios-filing"></i></a>
+                  <a class="nav-link" data-toggle="tooltip" title="Archive"><jhi-archivemessage [msg]="currentMessage" (archimessageEvent)="receiveArchiveMsg($event)"></jhi-archivemessage></a>
                   <a href="" class="nav-link" data-toggle="tooltip" title="Trash"><i class="icon ion-md-trash"></i></a>
                   <a href="" class="nav-link" data-toggle="tooltip" title="View Info"><i
                       class="icon ion-md-information-circle"></i></a>

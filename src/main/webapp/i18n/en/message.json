@@ -17,6 +17,7 @@
             },
             "messageTitle": "Message Title",
             "messageText": "Message Text",
+            "archived": "Archived",
             "annotation": "Annotation",
             "channel": "Channel",
             "user": "User"

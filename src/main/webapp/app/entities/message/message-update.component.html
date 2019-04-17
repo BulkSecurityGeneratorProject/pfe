@@ -19,6 +19,11 @@
                     <input type="text" class="form-control" name="messageText" id="field_messageText"
                         [(ngModel)]="message.messageText" />
                 </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="chatbotApp.message.archived" for="field_archived">Archived</label>
+                    <input type="checkbox" class="form-control" name="archived" id="field_archived"
+                        [(ngModel)]="message.archived" />
+                </div>
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="chatbotApp.message.channel" for="field_channel">Channel</label>

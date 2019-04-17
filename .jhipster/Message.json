@@ -1,5 +1,31 @@
 {
-    "name": "Message",
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "annotation",
+            "otherEntityName": "annotation",
+            "otherEntityRelationshipName": "message",
+            "otherEntityRelationshipNameUndefined": false
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "channel",
+            "otherEntityName": "channel",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "message",
+            "otherEntityRelationshipNameUndefined": false
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "user",
+            "otherEntityName": "user",
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "message",
+            "otherEntityRelationshipNameUndefined": false
+        }
+    ],
     "fields": [
         {
             "fieldName": "messageTitle",
@@ -8,37 +34,19 @@
         {
             "fieldName": "messageText",
             "fieldType": "String"
-        }
-    ],
-    "relationships": [
-        {
-            "relationshipType": "one-to-many",
-            "relationshipName": "annotation",
-            "otherEntityName": "annotation",
-            "otherEntityRelationshipName": "message"
         },
         {
-            "relationshipType": "many-to-one",
-            "relationshipName": "channel",
-            "otherEntityName": "channel",
-            "otherEntityField": "id",
-            "otherEntityRelationshipName": "message"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "relationshipName": "user",
-            "otherEntityName": "user",
-            "otherEntityField": "id",
-            "otherEntityRelationshipName": "message"
+            "fieldName": "archived",
+            "fieldType": "Boolean",
+            "fieldValidateRules": []
         }
     ],
     "changelogDate": "20190308223651",
-    "entityTableName": "message",
     "dto": "no",
-    "pagination": "no",
+    "searchEngine": false,
     "service": "no",
+    "entityTableName": "message",
+    "databaseType": "sql",
     "jpaMetamodelFiltering": false,
-    "fluentMethods": true,
-    "clientRootFolder": "",
-    "applications": "*"
+    "pagination": "no"
 }
