@@ -11,7 +11,6 @@ import { IAnnotation } from 'app/shared/model/annotation.model';
 import { AnnotationService } from 'app/entities/annotation';
 import { AccountService, LoginService, IUser, UserService } from 'app/core';
 import { Router } from '@angular/router';
-import { element } from '@angular/core/src/render3';
 
 @Component({
     selector: 'jhi-navigation',

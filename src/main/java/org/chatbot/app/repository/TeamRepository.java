@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 /**
  * Spring Data  repository for the Team entity.
  */
@@ -29,4 +31,9 @@ public interface TeamRepository extends JpaRepository<Team, Long> {
 
     @Query(value = "select distinct t.* from Team t inner join team_user tr on tr.TEAM_ID =t.id where tr.user_id=:id", nativeQuery = true)
     List<Team>findTeamByUserId(@Param("id") Long id);
+
+    @Modifying
+    @Query(value = "insert into team_user (user_id,team_id) VALUES (:user,:id)", nativeQuery = true)
+    @Transactional
+    void invitation(@Param("user") Long user, @Param("id") Long id);
 }

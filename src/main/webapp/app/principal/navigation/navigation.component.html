@@ -34,7 +34,8 @@
         <li class="nav-label">Teams    <jhi-addteam [users]="users" (addingTeamEvent)="receiveAddedTeam($event)"></jhi-addteam></li>
         <li class="nav-item active show" *ngFor="let team of teams">
           <a class="nav-link with-sub"><i class="typcn typcn-clipboard"></i><span
-              (click)="filterByTeam(team)">{{team.teamName}}</span></a>
+              (click)="filterByTeam(team)">{{team.teamName}} </span></a>
+              <jhi-inviteteammate [team]="team"></jhi-inviteteammate>
           <nav class="nav-sub">
             <span *ngFor="let channel of channels">
               <a class="nav-sub-link" *ngIf="channel.team.id===team.id"

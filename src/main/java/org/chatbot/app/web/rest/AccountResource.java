@@ -19,6 +19,7 @@ import org.chatbot.app.service.dto.PasswordChangeDTO;
 import org.chatbot.app.service.dto.UserDTO;
 import org.chatbot.app.web.rest.errors.*;
 import org.chatbot.app.web.rest.vm.KeyAndPasswordVM;
+import org.chatbot.app.web.rest.vm.ManagedInvitedUser;
 import org.chatbot.app.web.rest.vm.ManagedUserVM;
 import org.chatbot.app.web.rest.vm.ManagedUserVMCompany;
 import org.apache.commons.lang3.StringUtils;
@@ -71,6 +72,16 @@ public class AccountResource {
      * @throws EmailAlreadyUsedException 400 (Bad Request) if the email is already used
      * @throws LoginAlreadyUsedException 400 (Bad Request) if the login is already used
      */
+    @PostMapping("/invite")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void invite(@Valid @RequestBody ManagedInvitedUser managedInvitedUser){
+        if (!checkPasswordLength(managedInvitedUser.getPassword())) {
+            throw new InvalidPasswordException();
+        }
+        User user = userService.registerUser(managedInvitedUser, managedInvitedUser.getPassword());
+        mailService.sendActivationEmail(user);
+        teamRepository.invitation(user.getId(),managedInvitedUser.getTeam());
+    }
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
     public void registerAccount(@Valid @RequestBody ManagedUserVMCompany managedUserVM) {
@@ -126,37 +137,37 @@ public class AccountResource {
             Annotation a1=new Annotation();
             a1.setAnnotationType(1);
             a1.setAnnotationData("Satisfaction");
-            a1.setMessage(m.get(0));
+            a1.setMessage(m.get(1));
             a.add(a1);
             a1=new Annotation();
             a1.setAnnotationType(1);
             a1.setAnnotationData("Happy");
-            a1.setMessage(m.get(0));
+            a1.setMessage(m.get(1));
             a.add(a1);
             a1=new Annotation();
             a1.setAnnotationType(1);
             a1.setAnnotationData("Positive");
-            a1.setMessage(m.get(0));
+            a1.setMessage(m.get(1));
             a.add(a1);
             a1=new Annotation();
             a1.setAnnotationType(1);
             a1.setAnnotationData("NotIssue");
-            a1.setMessage(m.get(0));
+            a1.setMessage(m.get(1));
             a.add(a1);
 
             a1.setAnnotationType(0);
             a1.setAnnotationData("Insatisfaction");
-            a1.setMessage(m.get(1));
+            a1.setMessage(m.get(0));
             a.add(a1);
             a1=new Annotation();
             a1.setAnnotationType(0);
             a1.setAnnotationData("Unhappy");
-            a1.setMessage(m.get(1));
+            a1.setMessage(m.get(0));
             a.add(a1);
             a1=new Annotation();
             a1.setAnnotationType(0);
             a1.setAnnotationData("Issue");
-            a1.setMessage(m.get(1));
+            a1.setMessage(m.get(0));
             a.add(a1);
 
             a1=new Annotation();
