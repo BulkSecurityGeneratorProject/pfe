@@ -13,6 +13,7 @@
                 "message": "Message",
                 "annotation": "Annotation",
                 "userInfo": "User Info",
+                "source": "Source",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
