@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
@@ -32,6 +33,9 @@ public class Message implements Serializable {
 
     @Column(name = "archived")
     private Boolean archived;
+
+    @Column(name = "created_at")
+    private Instant createdAt;
 
     @OneToMany(mappedBy = "message")
     private Set<Annotation> annotations = new HashSet<>();
@@ -89,6 +93,19 @@ public class Message implements Serializable {
 
     public void setArchived(Boolean archived) {
         this.archived = archived;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public Message createdAt(Instant createdAt) {
+        this.createdAt = createdAt;
+        return this;
+    }
+
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
     }
 
     public Set<Annotation> getAnnotations() {
@@ -170,6 +187,7 @@ public class Message implements Serializable {
             ", messageTitle='" + getMessageTitle() + "'" +
             ", messageText='" + getMessageText() + "'" +
             ", archived='" + isArchived() + "'" +
+            ", createdAt='" + getCreatedAt() + "'" +
             "}";
     }
 }

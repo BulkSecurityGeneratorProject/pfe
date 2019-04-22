@@ -30,7 +30,11 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="archived" type="boolean" defaultValue="false">
+            <column name="archived" type="boolean">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="created_at" type="datetime">
                 <constraints nullable="true" />
             </column>
 
@@ -44,6 +48,16 @@
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
+        <addDefaultValue tableName="message"
+        columnDataType="boolean"
+        columnName="archived"
+        defaultValueBoolean="false" />
+        <addDefaultValue tableName="message"
+        columnDataType="datetime"
+        columnName="created_at"
+        defaultValueComputed="CURRENT_TIMESTAMP" />
+        <dropDefaultValue tableName="message" columnName="created_at" columnDataType="datetime"/>
+
         
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->

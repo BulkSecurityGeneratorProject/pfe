@@ -30,6 +30,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+
+import java.time.Instant;
 import java.util.*;
 
 /**
@@ -117,24 +119,28 @@ public class AccountResource {
             m1.setChannel(c.get(0));
             m1.setUser(user);
             m1.setArchived(false);
+            m1.setCreatedAt(Instant.now());
             m.add(m1);
             m1=new Message();
             m1.setMessageTitle("Thanks a lot");
             m1.setMessageText("I can’t believe that you billed me without letting me know ahead of time! I was not expecting a charge at all, let alone one that was SO EXPENSIVE. How can you guys get away with this!?!?");
             m1.setChannel(c.get(1));
             m1.setArchived(false);
+            m1.setCreatedAt(Instant.now());
             m.add(m1);
             m1=new Message();
             m1.setMessageTitle("I have lost my data");
             m1.setMessageText("I don’t understand what you are telling me. Earlier you said that I could fix the problem by doing one thing, now you’re saying that I have to do something else? Am I ever going to be able to get my data back?");
             m1.setChannel(c.get(0));
             m1.setArchived(false);
+            m1.setCreatedAt(Instant.now());
             m.add(m1);
             m1=new Message();
             m1.setMessageTitle("Hbd");
             m1.setMessageText("Our sincerest wishes from Chatbot team on your birthday. May all your dreams come true! We are looking forward to continuing our relationship with you this year.");
             m1.setChannel(c.get(1));
             m1.setArchived(false);
+            m1.setCreatedAt(Instant.now());
             m.add(m1);
             m=messageRepository.saveAll(m);
 

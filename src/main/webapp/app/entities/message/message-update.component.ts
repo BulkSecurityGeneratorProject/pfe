@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
+import * as moment from 'moment';
+import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { JhiAlertService } from 'ng-jhipster';
 import { IMessage } from 'app/shared/model/message.model';
 import { MessageService } from './message.service';
@@ -21,6 +23,7 @@ export class MessageUpdateComponent implements OnInit {
     channels: IChannel[];
 
     users: IUser[];
+    createdAt: string;
 
     constructor(
         protected jhiAlertService: JhiAlertService,
@@ -34,6 +37,7 @@ export class MessageUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ message }) => {
             this.message = message;
+            this.createdAt = this.message.createdAt != null ? this.message.createdAt.format(DATE_TIME_FORMAT) : null;
         });
         this.channelService
             .query()
@@ -57,6 +61,7 @@ export class MessageUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
+        this.message.createdAt = this.createdAt != null ? moment(this.createdAt, DATE_TIME_FORMAT) : null;
         if (this.message.id !== undefined) {
             this.subscribeToSaveResponse(this.messageService.update(this.message));
         } else {

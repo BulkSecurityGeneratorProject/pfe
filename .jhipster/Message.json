@@ -39,6 +39,10 @@
             "fieldName": "archived",
             "fieldType": "Boolean",
             "fieldValidateRules": []
+        },
+        {
+            "fieldName": "createdAt",
+            "fieldType": "Instant"
         }
     ],
     "changelogDate": "20190308223651",
