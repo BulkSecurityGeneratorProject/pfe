@@ -1,33 +1,42 @@
 {
-    "name": "Channel",
-    "fields": [
-        {
-            "fieldName": "channelName",
-            "fieldType": "String"
-        }
-    ],
+    "fluentMethods": true,
+    "clientRootFolder": "",
     "relationships": [
         {
             "relationshipType": "many-to-one",
             "relationshipName": "team",
             "otherEntityName": "team",
             "otherEntityField": "id",
-            "otherEntityRelationshipName": "channel"
+            "otherEntityRelationshipName": "channel",
+            "otherEntityRelationshipNameUndefined": false
         },
         {
             "relationshipType": "one-to-many",
             "relationshipName": "message",
             "otherEntityName": "message",
-            "otherEntityRelationshipName": "channel"
+            "otherEntityRelationshipName": "channel",
+            "otherEntityRelationshipNameUndefined": false
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "channelName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "domain",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "unique"
+            ]
         }
     ],
     "changelogDate": "20190308223650",
-    "entityTableName": "channel",
     "dto": "no",
-    "pagination": "no",
+    "searchEngine": false,
     "service": "no",
+    "entityTableName": "channel",
+    "databaseType": "sql",
     "jpaMetamodelFiltering": false,
-    "fluentMethods": true,
-    "clientRootFolder": "",
-    "applications": "*"
+    "pagination": "no"
 }

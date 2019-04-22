@@ -21,7 +21,7 @@ describe('Service Tests', () => {
             service = injector.get(ChannelService);
             httpMock = injector.get(HttpTestingController);
 
-            elemDefault = new Channel(0, 'AAAAAAA');
+            elemDefault = new Channel(0, 'AAAAAAA', 'AAAAAAA');
         });
 
         describe('Service methods', async () => {
@@ -55,7 +55,8 @@ describe('Service Tests', () => {
             it('should update a Channel', async () => {
                 const returnedFromService = Object.assign(
                     {
-                        channelName: 'BBBBBB'
+                        channelName: 'BBBBBB',
+                        domain: 'BBBBBB'
                     },
                     elemDefault
                 );
@@ -72,7 +73,8 @@ describe('Service Tests', () => {
             it('should return a list of Channel', async () => {
                 const returnedFromService = Object.assign(
                     {
-                        channelName: 'BBBBBB'
+                        channelName: 'BBBBBB',
+                        domain: 'BBBBBB'
                     },
                     elemDefault
                 );

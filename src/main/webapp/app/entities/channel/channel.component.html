@@ -16,6 +16,7 @@
             <tr>
             <th><span jhiTranslate="global.field.id">ID</span></th>
             <th><span jhiTranslate="chatbotApp.channel.channelName">Channel Name</span></th>
+            <th><span jhiTranslate="chatbotApp.channel.domain">Domain</span></th>
             <th><span jhiTranslate="chatbotApp.channel.team">Team</span></th>
             <th></th>
             </tr>
@@ -24,6 +25,7 @@
             <tr *ngFor="let channel of channels ;trackBy: trackId">
                 <td><a [routerLink]="['/channel', channel.id, 'view' ]">{{channel.id}}</a></td>
                 <td>{{channel.channelName}}</td>
+                <td>{{channel.domain}}</td>
                 <td>
                     <div *ngIf="channel.team">
                         <a [routerLink]="['../team', channel.team?.id, 'view' ]" >{{channel.team?.id}}</a>

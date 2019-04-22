@@ -14,6 +14,13 @@
                     <input type="text" class="form-control" name="channelName" id="field_channelName"
                         [(ngModel)]="channel.channelName" />
                 </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="chatbotApp.channel.domain" for="field_domain">Domain</label>
+                    <input type="text" class="form-control" name="domain" id="field_domain"
+                        [(ngModel)]="channel.domain" />
+                    <div [hidden]="!(editForm.controls.domain?.dirty && editForm.controls.domain?.invalid)">
+                    </div>
+                </div>
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="chatbotApp.channel.team" for="field_team">Team</label>

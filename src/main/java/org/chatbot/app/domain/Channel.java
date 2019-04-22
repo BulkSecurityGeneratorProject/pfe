@@ -1,9 +1,11 @@
 package org.chatbot.app.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -25,6 +27,10 @@ public class Channel implements Serializable {
 
     @Column(name = "channel_name")
     private String channelName;
+
+    
+    @Column(name = "domain", unique = true)
+    private String domain;
 
     @ManyToOne
     @JsonIgnoreProperties("channels")
@@ -52,6 +58,19 @@ public class Channel implements Serializable {
 
     public void setChannelName(String channelName) {
         this.channelName = channelName;
+    }
+
+    public String getDomain() {
+        return domain;
+    }
+
+    public Channel domain(String domain) {
+        this.domain = domain;
+        return this;
+    }
+
+    public void setDomain(String domain) {
+        this.domain = domain;
     }
 
     public Team getTeam() {
@@ -118,6 +137,7 @@ public class Channel implements Serializable {
         return "Channel{" +
             "id=" + getId() +
             ", channelName='" + getChannelName() + "'" +
+            ", domain='" + getDomain() + "'" +
             "}";
     }
 }

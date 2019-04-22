@@ -16,6 +16,7 @@
                 "title": "Channel"
             },
             "channelName": "Channel Name",
+            "domain": "Domain",
             "team": "Team",
             "message": "Message"
         }
