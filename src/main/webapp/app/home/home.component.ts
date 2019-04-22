@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
 import { LoginModalService, AccountService, Account } from 'app/core';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'jhi-home',
@@ -11,13 +11,8 @@ import { LoginModalService, AccountService, Account } from 'app/core';
 })
 export class HomeComponent implements OnInit {
     account: Account;
-    modalRef: NgbModalRef;
 
-    constructor(
-        private accountService: AccountService,
-        private loginModalService: LoginModalService,
-        private eventManager: JhiEventManager
-    ) {}
+    constructor(private accountService: AccountService, private eventManager: JhiEventManager, private route: Router) {}
 
     ngOnInit() {
         this.accountService.identity().then((account: Account) => {
@@ -39,6 +34,6 @@ export class HomeComponent implements OnInit {
     }
 
     login() {
-        this.modalRef = this.loginModalService.open();
+        this.route.navigate(['/login']);
     }
 }

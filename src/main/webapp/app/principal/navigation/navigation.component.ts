@@ -149,10 +149,14 @@ export class NavigationComponent implements OnInit {
     }
     filteringAnnotations() {
         this.annotData = this.annotations.map(a => a.annotationData.toLowerCase());
-        this.t = this.annotData.reduce((map, value) => {
+        const m = this.annotData.reduce((map, value) => {
             map.set(value, (map.get(value) || 0) + 1);
             return map;
         }, new Map());
+        m[Symbol.iterator] = function*() {
+            yield* [...this.entries()].sort((a, b) => a[1] - b[1]);
+        };
+        this.t = m;
     }
 }
 @Pipe({

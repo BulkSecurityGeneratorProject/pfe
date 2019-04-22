@@ -175,11 +175,11 @@
         $(function () {
           'use strict'
     
-          $('.az-sidebar .with-sub').on('click', function (e) {
+          /* $('.az-sidebar .with-sub').on('click', function (e) {
             e.preventDefault();
             $(this).parent().toggleClass('show');
             $(this).parent().siblings().removeClass('show');
-          })
+          }) */
     
           $(document).on('click touchstart', function (e) {
             e.stopPropagation();
@@ -207,7 +207,7 @@
           /* ----------------------------------- */
           /* Dashboard content */
     
-          $('#compositeline').sparkline('html', {
+    /*       $('#compositeline').sparkline('html', {
             lineColor: '#cecece',
             lineWidth: 2,
             spotColor: false,
@@ -320,7 +320,7 @@
             borderWidth: 1,
             borderColor: '#fff',
             hoverOpacity: .85
-          });
+          }); */
     
         });
       </script>

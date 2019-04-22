@@ -15,8 +15,6 @@
   </div>
 </div>
  -->
-
-
 <div class="az-body az-body-sidebar">
   <div class="az-sidebar">
     <div class="az-sidebar-header">
@@ -34,8 +32,7 @@
         <li class="nav-label">Teams    <jhi-addteam [users]="users" (addingTeamEvent)="receiveAddedTeam($event)"></jhi-addteam></li>
         <li class="nav-item active show" *ngFor="let team of teams">
           <a class="nav-link with-sub"><i class="typcn typcn-clipboard"></i><span
-              (click)="filterByTeam(team)">{{team.teamName}} </span></a>
-              <jhi-inviteteammate [team]="team"></jhi-inviteteammate>
+              (click)="filterByTeam(team)">{{team.teamName}} </span> &nbsp; <jhi-inviteteammate [team]="team"></jhi-inviteteammate></a>
           <nav class="nav-sub">
             <span *ngFor="let channel of channels">
               <a class="nav-sub-link" *ngIf="channel.team.id===team.id"
@@ -137,60 +134,18 @@
         </div><!-- az-header-right -->
       </div><!-- container -->
     </div><!-- az-header -->
+    <div>
+      <jhi-alert></jhi-alert>
+    </div>
 
-    <div class="az-content-header d-block d-md-flex">
-      <div class="col">
        <!--  <jhi-messages [messagesDisp]="messagesDisp"></jhi-messages> -->
        <div class="az-body">
         <div class="az-content az-content-app pd-b-0">
-          <div class="container">
-            <div class="az-content-left az-content-left-chat">
-      
-              <nav class="nav az-nav-line az-nav-line-chat">
-                <a href="" data-toggle="tab" class="nav-link active">Recent Chat</a>
-                <a href="" data-toggle="tab" class="nav-link">Groups</a>
-                <a href="" data-toggle="tab" class="nav-link">Calls</a>
-              </nav>
-      
+          <div class="container-fluid">
+            <div class="az-content-left az-content-left-chat">      
               <div class="az-chat-contacts-wrapper">
-                <label class="az-content-label az-content-label-sm">Active Contacts (5)</label>
+                <label class="az-content-label az-content-label-sm">   &nbsp;   </label>
                 <div id="chatActiveContacts" class="az-chat-contacts">
-                  <div>
-                    <div class="az-img-user online"><img src="https://via.placeholder.com/500x500" alt=""></div>
-                    <small>Adrian</small>
-                  </div>
-                  <div>
-                    <div class="az-img-user online"><img src="https://via.placeholder.com/500x500" alt=""></div>
-                    <small>John</small>
-                  </div>
-                  <div>
-                    <div class="az-img-user online"><img src="https://via.placeholder.com/500x500" alt=""></div>
-                    <small>Daniel</small>
-                  </div>
-                  <div>
-                    <div class="az-img-user online"><img src="https://via.placeholder.com/500x500" alt=""></div>
-                    <small>Katherine</small>
-                  </div>
-                  <div>
-                    <div class="az-img-user online"><img src="https://via.placeholder.com/500x500" alt=""></div>
-                    <small>Raymart</small>
-                  </div>
-                  <div>
-                    <div class="az-img-user online"><img src="https://via.placeholder.com/500x500" alt=""></div>
-                    <small>Junrisk</small>
-                  </div>
-                  <div>
-                    <div class="az-img-user online"><img src="https://via.placeholder.com/500x500" alt=""></div>
-                    <small>George</small>
-                  </div>
-                  <div>
-                    <div class="az-img-user online"><img src="https://via.placeholder.com/500x500" alt=""></div>
-                    <small>Maryjane</small>
-                  </div>
-                  <div>
-                    <div class="az-chat-contacts-more">20+</div>
-                    <small>More</small>
-                  </div>
                 </div><!-- az-active-contacts -->
               </div><!-- az-chat-active-contacts -->
       
@@ -200,7 +155,7 @@
                   <div class="media-body">
                     <div class="media-contact-name">
                       <span>{{message.messageTitle}}</span>
-                      <span>2 days</span>
+                      <span>{{message.user?.login}}</span>
                     </div>
                     <p>
                       <div><span *ngFor="let a of annotations">
@@ -212,12 +167,16 @@
                 </div><!-- media -->
               </div><!-- az-chat-list -->
             </div><!-- az-content-left -->
-            <div class="az-content-body az-content-body-chat">
+            <div class=" az-content-body-chat">
               <div class="az-chat-header">
                 <div class="az-img-user"><img src="https://via.placeholder.com/500x500" alt=""></div>
                 <div class="az-chat-msg-name">
                   <h6>{{currentMessage.messageTitle}}</h6>
-                  {{currentMessage.user?.login}}
+                  <small>
+                  <span *ngIf="currentMessage.user==null">Not assigned
+                  </span>
+                  <span *ngIf="currentMessage.user!=null">assigned to <strong>{{currentMessage.user.login}}</strong></span>
+                  </small>
                 </div>
                 <nav class="nav">
                   <a href="" class="nav-link"><i class="icon ion-md-more"></i></a>
@@ -301,10 +260,7 @@
             </div>
           </div><!-- az-content -->
         </div>
-      </div>
-      </div>
     </div><!-- az-content-header -->
-  </div><!-- az-content -->
 </div>
 
 
