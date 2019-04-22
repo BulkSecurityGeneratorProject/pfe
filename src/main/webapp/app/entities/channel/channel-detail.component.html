@@ -19,6 +19,12 @@
                         <a [routerLink]="['/team', channel.team?.id, 'view']">{{channel.team?.id}}</a>
                     </div>
                 </dd>
+                <dt><span jhiTranslate="chatbotApp.channel.source">Source</span></dt>
+                <dd>
+                    <div *ngIf="channel.source">
+                        <a [routerLink]="['/source', channel.source?.id, 'view']">{{channel.source?.name}}</a>
+                    </div>
+                </dd>
             </dl>
 
             <button type="submit"

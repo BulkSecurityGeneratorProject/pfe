@@ -3,6 +3,7 @@ package org.chatbot.app.web.rest;
 import org.chatbot.app.domain.Annotation;
 import org.chatbot.app.domain.Channel;
 import org.chatbot.app.domain.Message;
+import org.chatbot.app.domain.Source;
 import org.chatbot.app.domain.Team;
 import org.chatbot.app.domain.User;
 import org.chatbot.app.domain.UserInfo;
@@ -102,13 +103,16 @@ public class AccountResource {
             t.getUsers().add(user);
             t.setTeamName(managedUserVM.getCompany());
             t=teamRepository.save(t);
-
+            Source s=new Source();
+            s.setId((long) 1);
             Channel c1=new Channel();
             c1.setChannelName("channel 1");
             c1.setTeam(t);
+            c1.setSource(s);
             c.add(c1);
             c1=new Channel();
             c1.setChannelName("channel 2");
+            c1.setSource(s);
             c1.setTeam(t);
             c.add(c1);
             c=channelRepository.saveAll(c);

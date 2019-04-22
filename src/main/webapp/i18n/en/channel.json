@@ -18,7 +18,8 @@
             "channelName": "Channel Name",
             "domain": "Domain",
             "team": "Team",
-            "message": "Message"
+            "message": "Message",
+            "source": "Source"
         }
     }
 }

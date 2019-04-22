@@ -43,6 +43,14 @@ import { RouterModule } from '@angular/router';
             {
                 path: 'source',
                 loadChildren: './source/source.module#ChatbotSourceModule'
+            },
+            {
+                path: 'channel',
+                loadChildren: './channel/channel.module#ChatbotChannelModule'
+            },
+            {
+                path: 'source',
+                loadChildren: './source/source.module#ChatbotSourceModule'
             }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])

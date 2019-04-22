@@ -8,6 +8,8 @@ import { IChannel } from 'app/shared/model/channel.model';
 import { ChannelService } from './channel.service';
 import { ITeam } from 'app/shared/model/team.model';
 import { TeamService } from 'app/entities/team';
+import { ISource } from 'app/shared/model/source.model';
+import { SourceService } from 'app/entities/source';
 
 @Component({
     selector: 'jhi-channel-update',
@@ -19,10 +21,13 @@ export class ChannelUpdateComponent implements OnInit {
 
     teams: ITeam[];
 
+    sources: ISource[];
+
     constructor(
         protected jhiAlertService: JhiAlertService,
         protected channelService: ChannelService,
         protected teamService: TeamService,
+        protected sourceService: SourceService,
         protected activatedRoute: ActivatedRoute
     ) {}
 
@@ -38,6 +43,13 @@ export class ChannelUpdateComponent implements OnInit {
                 map((response: HttpResponse<ITeam[]>) => response.body)
             )
             .subscribe((res: ITeam[]) => (this.teams = res), (res: HttpErrorResponse) => this.onError(res.message));
+        this.sourceService
+            .query()
+            .pipe(
+                filter((mayBeOk: HttpResponse<ISource[]>) => mayBeOk.ok),
+                map((response: HttpResponse<ISource[]>) => response.body)
+            )
+            .subscribe((res: ISource[]) => (this.sources = res), (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     previousState() {
@@ -71,6 +83,10 @@ export class ChannelUpdateComponent implements OnInit {
     }
 
     trackTeamById(index: number, item: ITeam) {
+        return item.id;
+    }
+
+    trackSourceById(index: number, item: ISource) {
         return item.id;
     }
 }

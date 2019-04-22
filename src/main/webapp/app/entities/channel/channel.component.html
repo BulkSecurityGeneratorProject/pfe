@@ -18,6 +18,7 @@
             <th><span jhiTranslate="chatbotApp.channel.channelName">Channel Name</span></th>
             <th><span jhiTranslate="chatbotApp.channel.domain">Domain</span></th>
             <th><span jhiTranslate="chatbotApp.channel.team">Team</span></th>
+            <th><span jhiTranslate="chatbotApp.channel.source">Source</span></th>
             <th></th>
             </tr>
             </thead>
@@ -29,6 +30,11 @@
                 <td>
                     <div *ngIf="channel.team">
                         <a [routerLink]="['../team', channel.team?.id, 'view' ]" >{{channel.team?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="channel.source">
+                        <a [routerLink]="['../source', channel.source?.id, 'view' ]" >{{channel.source?.name}}</a>
                     </div>
                 </td>
                 <td class="text-right">

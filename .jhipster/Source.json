@@ -9,6 +9,10 @@
             "fieldValidateRules": [
                 "unique"
             ]
+        },
+        {
+            "fieldName": "name",
+            "fieldType": "String"
         }
     ],
     "changelogDate": "20190422101441",

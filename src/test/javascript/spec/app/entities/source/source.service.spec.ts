@@ -21,7 +21,7 @@ describe('Service Tests', () => {
             service = injector.get(SourceService);
             httpMock = injector.get(HttpTestingController);
 
-            elemDefault = new Source(0, 'AAAAAAA');
+            elemDefault = new Source(0, 'AAAAAAA', 'AAAAAAA');
         });
 
         describe('Service methods', async () => {
@@ -55,7 +55,8 @@ describe('Service Tests', () => {
             it('should update a Source', async () => {
                 const returnedFromService = Object.assign(
                     {
-                        logoUrl: 'BBBBBB'
+                        logoUrl: 'BBBBBB',
+                        name: 'BBBBBB'
                     },
                     elemDefault
                 );
@@ -72,7 +73,8 @@ describe('Service Tests', () => {
             it('should return a list of Source', async () => {
                 const returnedFromService = Object.assign(
                     {
-                        logoUrl: 'BBBBBB'
+                        logoUrl: 'BBBBBB',
+                        name: 'BBBBBB'
                     },
                     elemDefault
                 );

@@ -43,6 +43,9 @@ public class SourceResourceIntTest {
     private static final String DEFAULT_LOGO_URL = "AAAAAAAAAA";
     private static final String UPDATED_LOGO_URL = "BBBBBBBBBB";
 
+    private static final String DEFAULT_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_NAME = "BBBBBBBBBB";
+
     @Autowired
     private SourceRepository sourceRepository;
 
@@ -85,7 +88,8 @@ public class SourceResourceIntTest {
      */
     public static Source createEntity(EntityManager em) {
         Source source = new Source()
-            .logoUrl(DEFAULT_LOGO_URL);
+            .logoUrl(DEFAULT_LOGO_URL)
+            .name(DEFAULT_NAME);
         return source;
     }
 
@@ -110,6 +114,7 @@ public class SourceResourceIntTest {
         assertThat(sourceList).hasSize(databaseSizeBeforeCreate + 1);
         Source testSource = sourceList.get(sourceList.size() - 1);
         assertThat(testSource.getLogoUrl()).isEqualTo(DEFAULT_LOGO_URL);
+        assertThat(testSource.getName()).isEqualTo(DEFAULT_NAME);
     }
 
     @Test
@@ -142,7 +147,8 @@ public class SourceResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(source.getId().intValue())))
-            .andExpect(jsonPath("$.[*].logoUrl").value(hasItem(DEFAULT_LOGO_URL.toString())));
+            .andExpect(jsonPath("$.[*].logoUrl").value(hasItem(DEFAULT_LOGO_URL.toString())))
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())));
     }
     
     @Test
@@ -156,7 +162,8 @@ public class SourceResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(source.getId().intValue()))
-            .andExpect(jsonPath("$.logoUrl").value(DEFAULT_LOGO_URL.toString()));
+            .andExpect(jsonPath("$.logoUrl").value(DEFAULT_LOGO_URL.toString()))
+            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()));
     }
 
     @Test
@@ -180,7 +187,8 @@ public class SourceResourceIntTest {
         // Disconnect from session so that the updates on updatedSource are not directly saved in db
         em.detach(updatedSource);
         updatedSource
-            .logoUrl(UPDATED_LOGO_URL);
+            .logoUrl(UPDATED_LOGO_URL)
+            .name(UPDATED_NAME);
 
         restSourceMockMvc.perform(put("/api/sources")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -192,6 +200,7 @@ public class SourceResourceIntTest {
         assertThat(sourceList).hasSize(databaseSizeBeforeUpdate);
         Source testSource = sourceList.get(sourceList.size() - 1);
         assertThat(testSource.getLogoUrl()).isEqualTo(UPDATED_LOGO_URL);
+        assertThat(testSource.getName()).isEqualTo(UPDATED_NAME);
     }
 
     @Test

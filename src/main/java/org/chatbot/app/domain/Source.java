@@ -25,6 +25,9 @@ public class Source implements Serializable {
     @Column(name = "logo_url", unique = true)
     private String logoUrl;
 
+    @Column(name = "name")
+    private String name;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -45,6 +48,19 @@ public class Source implements Serializable {
 
     public void setLogoUrl(String logoUrl) {
         this.logoUrl = logoUrl;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Source name(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -73,6 +89,7 @@ public class Source implements Serializable {
         return "Source{" +
             "id=" + getId() +
             ", logoUrl='" + getLogoUrl() + "'" +
+            ", name='" + getName() + "'" +
             "}";
     }
 }

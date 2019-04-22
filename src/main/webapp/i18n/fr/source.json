@@ -15,7 +15,8 @@
             "detail": {
                 "title": "Source"
             },
-            "logoUrl": "Logo Url"
+            "logoUrl": "Logo Url",
+            "name": "Name"
         }
     }
 }

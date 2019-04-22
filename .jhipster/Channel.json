@@ -16,6 +16,14 @@
             "otherEntityName": "message",
             "otherEntityRelationshipName": "channel",
             "otherEntityRelationshipNameUndefined": false
+        },
+        {
+            "relationshipName": "source",
+            "otherEntityName": "source",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "name",
+            "otherEntityRelationshipName": "channel",
+            "otherEntityRelationshipNameUndefined": true
         }
     ],
     "fields": [

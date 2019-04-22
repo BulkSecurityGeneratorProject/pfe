@@ -38,6 +38,10 @@ public class Channel implements Serializable {
 
     @OneToMany(mappedBy = "channel")
     private Set<Message> messages = new HashSet<>();
+    @ManyToOne
+    @JsonIgnoreProperties("channels")
+    private Source source;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -109,6 +113,19 @@ public class Channel implements Serializable {
 
     public void setMessages(Set<Message> messages) {
         this.messages = messages;
+    }
+
+    public Source getSource() {
+        return source;
+    }
+
+    public Channel source(Source source) {
+        this.source = source;
+        return this;
+    }
+
+    public void setSource(Source source) {
+        this.source = source;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
