@@ -8,6 +8,14 @@
         <label>Channel Name</label>
         <input type="text" placeholder="name" required name="name" [(ngModel)]="channel.channelName">
       </div>
+      <div class="form-group">
+        <input type="text" placeholder="domain" required name="domain" [(ngModel)]="channel.domain">
+      </div>
+      <div class="form-group">
+        <select class="form-control" id="field_source" name="source" [(ngModel)]="channel.source">
+          <option *ngFor="let opt of sources" [ngValue]="opt.id === channel.source?.id ? channel.source : opt">{{opt.name}}</option>
+        </select>
+      </div>
       <div>
         <button type="submit" class="btn btn-primary">Save</button>
       </div>

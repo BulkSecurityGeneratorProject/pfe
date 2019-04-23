@@ -106,12 +106,14 @@ public class AccountResource {
             Source s=new Source();
             s.setId((long) 1);
             Channel c1=new Channel();
-            c1.setChannelName("channel 1");
+            c1.setChannelName("zendesk");
             c1.setTeam(t);
             c1.setSource(s);
             c.add(c1);
             c1=new Channel();
-            c1.setChannelName("channel 2");
+            c1.setChannelName("facebook");
+            s=new Source();
+            s.setId((long) 2);
             c1.setSource(s);
             c1.setTeam(t);
             c.add(c1);

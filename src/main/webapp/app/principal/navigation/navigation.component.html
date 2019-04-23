@@ -36,7 +36,7 @@
           <nav class="nav-sub">
             <span *ngFor="let channel of channels">
               <a class="nav-sub-link" *ngIf="channel.team.id===team.id"
-                (click)="filterByChannel(channel)">{{channel.channelName}}</a>
+                (click)="filterByChannel(channel)"><img class="az-img-user" src="{{'./../../../content/images/small/' + channel.source.logoUrl}}" alt="logo of the channel"> {{channel.channelName}}</a>
             </span>
             <a class="nav-sub-link"><jhi-addchannel [team]="team" (addingChannelEvent)="receiveAddedChannel($event)"></jhi-addchannel></a>
           </nav>
@@ -151,7 +151,7 @@
       
               <div id="azChatList" class="az-chat-list">
                 <div class="media new" *ngFor="let message of messagesDisp" (click)="changeCurrentMessage(message)">
-                  <div class="az-img-user"><img src="https://via.placeholder.com/500x500" alt=""></div>
+                  <div class="az-img-user"><img src="{{'./../../../content/images/small/' + message.channel.source.logoUrl}}" alt="logo de zendesk"></div>
                   <div class="media-body">
                     <div class="media-contact-name">
                       <span>{{message.messageTitle}}</span>
@@ -168,24 +168,31 @@
               </div><!-- az-chat-list -->
             </div><!-- az-content-left -->
             <div class=" az-content-body-chat">
-              <div class="az-chat-header">
-                <div class="az-img-user"><img src="https://via.placeholder.com/500x500" alt=""></div>
-                <div class="az-chat-msg-name">
-                  <h6>{{currentMessage.messageTitle}}</h6>
-                  <small>
-                  <span *ngIf="currentMessage.user==null">Not assigned
-                  </span>
-                  <span *ngIf="currentMessage.user!=null">assigned to <strong>{{currentMessage.user.login}}</strong></span>
-                  </small>
+              <div class="az-chat-header" id="headerOfCur">
+                <div class="row">
+                    <div class="az-img-user"><img class="az-img-user" src="{{'./../../../content/images/small/' + currentMessage.channel.source.logoUrl}}" alt="logo of the channel"></div>
+                    <div class="az-chat-msg-name">
+                      <h6>{{currentMessage.messageTitle}}</h6>
+                      <small>
+                      <span *ngIf="currentMessage.user==null">Not assigned
+                      </span>
+                      <span *ngIf="currentMessage.user!=null">assigned to <strong>{{currentMessage.user.login}}</strong></span>
+                      </small>
+                    </div>
                 </div>
-                <nav class="nav">
-                  <a href="" class="nav-link"><i class="icon ion-md-more"></i></a>
-                  <a href="" class="nav-link" data-toggle="tooltip" title="Call"><i class="icon ion-ios-call"></i></a>
-                  <a class="nav-link" data-toggle="tooltip" title="Archive"><jhi-archivemessage [msg]="currentMessage" (archimessageEvent)="receiveArchiveMsg($event)"></jhi-archivemessage></a>
-                  <a href="" class="nav-link" data-toggle="tooltip" title="Trash"><i class="icon ion-md-trash"></i></a>
-                  <a href="" class="nav-link" data-toggle="tooltip" title="View Info"><i
-                      class="icon ion-md-information-circle"></i></a>
-                </nav>
+                <div id="createdDate">
+                    {{this.currentMessage.createdAt| date }}<br>
+                    {{this.currentMessage.createdAt| date : 'shortTime' }}
+                </div>
+                <div>
+                    <nav class="nav">
+                        <a href="" class="nav-link" data-toggle="tooltip" title="Call"><i class="icon ion-ios-call"></i></a>
+                        <a class="nav-link" data-toggle="tooltip" title="Archive"><jhi-archivemessage [msg]="currentMessage" (archimessageEvent)="receiveArchiveMsg($event)"></jhi-archivemessage></a>
+                        <a href="" class="nav-link" data-toggle="tooltip" title="Trash"><i class="icon ion-md-trash"></i></a>
+                        <a href="" class="nav-link" data-toggle="tooltip" title="View Info"><i
+                            class="icon ion-md-information-circle"></i></a>
+                      </nav>
+                </div>
               </div><!-- az-chat-header -->
               <div id="azChatBody" class="az-chat-body">
                 <div class="content-inner">
@@ -240,8 +247,7 @@
                       <div class="az-msg-wrapper">
                         <h6>channel : </h6>
                         {{currentMessage.channel.channelName}}
-                        created at {{this.currentMessage.createdAt}}
-                      </div>
+                        </div>
                     </div>
                   </div>
                   <div class="media">

@@ -1,0 +1,203 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="paul (generated)" id="1555950844996-1">
+        <createTable tableName="annotation">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="annotationPK"/>
+            </column>
+            <column name="annotation_data" type="VARCHAR(255)"/>
+            <column name="annotation_type" type="INT"/>
+            <column name="message_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="paul (generated)" id="1555950844996-2">
+        <createTable tableName="channel">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="channelPK"/>
+            </column>
+            <column name="channel_name" type="VARCHAR(255)"/>
+            <column name="domain" type="VARCHAR(255)"/>
+            <column name="source_id" type="BIGINT"/>
+            <column name="team_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="paul (generated)" id="1555950844996-3">
+        <createTable tableName="jhi_authority">
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="paul (generated)" id="1555950844996-4">
+        <createTable tableName="jhi_persistent_audit_event">
+            <column autoIncrement="true" name="event_id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="jhi_persistent_audit_eventPK"/>
+            </column>
+            <column name="event_date" type="BINARY(255)"/>
+            <column name="event_type" type="VARCHAR(255)"/>
+            <column name="principal" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="paul (generated)" id="1555950844996-5">
+        <createTable tableName="jhi_persistent_audit_evt_data">
+            <column name="event_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="paul (generated)" id="1555950844996-6">
+        <createTable tableName="jhi_user">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="jhi_userPK"/>
+            </column>
+            <column name="created_by" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="BINARY(255)"/>
+            <column name="last_modified_by" type="VARCHAR(50)"/>
+            <column name="last_modified_date" type="BINARY(255)"/>
+            <column name="activated" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="activation_key" type="VARCHAR(20)"/>
+            <column name="email" type="VARCHAR(254)"/>
+            <column name="first_name" type="VARCHAR(50)"/>
+            <column name="image_url" type="VARCHAR(256)"/>
+            <column name="lang_key" type="VARCHAR(6)"/>
+            <column name="last_name" type="VARCHAR(50)"/>
+            <column name="login" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password_hash" type="VARCHAR(60)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="reset_date" type="BINARY(255)"/>
+            <column name="reset_key" type="VARCHAR(20)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="paul (generated)" id="1555950844996-7">
+        <createTable tableName="jhi_user_authority">
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="authority_name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="paul (generated)" id="1555950844996-8">
+        <createTable tableName="message">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="messagePK"/>
+            </column>
+            <column name="archived" type="BOOLEAN"/>
+            <column name="created_at" type="BINARY(255)"/>
+            <column name="message_text" type="VARCHAR(255)"/>
+            <column name="message_title" type="VARCHAR(255)"/>
+            <column name="channel_id" type="BIGINT"/>
+            <column name="user_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="paul (generated)" id="1555950844996-9">
+        <createTable tableName="source">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="sourcePK"/>
+            </column>
+            <column name="logo_url" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="paul (generated)" id="1555950844996-10">
+        <createTable tableName="team">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="teamPK"/>
+            </column>
+            <column name="team_name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="paul (generated)" id="1555950844996-11">
+        <createTable tableName="team_user">
+            <column name="team_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="paul (generated)" id="1555950844996-12">
+        <createTable tableName="user_info">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="user_infoPK"/>
+            </column>
+            <column name="company_name" type="VARCHAR(255)"/>
+            <column name="user_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="paul (generated)" id="1555950844996-13">
+        <addPrimaryKey columnNames="event_id, name" tableName="jhi_persistent_audit_evt_data"/>
+    </changeSet>
+    <changeSet author="paul (generated)" id="1555950844996-14">
+        <addPrimaryKey columnNames="user_id, authority_name" tableName="jhi_user_authority"/>
+    </changeSet>
+    <changeSet author="paul (generated)" id="1555950844996-15">
+        <addPrimaryKey columnNames="team_id, user_id" tableName="team_user"/>
+    </changeSet>
+    <changeSet author="paul (generated)" id="1555950844996-16">
+        <addPrimaryKey columnNames="name" constraintName="jhi_authorityPK" tableName="jhi_authority"/>
+    </changeSet>
+    <changeSet author="paul (generated)" id="1555950844996-17">
+        <addUniqueConstraint columnNames="domain" constraintName="UC_CHANNELDOMAIN_COL" tableName="channel"/>
+    </changeSet>
+    <changeSet author="paul (generated)" id="1555950844996-18">
+        <addUniqueConstraint columnNames="email" constraintName="UC_JHI_USEREMAIL_COL" tableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="paul (generated)" id="1555950844996-19">
+        <addUniqueConstraint columnNames="login" constraintName="UC_JHI_USERLOGIN_COL" tableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="paul (generated)" id="1555950844996-20">
+        <addUniqueConstraint columnNames="logo_url" constraintName="UC_SOURCELOGO_URL_COL" tableName="source"/>
+    </changeSet>
+    <changeSet author="paul (generated)" id="1555950844996-21">
+        <addUniqueConstraint columnNames="user_id" constraintName="UC_USER_INFOUSER_ID_COL" tableName="user_info"/>
+    </changeSet>
+    <changeSet author="paul (generated)" id="1555950844996-22">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="jhi_user_authority" constraintName="FK290okww5jujghp4el5i7mgwu0" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="paul (generated)" id="1555950844996-23">
+        <addForeignKeyConstraint baseColumnNames="event_id" baseTableName="jhi_persistent_audit_evt_data" constraintName="FK2ehnyx2si4tjd2nt4q7y40v8m" deferrable="false" initiallyDeferred="false" referencedColumnNames="event_id" referencedTableName="jhi_persistent_audit_event"/>
+    </changeSet>
+    <changeSet author="paul (generated)" id="1555950844996-24">
+        <addForeignKeyConstraint baseColumnNames="authority_name" baseTableName="jhi_user_authority" constraintName="FK4psxl0jtx6nr7rhqbynr6itoc" deferrable="false" initiallyDeferred="false" referencedColumnNames="name" referencedTableName="jhi_authority"/>
+    </changeSet>
+    <changeSet author="paul (generated)" id="1555950844996-25">
+        <addForeignKeyConstraint baseColumnNames="team_id" baseTableName="channel" constraintName="FK63ug4lh1q6hpxuyqhbs6xm1v8" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="team"/>
+    </changeSet>
+    <changeSet author="paul (generated)" id="1555950844996-26">
+        <addForeignKeyConstraint baseColumnNames="message_id" baseTableName="annotation" constraintName="FKeqg3ob9l5se81coa4obmuwouc" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="message"/>
+    </changeSet>
+    <changeSet author="paul (generated)" id="1555950844996-27">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="team_user" constraintName="FKgakn5n7p8elsg8q2fy6ivx3s0" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="paul (generated)" id="1555950844996-28">
+        <addForeignKeyConstraint baseColumnNames="channel_id" baseTableName="message" constraintName="FKiimr93ytmcuira5le0sldvvma" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="channel"/>
+    </changeSet>
+    <changeSet author="paul (generated)" id="1555950844996-29">
+        <addForeignKeyConstraint baseColumnNames="team_id" baseTableName="team_user" constraintName="FKiuwi96twuthgvhnarqj34mnjv" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="team"/>
+    </changeSet>
+    <changeSet author="paul (generated)" id="1555950844996-30">
+        <addForeignKeyConstraint baseColumnNames="source_id" baseTableName="channel" constraintName="FKjby5hvjw2e91qp2dw4x74hdsd" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="source"/>
+    </changeSet>
+    <changeSet author="paul (generated)" id="1555950844996-31">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="message" constraintName="FKrumgu0bb6vpdtqlvtvdxooamf" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="paul (generated)" id="1555950844996-32">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_info" constraintName="FKtru6uy2bh99vvb8yc1pt96hcr" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="jhi_user"/>
+    </changeSet>
+</databaseChangeLog>

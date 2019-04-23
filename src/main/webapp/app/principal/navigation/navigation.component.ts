@@ -11,11 +11,12 @@ import { IAnnotation } from 'app/shared/model/annotation.model';
 import { AnnotationService } from 'app/entities/annotation';
 import { AccountService, LoginService, IUser, UserService } from 'app/core';
 import { Router } from '@angular/router';
+import { SourceService } from 'app/entities/source';
 
 @Component({
     selector: 'jhi-navigation',
     templateUrl: './navigation.component.html',
-    styles: ['messages.scss']
+    styleUrls: ['navigation.scss']
 })
 export class NavigationComponent implements OnInit {
     teams: ITeam[];
@@ -37,7 +38,8 @@ export class NavigationComponent implements OnInit {
         protected accountService: AccountService,
         protected loginService: LoginService,
         protected route: Router,
-        protected userService: UserService
+        protected userService: UserService,
+        protected sourceService: SourceService
     ) {
         this.currentMessage = null;
         this.edited = false;
