@@ -1,11 +1,14 @@
 package org.chatbot.app.web.rest.modelsreq;
-public class Modmesg {
-    long id;
+
+import java.io.Serializable;
+
+public class Modmesg implements Serializable{
+    String id;
     String message;
     /**
      * @param id the id to set
      */
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
     /**
@@ -17,8 +20,12 @@ public class Modmesg {
     /**
      * @return the id
      */
-    public long getId() {
+    public String getId() {
         return id;
+    }
+    @Override
+    public String toString() {
+        return super.toString();
     }
     /**
      * @return the message

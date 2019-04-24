@@ -1,9 +1,13 @@
 package org.chatbot.app.web.rest.modelsreq;
-public class ModRep {
+
+import java.io.Serializable;
+
+public class ModRep implements Serializable{
     private long id;
     private String message;
     private String label;
     private float probability;
+    private String intent;
     /**
      * @return the id
      */
@@ -52,4 +56,20 @@ public class ModRep {
     public void setProbability(float probability) {
         this.probability = probability;
     }
-}
+    public  String toString(){
+        return "id : "+id+"\nmessage : "+message+"\nlabel : "+label+ "\nprobability "+probability+
+        "\n";
+    }
+    /**
+     * @param intent the intent to set
+     */
+    public void setIntent(String intent) {
+        this.intent = intent;
+    }
+    /**
+     * @return the intent
+     */
+    public String getIntent() {
+        return intent;
+    }
+} 

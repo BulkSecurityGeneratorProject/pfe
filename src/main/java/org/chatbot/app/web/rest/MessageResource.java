@@ -1,11 +1,14 @@
 package org.chatbot.app.web.rest;
 
 import org.chatbot.app.domain.Message;
+import org.chatbot.app.repository.AnnotationRepository;
 import org.chatbot.app.repository.MessageRepository;
 import org.chatbot.app.service.UserService;
 import org.chatbot.app.web.rest.errors.BadRequestAlertException;
+import org.chatbot.app.web.rest.modelsreq.SendModelRequest;
 import org.chatbot.app.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -29,19 +31,23 @@ public class MessageResource {
     private static final String ENTITY_NAME = "message";
 
     private final MessageRepository messageRepository;
+    private final AnnotationRepository annotationRepository;
 
-    public MessageResource(MessageRepository messageRepository, UserService userService) {
+    public MessageResource(MessageRepository messageRepository, UserService userService,AnnotationRepository annotationRepository) {
         this.messageRepository = messageRepository;
         this.userService = userService;
+        this.annotationRepository=annotationRepository;
     }
-  
+
     private UserService userService;
 
     /**
-     * POST  /messages : Create a new message.
+     * POST /messages : Create a new message.
      *
      * @param message the message to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new message, or with status 400 (Bad Request) if the message has already an ID
+     * @return the ResponseEntity with status 201 (Created) and with body the new
+     *         message, or with status 400 (Bad Request) if the message has already
+     *         an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/messages")
@@ -52,11 +58,22 @@ public class MessageResource {
         }
         message.setArchived(false);
         Message result = messageRepository.save(message);
+        String url1="http://3f619950.ngrok.io/prediction/";
+        SendModelRequest request1=new SendModelRequest(url1,result,annotationRepository);
+        request1.start();
+        String url2="http://53329611.ngrok.io/prediction/";
+        SendModelRequest request2=new SendModelRequest(url2,result,annotationRepository);
+        request2.start();
+        String url3="http://41f0466b.ngrok.io/prediction_sentiment/";
+        SendModelRequest request3=new SendModelRequest(url3,result,annotationRepository);
+        request3.start(); 
+        String url4="https://8c41c6ed.ngrok.io/prediction_urgence/";
+        SendModelRequest request4=new SendModelRequest(url4,result,annotationRepository);
+        request4.start();
+        // setAnnoations(message);
         return ResponseEntity.created(new URI("/api/messages/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString())).body(result);
     }
-
     /**
      * PUT  /messages : Updates an existing message.
      *

@@ -3,6 +3,7 @@ package org.chatbot.app.web.rest;
 import org.chatbot.app.ChatbotApp;
 
 import org.chatbot.app.domain.Message;
+import org.chatbot.app.repository.AnnotationRepository;
 import org.chatbot.app.repository.MessageRepository;
 import org.chatbot.app.service.UserService;
 import org.chatbot.app.web.rest.errors.ExceptionTranslator;
@@ -49,6 +50,7 @@ public class MessageResourceIntTest {
 
     @Autowired
     private MessageRepository messageRepository;
+    @Autowired AnnotationRepository annotationRepository;
     @Autowired
     private UserService userService;
     @Autowired
@@ -73,7 +75,7 @@ public class MessageResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final MessageResource messageResource = new MessageResource(messageRepository,userService);
+        final MessageResource messageResource = new MessageResource(messageRepository,userService,annotationRepository);
         this.restMessageMockMvc = MockMvcBuilders.standaloneSetup(messageResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
