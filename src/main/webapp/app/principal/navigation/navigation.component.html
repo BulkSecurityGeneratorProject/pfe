@@ -31,8 +31,8 @@
       <ul class="nav">
         <li class="nav-label">Teams    <jhi-addteam [users]="users" (addingTeamEvent)="receiveAddedTeam($event)"></jhi-addteam></li>
         <li class="nav-item active show" *ngFor="let team of teams">
-          <a class="nav-link with-sub"><i class="typcn typcn-clipboard"></i><span
-              (click)="filterByTeam(team)">{{team.teamName}} </span> &nbsp; <jhi-inviteteammate [team]="team"></jhi-inviteteammate></a>
+          <a class="nav-link with-sub"><i class="typcn typcn-clipboard"></i><div id="invitation" class="row"
+              ><div (click)="filterByTeam(team)"> {{team.teamName}} </div> &nbsp; <jhi-inviteteammate [team]="team" [users]="users"></jhi-inviteteammate></div></a>
           <nav class="nav-sub">
             <span *ngFor="let channel of channels">
               <a class="nav-sub-link" *ngIf="channel.team.id===team.id"
@@ -150,12 +150,15 @@
               </div><!-- az-chat-active-contacts -->
       
               <div id="azChatList" class="az-chat-list">
-                <div class="media new" *ngFor="let message of messagesDisp" (click)="changeCurrentMessage(message)">
+                <div class="media " 
+                [ngClass]="{
+                  'selected': message==currentMessage
+                }" *ngFor="let message of messagesDisp" (click)="changeCurrentMessage(message)">
                   <div class="az-img-user"><img src="{{'./../../../content/images/small/' + message.channel.source.logoUrl}}" alt="logo de zendesk"></div>
                   <div class="media-body">
                     <div class="media-contact-name">
                       <span>{{message.messageTitle}}</span>
-                      <span>{{message.user?.login}}</span>
+                      <span>{{message.createdAt| date : 'shortTime'}}</span>
                     </div>
                     <p>
                       <div><span *ngFor="let a of annotations">
@@ -165,12 +168,18 @@
                     </p>
                   </div><!-- media-body -->
                 </div><!-- media -->
+                <div class="media"  *ngIf="messagesDisp.length==0">
+                    <div class="media-body">
+                        <div class="media-contact-name">No message !!!</div>
+                    </div>
+                </div>
+             
               </div><!-- az-chat-list -->
             </div><!-- az-content-left -->
-            <div class=" az-content-body-chat">
+            <div *ngIf="currentMessage!==null" class=" az-content-body-chat">
               <div class="az-chat-header" id="headerOfCur">
                 <div class="row">
-                    <div class="az-img-user"><img class="az-img-user" src="{{'./../../../content/images/small/' + currentMessage.channel.source.logoUrl}}" alt="logo of the channel"></div>
+                    <div class="az-img-user"><img src="{{'./../../../content/images/small/' + currentMessage.channel.source.logoUrl}}" alt="logo of the channel"></div>
                     <div class="az-chat-msg-name">
                       <h6>{{currentMessage.messageTitle}}</h6>
                       <small>
@@ -198,16 +207,14 @@
                 <div class="content-inner">
                   <div class="media">
                     <div class="media-body">
-                      <div class="az-msg-wrapper">
+                      <div class="az-msg-wrapper" id="messageDetails">
                         <h6>Message</h6>
                         {{currentMessage.messageText}}
-                      </div><!-- az-msg-wrapper -->
-                    </div><!-- media-body -->
-                  </div><!-- media -->
-                  <div  class="media">
-                    <div class="media-body">
-                      <div class="az-msg-wrapper">
-                        <h6>User : </h6>
+                        <hr>
+                        <h6>channel : </h6>
+                        {{currentMessage.channel.channelName}}
+                        <hr>
+                        <h6>assigned to : </h6>
                         <ng-container *ngIf="currentMessage.user==null; then add; else change">
                         </ng-container>
                         <ng-template #change>
@@ -218,48 +225,32 @@
                           {{currentMessage.user?.login}}<button type="button" class="btn btn-info btn-xs"
                             (click)="edited=true;">Add</button>
                         </ng-template>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="media">
-                    <div class="media-body">
-                      <div class="az-msg-wrapper" *ngIf="edited==true">
-                        <form>
-                          <div class="form-group">
-                            <label for="choosingUser"><h6> choose User</h6></label>
-                            <select class="form-control" [(ngModel)]="currentMessage.user" name="Utilisateur">
-                              <option  [ngValue]="null"></option>
-                              <option [ngValue]="userOption" id="choosingUser" *ngFor="let userOption of users;">
-                                {{userOption.login}}
-                              </option>
-                            </select>
+                        
+                        <div *ngIf="edited==true">
+                            <hr>
+                            <form>
+                              <div class="form-group">
+                                <label for="choosingUser"><h6> choose User</h6></label>
+                                <select class="form-control" [(ngModel)]="currentMessage.user" name="Utilisateur">
+                                  <option  [ngValue]="null"></option>
+                                  <option [ngValue]="userOption" id="choosingUser" *ngFor="let userOption of users;">
+                                    {{userOption.login}}
+                                  </option>
+                                </select>
+                              </div>
+                              <button (click)="edited=false;save()" class="btn btn-primary">
+                                <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                              </button>
+                            </form>
                           </div>
-                          <button (click)="edited=false;save()" class="btn btn-primary">
-                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
-                          </button>
-                        </form>
-                        <hr>
-                      </div>
-                    </div><!-- media-body -->
-                  </div><!-- media -->
-                  <div class="media">
-                    <div class="media-body">
-                      <div class="az-msg-wrapper">
-                        <h6>channel : </h6>
-                        {{currentMessage.channel.channelName}}
-                        </div>
-                    </div>
-                  </div>
-                  <div class="media">
-                    <div class="media-body">
-                      <div class="az-msg-wrapper col-lg-12">
-                        <h6>Annotations</h6>
+                          <hr>
+                          <h6>Annotations</h6>
                         <h6><span *ngFor="let a of annotations">
                             <span *ngIf="a.message.id===currentMessage.id">
                               <span class="badge badge-pill badge-info">{{a.annotationData}}
                               </span></span></span></h6>
                               <jhi-addannotation [msg]="currentMessage" (addingEvent)="receiveAddAnnotation($event)"></jhi-addannotation>
-                      </div>
+                      </div><!-- az-msg-wrapper -->
                     </div><!-- media-body -->
                   </div><!-- media -->
                 </div><!-- az-chat-body -->
@@ -269,5 +260,8 @@
         </div>
     </div><!-- az-content-header -->
 </div>
+
+
+
 
 

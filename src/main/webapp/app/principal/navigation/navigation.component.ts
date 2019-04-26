@@ -116,9 +116,13 @@ export class NavigationComponent implements OnInit {
     }
     filterByTeam(team: ITeam) {
         this.messagesDisp = this.messages.filter(message => message.channel.team.id === team.id);
+        if (this.messagesDisp.length !== 0) this.currentMessage = this.messagesDisp[0];
+        else this.currentMessage = null;
     }
     filterByChannel(channel: IChannel) {
         this.messagesDisp = this.messages.filter(message => message.channel.id === channel.id);
+        if (this.messagesDisp.length !== 0) this.currentMessage = this.messagesDisp[0];
+        else this.currentMessage = null;
     }
     save() {
         if (this.currentMessage.id !== undefined) {

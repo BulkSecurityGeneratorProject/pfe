@@ -2,6 +2,7 @@ package org.chatbot.app.web.rest;
 
 import org.chatbot.app.domain.Annotation;
 import org.chatbot.app.domain.Channel;
+import org.chatbot.app.domain.InviteUserTeam;
 import org.chatbot.app.domain.Message;
 import org.chatbot.app.domain.Source;
 import org.chatbot.app.domain.Team;
@@ -84,6 +85,10 @@ public class AccountResource {
         User user = userService.registerUser(managedInvitedUser, managedInvitedUser.getPassword());
         mailService.sendActivationEmail(user);
         teamRepository.invitation(user.getId(),managedInvitedUser.getTeam());
+    }
+    @PostMapping("/inviteExis")
+    public void inviteExis(@Valid @RequestBody InviteUserTeam invitation){
+        teamRepository.invitation(invitation.getUserId(),invitation.getTeamId());
     }
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)

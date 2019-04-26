@@ -17,15 +17,12 @@ public interface ChannelRepository extends JpaRepository<Channel, Long> {
 
     final String req = "select c.* from channel c, team_user tr " + "where " + "c.team_id=tr.team_id and "
             + "tr.user_id= :id ";
-
     @Query(value = req, nativeQuery = true)
     List<Channel> findByTeamChannel(@Param("id") Long id);
 
-final String req2="select * from channel where CHANNEL_NAME=:name";
+final String req2="select c.* from channel c where charindex(c.domain,:url)>=1";
 @Query(value = req2,nativeQuery = true)
-Optional<Channel> findOneByChannelName(@Param("name") String name);
-
-
+Optional<Channel> findOneByChannelName(@Param("url") String url);
 }
 
 //Controle

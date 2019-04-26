@@ -1,6 +1,7 @@
 package org.chatbot.app.web.rest;
 
 import org.chatbot.app.domain.Annotation;
+import org.chatbot.app.domain.AnnotationGrouped;
 import org.chatbot.app.repository.AnnotationRepository;
 import org.chatbot.app.service.UserService;
 import org.chatbot.app.web.rest.errors.BadRequestAlertException;
@@ -86,8 +87,13 @@ public class AnnotationResource {
         log.debug("REST request to get all Annotations");
         Long id=userService.getUserWithAuthorities().get().getId();
         return annotationRepository.findByUserId(id);
-    }
+    } 
 
+    @GetMapping("/annotationGrouped")
+    public List<AnnotationGrouped> getGrupedAnnotations(){
+        Long id=userService.getUserWithAuthorities().get().getId();
+        return annotationRepository.findGroupAnnotaion(id);
+    }
     /**
      * GET  /annotations/:id : get the "id" annotation.
      *

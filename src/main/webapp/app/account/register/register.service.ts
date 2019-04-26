@@ -14,4 +14,7 @@ export class Register {
     invite(account: any): Observable<any> {
         return this.http.post(SERVER_API_URL + 'api/invite', account);
     }
+    inviteExis(user: any): Observable<any> {
+        return this.http.post(SERVER_API_URL + 'api/inviteExis', user);
+    }
 }

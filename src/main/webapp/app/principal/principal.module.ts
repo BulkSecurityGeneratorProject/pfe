@@ -10,6 +10,7 @@ import { AddchannelComponent } from './addchannel/addchannel.component';
 import { AddteamComponent } from './addteam/addteam.component';
 import { InviteteammateComponent } from './inviteteammate/inviteteammate.component';
 import { ArchivemessageComponent } from './archivemessage/archivemessage.component';
+import { TestComponent } from './test/test.component';
 const principalRoute: Routes = [
     {
         path: 'pm',
@@ -22,7 +23,7 @@ const principalRoute: Routes = [
     },
     {
         path: 'm',
-        component: AddteamComponent
+        component: TestComponent
     }
 ];
 @NgModule({
@@ -33,7 +34,8 @@ const principalRoute: Routes = [
         AddchannelComponent,
         AddteamComponent,
         InviteteammateComponent,
-        ArchivemessageComponent
+        ArchivemessageComponent,
+        TestComponent
     ],
     imports: [CommonModule, RouterModule.forChild(principalRoute), FormsModule],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

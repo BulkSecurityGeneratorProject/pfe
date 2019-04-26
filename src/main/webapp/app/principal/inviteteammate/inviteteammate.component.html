@@ -1,9 +1,9 @@
 <span class="dropright">
-  <small data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  <div  id="inviteteammateIcon" data-toggle="dropdown" >
     <i class="fas fa-user-plus"></i>
-  </small>
+  </div>
   <div class="dropdown-menu">
-    <form (ngSubmit)="register()">
+    <form (ngSubmit)="register()" id="formulaire">
       <label>Invitation</label>
       <div class="form-group">
         <input type="text" class="form-control" [(ngModel)]="registerAccount.login" id="login" name="login"
@@ -15,7 +15,7 @@
           maxlength=254 email required>
       </div>
       <div>
-        <button type="submit">Send</button>
+        <button type="submit" class="btn btn-primary btn-xs">Send</button>
       </div>
     </form>
   </div>
