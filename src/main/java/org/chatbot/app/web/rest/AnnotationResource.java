@@ -90,7 +90,7 @@ public class AnnotationResource {
     } 
 
     @GetMapping("/annotationGrouped")
-    public List<AnnotationGrouped> getGrupedAnnotations(){
+    public List<?> getGrupedAnnotations(){
         Long id=userService.getUserWithAuthorities().get().getId();
         return annotationRepository.findGroupAnnotaion(id);
     }

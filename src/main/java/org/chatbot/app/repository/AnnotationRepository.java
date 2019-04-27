@@ -34,5 +34,5 @@ public interface AnnotationRepository extends JpaRepository<Annotation, Long> {
    " group by data"+
    " order by nb DESC";
    @Query(value=req2,nativeQuery = true)
-   List<AnnotationGrouped> findGroupAnnotaion(@Param("id") Long id);
+   List<?> findGroupAnnotaion(@Param("id") Long id);
 }

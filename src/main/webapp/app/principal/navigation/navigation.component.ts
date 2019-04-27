@@ -23,7 +23,7 @@ export class NavigationComponent implements OnInit {
     channels: IChannel[];
     messagesDisp: IMessage[];
     messages: IMessage[];
-    annotData: String[];
+    annotationGrouped: any[];
     currentMessage: IMessage = null;
     annotations: IAnnotation[];
     users: IUser[];
@@ -49,6 +49,7 @@ export class NavigationComponent implements OnInit {
         this.laodAllChannels();
         this.loadAllMessages();
         this.loadAllAnnotations();
+        this.loadGroupedAnnotations();
         this.loadAllUsers();
         this.accountService.identity().then(account => {
             this.currentAccount = account;
@@ -80,8 +81,26 @@ export class NavigationComponent implements OnInit {
             )
             .subscribe((res: IAnnotation[]) => {
                 this.annotations = res;
-                this.filteringAnnotations();
+                //this.filteringAnnotations();
             });
+    }
+    loadGroupedAnnotations() {
+        this.annotationService
+            .groupedAnnotions()
+            .pipe(
+                filter((res: HttpResponse<any[]>) => res.ok),
+                map((res: HttpResponse<any[]>) => res.body)
+            )
+            .subscribe(
+                (res: any[]) => {
+                    console.log('ok');
+                    this.annotationGrouped = res;
+                    console.log(res);
+                },
+                (response: HttpErrorResponse) => {
+                    console.log('error req ' + response.message);
+                }
+            );
     }
     loadAllTaams() {
         this.teamService
@@ -140,7 +159,7 @@ export class NavigationComponent implements OnInit {
     }
     receiveAddAnnotation($event) {
         this.annotations.push($event);
-        this.filteringAnnotations();
+        //this.filteringAnnotations();
     }
     receiveAddedTeam($event) {
         this.teams.push($event);
@@ -153,7 +172,7 @@ export class NavigationComponent implements OnInit {
         this.loadAllAnnotations();
         this.currentMessage = this.messages[0];
     }
-    filteringAnnotations() {
+    /*     filteringAnnotations() {
         this.annotData = this.annotations.map(a => a.annotationData.toLowerCase());
         const m = this.annotData.reduce((map, value) => {
             map.set(value, (map.get(value) || 0) + 1);
@@ -163,7 +182,7 @@ export class NavigationComponent implements OnInit {
             yield* [...this.entries()].sort((a, b) => a[1] - b[1]);
         };
         this.t = m;
-    }
+    } */
 }
 @Pipe({
     name: 'filterUnique',

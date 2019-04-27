@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
 import { IAnnotation } from 'app/shared/model/annotation.model';
-import { IAnnotationGrouped } from 'app/shared/model/annotationGrouped.model';
+import { IAnnotationGrouped, AnnotationGrouped } from 'app/shared/model/annotationGrouped.model';
 
 type EntityResponseType = HttpResponse<IAnnotation>;
 type EntityArrayResponseType = HttpResponse<IAnnotation[]>;
@@ -36,7 +36,7 @@ export class AnnotationService {
     delete(id: number): Observable<HttpResponse<any>> {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
-    groupedAnnotions(): Observable<HttpResponse<IAnnotationGrouped[]>> {
-        return this.http.get<IAnnotationGrouped[]>(SERVER_API_URL + '/annotationGrouped', { observe: 'response' });
+    groupedAnnotions(): Observable<HttpResponse<any[]>> {
+        return this.http.get<any[]>(SERVER_API_URL + '/api/annotationGrouped', { observe: 'response' });
     }
 }
