@@ -8,6 +8,19 @@ public class ModRep implements Serializable{
     private String label;
     private float probability;
     private String intent;
+    private float confidence;
+    /**
+     * @param confidence the confidence to set
+     */
+    public void setConfidence(float confidence) {
+        this.confidence = confidence;
+    }
+    /**
+     * @return the confidence
+     */
+    public float getConfidence() {
+        return confidence;
+    }
     /**
      * @return the id
      */

@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -19,17 +20,20 @@ public class SendModelRequest extends Thread {
     private String url;
     private Message message;
     private final AnnotationRepository annotationRepository;
+    private float threshold;
 
-    public SendModelRequest(String url, Message message,AnnotationRepository annotationRepository) {
+    public SendModelRequest(String url, Message message, AnnotationRepository annotationRepository,float threshold) {
         this.url = url;
         this.message = message;
-        this.annotationRepository=annotationRepository;
+        this.threshold=threshold;
+        this.annotationRepository = annotationRepository;
     }
+
     public void run() {
         Modmesg msg = new Modmesg();
         ModRep res = new ModRep();
         msg.setId(Long.toString(message.getId()));
-        msg.setMessage(message.getMessageTitle() + ", " + message.getMessageText());
+        msg.setMessage(message.getMessageText());
         JSONObject json = new JSONObject();
         try {
             json.put("id", msg.getId());
@@ -47,14 +51,21 @@ public class SendModelRequest extends Thread {
             request.setEntity(params);
             CloseableHttpResponse response = httpClient.execute(request);
             System.out.println("response" + response.toString());
-            ObjectMapper objectMapper=new ObjectMapper();
-            res = objectMapper.readValue(response.getEntity().getContent(), ModRep.class);
-            System.out.println(res.toString());
-            Annotation annotation=new Annotation();
-            annotation.setMessage(message);
-            annotation.setAnnotationType(Math.round(res.getProbability()));
-            annotation.setAnnotationData(res.getLabel());
-            this.annotationRepository.save(annotation);
+            ObjectMapper objectMapper = new ObjectMapper();
+            HttpEntity t = response.getEntity();
+            if(t!=null){
+                res = objectMapper.readValue(t.getContent(), ModRep.class);
+                System.out.println(res.toString());
+                Annotation annotation=new Annotation();
+                annotation.setMessage(message);
+                annotation.setAnnotationType(Math.round(res.getProbability()));
+                annotation.setAnnotationData(res.getLabel());
+                if(res.getProbability()>=threshold)
+                {
+                    this.annotationRepository.save(annotation);
+                }
+            }
+          
         // handle response here...
         } catch (Exception ex) {
             // handle exception here

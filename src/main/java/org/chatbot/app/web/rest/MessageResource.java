@@ -58,7 +58,7 @@ public class MessageResource {
         }
         message.setArchived(false);
         Message result = messageRepository.save(message);
-        String url1="http://3f619950.ngrok.io/prediction/";
+        /* String url1="http://3f619950.ngrok.io/prediction/";
         SendModelRequest request1=new SendModelRequest(url1,result,annotationRepository);
         request1.start();
         String url2="http://53329611.ngrok.io/prediction/";
@@ -69,7 +69,7 @@ public class MessageResource {
         request3.start(); 
         String url4="https://8c41c6ed.ngrok.io/prediction_urgence/";
         SendModelRequest request4=new SendModelRequest(url4,result,annotationRepository);
-        request4.start();
+        request4.start(); */
         // setAnnoations(message);
         return ResponseEntity.created(new URI("/api/messages/" + result.getId()))
                 .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString())).body(result);

@@ -20,10 +20,9 @@
 <div id="thispage">
 
 <div class="az-body az-body-sidebar">
-  <div class="az-sidebar"
- >
+  <div class="az-sidebar">
     <div class="az-sidebar-header">
-      <a href="" class="az-logo">Inn<span>ova</span>Bot</a>
+      <a routerLink="" class="az-logo">Inn<span>ova</span>Bot</a>
     </div><!-- az-sidebar-header -->
     <div class="az-sidebar-loggedin">
       <div class="az-img-user online"><img src="https://via.placeholder.com/500x500" alt=""></div>
@@ -34,7 +33,7 @@
     </div><!-- az-sidebar-loggedin -->
     <div class="az-sidebar-body">
       <ul class="nav">
-        <li class="nav-label">Teams    <jhi-addteam [users]="users" (addingTeamEvent)="receiveAddedTeam($event)"></jhi-addteam></li>
+        <li class="nav-label" (click)="messagesDisp=messages">Teams    <jhi-addteam [users]="users" (addingTeamEvent)="receiveAddedTeam($event)"></jhi-addteam></li>
         <li class="nav-item active show" *ngFor="let team of teams">
           <a class="nav-link with-sub"><i class="typcn typcn-clipboard"></i><div id="invitation" class="row"
               ><div (click)="filterByTeam(team)"> {{team.teamName}} </div> &nbsp; <jhi-inviteteammate [team]="team" [users]="users"></jhi-inviteteammate></div></a>
@@ -56,7 +55,7 @@
             <!-- <div><span *ngFor="let a of t.keys()">
               <p> {{a}} <span class="badge badge-dark">{{t.get(a)}}</span></p>
              </span></div> -->
-          <div><span *ngFor="let a of annotationGrouped|slice:0:3">
+          <div><span *ngFor="let a of annotationGrouped|slice:0:annotationGrouped.length">
                 <p> {{a[0]}} <span class="badge badge-dark">{{a[1]}}</span></p>
           </span></div>
         </li>

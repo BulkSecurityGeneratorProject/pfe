@@ -20,7 +20,7 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
     final String req = "select distinct m.* from ((message m "+
     " inner join channel c on m.channel_id=c.id) "+
     "inner join team_user tr on c.team_id=tr.team_id) "+
-    " where tr.user_id =:id and m.archived=false order By m.created_at ASC";
+    " where tr.user_id =:id and m.archived=false order By m.created_at DESC";
     @Query(value = req, nativeQuery = true)
     List<Message> findByUserTeamChannel(@Param("id") Long id);
 }

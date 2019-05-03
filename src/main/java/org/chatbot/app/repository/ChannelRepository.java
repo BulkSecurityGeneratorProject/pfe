@@ -20,7 +20,7 @@ public interface ChannelRepository extends JpaRepository<Channel, Long> {
     @Query(value = req, nativeQuery = true)
     List<Channel> findByTeamChannel(@Param("id") Long id);
 
-final String req2="select c.* from channel c where charindex(c.domain,:url)>=1";
+final String req2="select c.* from channel c where charindex(:url,c.domain)>=1";
 @Query(value = req2,nativeQuery = true)
 Optional<Channel> findOneByChannelName(@Param("url") String url);
 }

@@ -137,4 +137,14 @@ jhipster:
 # https://www.jhipster.tech/common-application-properties/
 # ===================================================================
 
-# application:
+
+application:
+    model:
+        emotion:
+        emotionThreshold: 0.5
+        sentiment: 
+        sentimentThreshold: 0.6
+        problem: 
+        problemThreshold: 0.4
+        urgence:
+        urgenceThreshold: 0.2
