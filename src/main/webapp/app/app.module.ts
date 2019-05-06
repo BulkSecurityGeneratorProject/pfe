@@ -31,7 +31,7 @@ import { PrincipalModule } from './principal/principal.module';
             alertAsToast: false,
             alertTimeout: 5000,
             i18nEnabled: true,
-            defaultI18nLang: 'fr'
+            defaultI18nLang: 'en'
         }),
         ChatbotSharedModule.forRoot(),
         ChatbotCoreModule,
