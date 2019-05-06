@@ -143,6 +143,14 @@ export class NavigationComponent implements OnInit {
         if (this.messagesDisp.length !== 0) this.currentMessage = this.messagesDisp[0];
         else this.currentMessage = null;
     }
+    filterByAnnotation(a: String) {
+        this.messagesDisp = [];
+        for (let index = 0; index < this.annotations.length; index++) {
+            const element = this.annotations[index];
+            if (element.annotationData.toLowerCase() === a) this.messagesDisp.push(element.message);
+        }
+        this.currentMessage = this.messagesDisp[0];
+    }
     save() {
         if (this.currentMessage.id !== undefined) {
             this.messageService.update(this.currentMessage).subscribe((res: HttpResponse<IMessage>) => {

@@ -47,15 +47,10 @@
         </li><!-- nav-item -->
       </ul><!-- nav -->
       <ul class="nav">
-        <li class="nav-label">Annotations <span class="badge badge-dark">{{annotations.length}}</span></li>
+        <li (click)="messagesDisp=messages" class="nav-label">Annotations <span class="badge badge-dark">{{annotations.length}}</span></li>
         <li>
-            <!-- <p *ngFor="let a of annotData |filterUnique">
-                {{a}} <span class="badge badge-dark">{{t[a]}}</span>
-            </p> nav-item --> 
-            <!-- <div><span *ngFor="let a of t.keys()">
-              <p> {{a}} <span class="badge badge-dark">{{t.get(a)}}</span></p>
-             </span></div> -->
-          <div><span *ngFor="let a of annotationGrouped|slice:0:annotationGrouped.length">
+          <div><span *ngFor="let a of annotationGrouped|slice:0:annotationGrouped.length"
+            (click)="filterByAnnotation(a[0])">
                 <p> {{a[0]}} <span class="badge badge-dark">{{a[1]}}</span></p>
           </span></div>
         </li>

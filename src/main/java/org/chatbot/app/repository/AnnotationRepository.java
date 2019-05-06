@@ -31,8 +31,9 @@ public interface AnnotationRepository extends JpaRepository<Annotation, Long> {
       "  inner join channel c on m.channel_id=c.id) "+
       "  inner join team_user tr on c.team_id=tr.team_id)"+
       " where tr.user_id =:id and m.archived=false"+
-   " group by data"+
+   " group by data "+
+   "having nb>= 3"+
    " order by nb DESC";
    @Query(value=req2,nativeQuery = true)
    List<?> findGroupAnnotaion(@Param("id") Long id);
-}
+} 
