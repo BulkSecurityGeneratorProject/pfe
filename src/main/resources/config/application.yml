@@ -140,6 +140,7 @@ jhipster:
 
 application:
     model:
+        dburl: https://c6915819.ngrok.io/annotation_urgence/
         emotion:
         emotionThreshold: 0.5
         sentiment: 

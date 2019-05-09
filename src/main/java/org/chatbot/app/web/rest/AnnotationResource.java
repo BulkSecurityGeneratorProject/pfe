@@ -1,10 +1,12 @@
 package org.chatbot.app.web.rest;
 
+import org.chatbot.app.config.ApplicationProperties;
 import org.chatbot.app.domain.Annotation;
 import org.chatbot.app.domain.AnnotationGrouped;
 import org.chatbot.app.repository.AnnotationRepository;
 import org.chatbot.app.service.UserService;
 import org.chatbot.app.web.rest.errors.BadRequestAlertException;
+import org.chatbot.app.web.rest.modelsreq.SendModelAnnotation;
 import org.chatbot.app.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -31,10 +33,12 @@ public class AnnotationResource {
 
     private final AnnotationRepository annotationRepository;
     private final UserService userService;
+    private final ApplicationProperties applicationProperties;
 
-    public AnnotationResource(AnnotationRepository annotationRepository,UserService userService) {
+    public AnnotationResource(AnnotationRepository annotationRepository,UserService userService,ApplicationProperties applicationProperties){
         this.annotationRepository = annotationRepository;
         this.userService=userService;
+        this.applicationProperties=applicationProperties;
     }
 
     /**
@@ -51,6 +55,8 @@ public class AnnotationResource {
             throw new BadRequestAlertException("A new annotation cannot already have an ID", ENTITY_NAME, "idexists");
         }
         Annotation result = annotationRepository.save(annotation);
+        SendModelAnnotation request=new SendModelAnnotation(annotation.getMessage().getMessageText(),annotation.getAnnotationData(),applicationProperties);
+        request.start();
         return ResponseEntity.created(new URI("/api/annotations/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);

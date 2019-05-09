@@ -26,6 +26,19 @@ public Model getModel() {
     float problemThreshold;
     float urgenceThreshold;
     float sentimentThreshold;
+    String dburl;
+    /**
+     * @param dburl the dburl to set
+     */
+    public void setDburl(String dburl) {
+        this.dburl = dburl;
+    }
+    /**
+     * @return the dburl
+     */
+    public String getDburl() {
+        return dburl;
+    }
     /**
      * @param emotionThreshold the emotionThreshold to set
      */
