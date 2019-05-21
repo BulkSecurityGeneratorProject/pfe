@@ -53,7 +53,10 @@ public class MessageInjectorRessource {
         message.setChannel(c);
         message.setArchived(false);
         Message result = messageRepository.save(message);
-        String url1=applicationProperties.getModel().getEmotion();
+        SeeService s=new SeeService();
+        if(c!=null)
+        s.sendSseEventsToUI(result);
+        /* String url1=applicationProperties.getModel().getEmotion();
         if(url1.length()!=0){
             SendModelRequest request1=new SendModelRequest(url1,result,annotationRepository,applicationProperties.getModel().getEmotionThreshold());
             request1.start();
@@ -74,7 +77,7 @@ public class MessageInjectorRessource {
         if(url4.length()!=0){
             SendModelRequest request4=new SendModelRequest(url4,result,annotationRepository,applicationProperties.getModel().getUrgenceThreshold());
             request4.start(); 
-        }
+        } */
         return new ResponseEntity<String>("{\"message\" : \"received\"}",org.springframework.http.HttpStatus.OK);
     }
 }

@@ -103,6 +103,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
             .antMatchers("/api/register").permitAll()
             .antMatchers("/inject/zendesk").permitAll()
+            .antMatchers("/inject/not").permitAll()
             .antMatchers(org.springframework.http.HttpMethod.OPTIONS, "/inject/zendesk").permitAll()
             .antMatchers("/api/activate").permitAll()
             .antMatchers("/api/authenticate").permitAll()

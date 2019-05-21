@@ -37,7 +37,6 @@ public class SendModelAnnotation extends Thread {
         }
         try {
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-        //HttpGet req=new HttpGet(url);
         HttpPost request = new HttpPost(url);
         StringEntity params = new StringEntity(json.toString());
         request.addHeader("content-type", "application/json");

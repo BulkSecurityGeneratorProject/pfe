@@ -55,8 +55,11 @@ public class AnnotationResource {
             throw new BadRequestAlertException("A new annotation cannot already have an ID", ENTITY_NAME, "idexists");
         }
         Annotation result = annotationRepository.save(annotation);
-        SendModelAnnotation request=new SendModelAnnotation(annotation.getMessage().getMessageText(),annotation.getAnnotationData(),applicationProperties);
-        request.start();
+        if(applicationProperties.getModel().getDburl().length()!=0)
+        {
+            SendModelAnnotation request=new SendModelAnnotation(annotation.getMessage().getMessageText(),annotation.getAnnotationData(),applicationProperties);
+            request.start();
+        }
         return ResponseEntity.created(new URI("/api/annotations/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);

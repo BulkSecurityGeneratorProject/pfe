@@ -81,6 +81,8 @@ spring:
     mvc:
         favicon:
             enabled: false
+        async:
+            request-timeout: -1 
     thymeleaf:
         mode: HTML
 
@@ -140,12 +142,12 @@ jhipster:
 
 application:
     model:
-        dburl: https://c6915819.ngrok.io/annotation_urgence/
-        emotion:
-        emotionThreshold: 0.5
-        sentiment: 
-        sentimentThreshold: 0.6
-        problem: 
-        problemThreshold: 0.4
-        urgence:
-        urgenceThreshold: 0.2
+        dburl:
+        emotion: http://0ee92c75.ngrok.io/prediction/
+        emotionThreshold: 0
+        sentiment: https://34c4683f.ngrok.io/prediction_sentiment/
+        sentimentThreshold: 0
+        problem: http://65830717.ngrok.io/prediction/
+        problemThreshold: 0
+        urgence: https://689a02e2.ngrok.io/prediction_urgence/
+        urgenceThreshold: 0

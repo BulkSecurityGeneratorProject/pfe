@@ -3,7 +3,7 @@ import { ITeam } from 'app/shared/model/team.model';
 import { IChannel } from 'app/shared/model/channel.model';
 import { IMessage } from 'app/shared/model/message.model';
 import { TeamService } from 'app/entities/team';
-import { ChannelService } from 'app/entities/channel';
+import { ChannelService, channelPopupRoute } from 'app/entities/channel';
 import { filter, map } from 'rxjs/operators';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { MessageService } from 'app/entities/message';
@@ -26,6 +26,7 @@ export class NavigationComponent implements OnInit {
     annotationGrouped: any[];
     currentMessage: IMessage = null;
     annotations: IAnnotation[];
+    notifications: IMessage[] = [];
     users: IUser[];
     public edited = false;
     t: Map<String, number>;
@@ -51,8 +52,20 @@ export class NavigationComponent implements OnInit {
         this.loadAllAnnotations();
         this.loadGroupedAnnotations();
         this.loadAllUsers();
+        this.connectNewMessages();
         this.accountService.identity().then(account => {
             this.currentAccount = account;
+        });
+    }
+    connectNewMessages() {
+        const source = new EventSource('http://localhost:8080/inject/not');
+        source.addEventListener('message', message => {
+            let n: IMessage;
+            n = JSON.parse(message.data);
+            if (this.channels.find(channel => channel.id === n.channel.id)) {
+                this.messages.unshift(n);
+                this.notifications.unshift(n);
+            }
         });
     }
     logout() {
@@ -72,6 +85,10 @@ export class NavigationComponent implements OnInit {
                 this.messagesDisp = res;
             });
     }
+    removeMessage(message) {
+        this.currentMessage = message;
+        this.notifications = this.notifications.filter(value => value !== message);
+    }
     loadAllAnnotations() {
         this.annotationService
             .query()
@@ -81,7 +98,6 @@ export class NavigationComponent implements OnInit {
             )
             .subscribe((res: IAnnotation[]) => {
                 this.annotations = res;
-                //this.filteringAnnotations();
             });
     }
     loadGroupedAnnotations() {
@@ -135,19 +151,27 @@ export class NavigationComponent implements OnInit {
     }
     filterByTeam(team: ITeam) {
         this.messagesDisp = this.messages.filter(message => message.channel.team.id === team.id);
-        if (this.messagesDisp.length !== 0) this.currentMessage = this.messagesDisp[0];
-        else this.currentMessage = null;
+        if (this.messagesDisp.length !== 0) {
+            this.currentMessage = this.messagesDisp[0];
+        } else {
+            this.currentMessage = null;
+        }
     }
     filterByChannel(channel: IChannel) {
         this.messagesDisp = this.messages.filter(message => message.channel.id === channel.id);
-        if (this.messagesDisp.length !== 0) this.currentMessage = this.messagesDisp[0];
-        else this.currentMessage = null;
+        if (this.messagesDisp.length !== 0) {
+            this.currentMessage = this.messagesDisp[0];
+        } else {
+            this.currentMessage = null;
+        }
     }
     filterByAnnotation(a: String) {
         this.messagesDisp = [];
         for (let index = 0; index < this.annotations.length; index++) {
             const element = this.annotations[index];
-            if (element.annotationData.toLowerCase() === a) this.messagesDisp.push(element.message);
+            if (element.annotationData.toLowerCase() === a) {
+                this.messagesDisp.push(element.message);
+            }
         }
         this.currentMessage = this.messagesDisp[0];
     }
@@ -167,7 +191,6 @@ export class NavigationComponent implements OnInit {
     }
     receiveAddAnnotation($event) {
         this.annotations.push($event);
-        //this.filteringAnnotations();
     }
     receiveAddedTeam($event) {
         this.teams.push($event);
