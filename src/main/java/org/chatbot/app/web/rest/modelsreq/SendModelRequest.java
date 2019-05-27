@@ -13,6 +13,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.chatbot.app.domain.Annotation;
 import org.chatbot.app.domain.Message;
 import org.chatbot.app.repository.AnnotationRepository;
+import org.chatbot.app.web.rest.sendannotation.SeeAService;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 
@@ -62,14 +63,17 @@ public class SendModelRequest extends Thread {
                 annotation.setAnnotationData(res.getLabel());
                 if(res.getProbability()>=threshold)
                 {
-                    this.annotationRepository.save(annotation);
+                    annotation=this.annotationRepository.save(annotation);
+                    SeeAService s=new SeeAService();
+                    s.sendSseEventsToUI(annotation);
                 }
             }
           
         // handle response here...
         } catch (Exception ex) {
             // handle exception here
-            ex.printStackTrace();
+            //ex.printStackTrace();
+            System.out.println("Probleme with models");
         } finally {
             try {
                 httpClient.close();

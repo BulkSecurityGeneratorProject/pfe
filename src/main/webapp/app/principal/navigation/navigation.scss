@@ -23,6 +23,7 @@
 #messageDetails {
     width: 100%;
     font-size: 1em;
+    color: black;
 }
 #messageDetails h6 {
     font-size: 1.2em;
@@ -31,4 +32,11 @@
 }
 * {
     font-family: Arial, Helvetica, sans-serif;
+}
+#messageDetails {
+    background-color: #fff;
+    border-style: solid;
+    border-color: #d9d9d9;
+    border-radius: 30px;
+    border-top-left-radius: 0;
 }

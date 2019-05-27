@@ -188,9 +188,9 @@
                         <h6>Message</h6>
                         {{currentMessage.messageText}}
                         <hr>
-                        <h6>channel : </h6>
+                <!--         <h6>channel : </h6>
                         {{currentMessage.channel.channelName}}
-                        <hr>
+                        <hr> -->
                         <h6>assigned to : </h6>
                         <ng-container *ngIf="currentMessage.user==null; then add; else change">
                         </ng-container>

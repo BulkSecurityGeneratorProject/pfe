@@ -1,4 +1,4 @@
-package org.chatbot.app.web.rest;
+package org.chatbot.app.web.rest.sendmessage;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,8 +8,9 @@ import org.chatbot.app.domain.Message;
 import org.springframework.http.MediaType;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
-public class SeeService{
-    public void sendSseEventsToUI(Message notification) { //your model class
+public class SeeMService{
+    
+    public void sendSseEventsToUI(Message notification) { // your model class
         System.out.println("sending");
         List<SseEmitter> sseEmitterListToRemove = new ArrayList<>();
         SseMessageController.emitters.forEach((SseEmitter emitter) -> {

@@ -147,7 +147,7 @@ application:
         emotionThreshold: 0
         sentiment: https://34c4683f.ngrok.io/prediction_sentiment/
         sentimentThreshold: 0
-        problem: http://65830717.ngrok.io/prediction/
+        problem: http://6e8bbb20.ngrok.io/prediction/
         problemThreshold: 0
         urgence: https://689a02e2.ngrok.io/prediction_urgence/
         urgenceThreshold: 0

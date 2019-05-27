@@ -10,6 +10,7 @@ import org.chatbot.app.repository.AnnotationRepository;
 import org.chatbot.app.repository.ChannelRepository;
 import org.chatbot.app.repository.MessageRepository;
 import org.chatbot.app.web.rest.modelsreq.SendModelRequest;
+import org.chatbot.app.web.rest.sendmessage.SeeMService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -53,9 +54,15 @@ public class MessageInjectorRessource {
         message.setChannel(c);
         message.setArchived(false);
         Message result = messageRepository.save(message);
-        SeeService s=new SeeService();
+        SeeMService s=new SeeMService();
         if(c!=null)
-        s.sendSseEventsToUI(result);
+        s.sendSseEventsToUI(result); 
+        String url3=applicationProperties.getModel().getProblem();
+        if(url3.length()!=0)
+        {
+            SendModelRequest request3=new SendModelRequest(url3,result,annotationRepository,applicationProperties.getModel().getProblemThreshold());
+            request3.start();
+        } 
         /* String url1=applicationProperties.getModel().getEmotion();
         if(url1.length()!=0){
             SendModelRequest request1=new SendModelRequest(url1,result,annotationRepository,applicationProperties.getModel().getEmotionThreshold());
@@ -66,12 +73,6 @@ public class MessageInjectorRessource {
         {
             SendModelRequest request2=new SendModelRequest(url2,result,annotationRepository,applicationProperties.getModel().getSentimentThreshold());
             request2.start(); 
-        }
-        String url3=applicationProperties.getModel().getProblem();
-        if(url3.length()!=0)
-        {
-            SendModelRequest request3=new SendModelRequest(url3,result,annotationRepository,applicationProperties.getModel().getProblemThreshold());
-            request3.start();
         }
         String url4=applicationProperties.getModel().getUrgence();
         if(url4.length()!=0){

@@ -1,24 +1,26 @@
-import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
+import { Component, OnInit, Pipe, PipeTransform, OnDestroy } from '@angular/core';
 import { ITeam } from 'app/shared/model/team.model';
 import { IChannel } from 'app/shared/model/channel.model';
 import { IMessage } from 'app/shared/model/message.model';
 import { TeamService } from 'app/entities/team';
-import { ChannelService, channelPopupRoute } from 'app/entities/channel';
+import { ChannelService } from 'app/entities/channel';
 import { filter, map } from 'rxjs/operators';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { MessageService } from 'app/entities/message';
 import { IAnnotation } from 'app/shared/model/annotation.model';
 import { AnnotationService } from 'app/entities/annotation';
-import { AccountService, LoginService, IUser, UserService } from 'app/core';
+import { AccountService, LoginService, IUser, UserService, AuthServerProvider, WindowRef } from 'app/core';
 import { Router } from '@angular/router';
 import { SourceService } from 'app/entities/source';
+import { Subscription } from 'rxjs';
+import { NotificationService } from 'app/shared/notification/notification.service';
 
 @Component({
     selector: 'jhi-navigation',
     templateUrl: './navigation.component.html',
     styleUrls: ['navigation.scss']
 })
-export class NavigationComponent implements OnInit {
+export class NavigationComponent implements OnInit, OnDestroy {
     teams: ITeam[];
     channels: IChannel[];
     messagesDisp: IMessage[];
@@ -28,6 +30,8 @@ export class NavigationComponent implements OnInit {
     annotations: IAnnotation[];
     notifications: IMessage[] = [];
     users: IUser[];
+    newMessages: Subscription;
+    newAnnotations: Subscription;
     public edited = false;
     t: Map<String, number>;
     currentAccount: Account;
@@ -40,7 +44,9 @@ export class NavigationComponent implements OnInit {
         protected loginService: LoginService,
         protected route: Router,
         protected userService: UserService,
-        protected sourceService: SourceService
+        protected sourceService: SourceService,
+        private authServerProvider: AuthServerProvider,
+        protected notificationService: NotificationService
     ) {
         this.currentMessage = null;
         this.edited = false;
@@ -53,12 +59,25 @@ export class NavigationComponent implements OnInit {
         this.loadGroupedAnnotations();
         this.loadAllUsers();
         this.connectNewMessages();
+        this.connectNewAnnotations();
         this.accountService.identity().then(account => {
             this.currentAccount = account;
         });
     }
+    ngOnDestroy(): void {
+        throw new Error('Method not implemented.');
+        this.newAnnotations.unsubscribe();
+        this.newMessages.unsubscribe();
+    }
     connectNewMessages() {
-        const source = new EventSource('http://localhost:8080/inject/not');
+        this.newMessages = this.notificationService.observeMessages().subscribe((n: IMessage) => {
+            if (this.channels.find(channel => channel.id === n.channel.id)) {
+                this.messages.unshift(n);
+                this.notifications.unshift(n);
+            }
+        });
+        /* const authToken = this.authServerProvider.getToken();
+        const source = new EventSource('http://localhost:8080/inject/not/message'+'?access_token=' + authToken);
         source.addEventListener('message', message => {
             let n: IMessage;
             n = JSON.parse(message.data);
@@ -66,7 +85,25 @@ export class NavigationComponent implements OnInit {
                 this.messages.unshift(n);
                 this.notifications.unshift(n);
             }
+        });  */
+    }
+    connectNewAnnotations() {
+        this.newAnnotations = this.notificationService.observeAnnotations().subscribe((n: IAnnotation) => {
+            if (this.messages.find(message => message.id === n.message.id)) {
+                console.log(n);
+                this.annotations.push(n);
+            }
         });
+        /*  const authToken = this.authServerProvider.getToken();
+        const source = new EventSource('http://localhost:8080/inject/not/annotation'+'?access_token=' + authToken);
+        source.addEventListener('message', message => {
+            let n: IAnnotation;
+            n = JSON.parse(message.data);
+            if (this.messages.find(message => message.id === n.message.id)) {
+                console.log(n);
+                this.annotations.push(n);
+            }  
+        }); */
     }
     logout() {
         this.loginService.logout();
