@@ -137,6 +137,7 @@
                       <span>{{message.messageTitle}}</span>
                       <span>{{message.createdAt| date : 'shortTime'}}</span>
                     </div>
+                    <p class="messageText">{{ellipsis(message.messageText)}}</p>
                     <p>
                       <div><span *ngFor="let a of annotations">
                           <span *ngIf="a.message.id===message.id"><span
@@ -191,7 +192,21 @@
                 <!--         <h6>channel : </h6>
                         {{currentMessage.channel.channelName}}
                         <hr> -->
-                        <h6>assigned to : </h6>
+                        <div class="dropdown">
+                          <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Assigned to
+                          </button>
+                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item"></a>
+                            <a class="dropdown-item" 
+                            [ngClass]="{
+                              'active': userOption.id==currentMessage.user.id
+                            }"
+                            *ngFor="let userOption of users;"
+                            (click)="currentMessage.user=userOption;save();">{{userOption.login}}</a>
+                          </div>
+                        </div>
+                        <!-- <h6>assigned to : </h6>
                         <ng-container *ngIf="currentMessage.user==null; then add; else change">
                         </ng-container>
                         <ng-template #change>
@@ -219,7 +234,7 @@
                                 <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
                               </button>
                             </form>
-                          </div>
+                          </div> -->
                           <hr>
                           <h6>Annotations</h6>
                         <h6><span *ngFor="let a of annotations">

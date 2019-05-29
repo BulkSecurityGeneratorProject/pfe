@@ -212,6 +212,11 @@ export class NavigationComponent implements OnInit, OnDestroy {
         }
         this.currentMessage = this.messagesDisp[0];
     }
+    ellipsis(text: string): string {
+        let result = text.substring(0, 20);
+        if (text.length > 20) result += ' ...';
+        return result;
+    }
     save() {
         if (this.currentMessage.id !== undefined) {
             this.messageService.update(this.currentMessage).subscribe((res: HttpResponse<IMessage>) => {
