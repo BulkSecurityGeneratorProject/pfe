@@ -61,7 +61,7 @@ public class MessageInjectorRessource {
         if(url3.length()!=0)
         {
             SendModelRequest request3=new SendModelRequest(url3,result,annotationRepository,applicationProperties.getModel().getProblemThreshold());
-            request3.start();
+            //request3.start();
         } 
         /* String url1=applicationProperties.getModel().getEmotion();
         if(url1.length()!=0){

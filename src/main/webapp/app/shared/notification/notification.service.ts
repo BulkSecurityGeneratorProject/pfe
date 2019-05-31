@@ -17,8 +17,7 @@ export class NotificationService {
     observeMessages(): Observable<IMessage> {
         return new Observable<IMessage>(obs => {
             const es = new EventSource(this.sseMUrl);
-            es.addEventListener('message', evt => {
-                console.log(evt.data);
+            es.addEventListener('message', (evt: any) => {
                 obs.next(JSON.parse(evt.data));
             });
             return () => es.close();
@@ -27,8 +26,7 @@ export class NotificationService {
     observeAnnotations(): Observable<IAnnotation> {
         return new Observable<IAnnotation>(obs => {
             const es = new EventSource(this.sseAUrl);
-            es.addEventListener('message', evt => {
-                console.log(evt.data);
+            es.addEventListener('message', (evt: any) => {
                 obs.next(JSON.parse(evt.data));
             });
             return () => es.close();

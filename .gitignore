@@ -144,5 +144,12 @@ Desktop.ini
 ######################
 .eslintcache
 ######################
+
 #Azia
-/src/main/webapp/content/azia/*
+/src/main/webapp/content/azia/docs/*
+/src/main/webapp/content/azia/template/img/*
+/src/main/webapp/content/azia/template/img/*
+/src/main/webapp/content/azia/template/scss/*
+/src/main/webapp/content/azia/template/starters/*
+/src/main/webapp/content/azia/template/template/*
+/src/main/webapp/content/azia/template/*.*

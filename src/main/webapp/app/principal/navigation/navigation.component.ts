@@ -94,16 +94,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
                 this.annotations.push(n);
             }
         });
-        /*  const authToken = this.authServerProvider.getToken();
-        const source = new EventSource('http://localhost:8080/inject/not/annotation'+'?access_token=' + authToken);
-        source.addEventListener('message', message => {
-            let n: IAnnotation;
-            n = JSON.parse(message.data);
-            if (this.messages.find(message => message.id === n.message.id)) {
-                console.log(n);
-                this.annotations.push(n);
-            }  
-        }); */
     }
     logout() {
         this.loginService.logout();
@@ -214,7 +204,9 @@ export class NavigationComponent implements OnInit, OnDestroy {
     }
     ellipsis(text: string): string {
         let result = text.substring(0, 20);
-        if (text.length > 20) result += ' ...';
+        if (text.length > 20) {
+            result += ' ...';
+        }
         return result;
     }
     save() {
@@ -222,11 +214,11 @@ export class NavigationComponent implements OnInit, OnDestroy {
             this.messageService.update(this.currentMessage).subscribe((res: HttpResponse<IMessage>) => {
                 console.log('update');
             });
-        } else {
-            this.messageService.create(this.currentMessage).subscribe((res: HttpResponse<IMessage>) => {
-                console.log('save');
-            });
+            return;
         }
+        this.messageService.create(this.currentMessage).subscribe((res: HttpResponse<IMessage>) => {
+            console.log('save');
+        });
     }
     changeCurrentMessage(message: IMessage) {
         this.currentMessage = message;
