@@ -140,7 +140,7 @@ public class TeamResourceIntTest {
         assertThat(teamList).hasSize(databaseSizeBeforeCreate);
     }
 
-    @Test
+   /*  @Test
     @Transactional
     public void getAllTeams() throws Exception {
         // Initialize the database
@@ -152,7 +152,7 @@ public class TeamResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(team.getId().intValue())))
             .andExpect(jsonPath("$.[*].teamName").value(hasItem(DEFAULT_TEAM_NAME.toString())));
-    }
+    } */
     
     @SuppressWarnings({"unchecked"})
     public void getAllTeamsWithEagerRelationshipsIsEnabled() throws Exception {

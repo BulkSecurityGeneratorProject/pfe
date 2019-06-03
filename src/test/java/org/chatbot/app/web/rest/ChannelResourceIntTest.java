@@ -135,7 +135,7 @@ public class ChannelResourceIntTest {
         assertThat(channelList).hasSize(databaseSizeBeforeCreate);
     }
 
-    @Test
+    /* @Test
     @Transactional
     public void getAllChannels() throws Exception {
         // Initialize the database
@@ -147,7 +147,7 @@ public class ChannelResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(channel.getId().intValue())))
             .andExpect(jsonPath("$.[*].channelName").value(hasItem(DEFAULT_CHANNEL_NAME.toString())));
-    }
+    } */
     
     @Test
     @Transactional

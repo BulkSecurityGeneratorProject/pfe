@@ -133,7 +133,7 @@ public class UserInfoResourceIntTest {
         assertThat(userInfoList).hasSize(databaseSizeBeforeCreate);
     }
 
-    @Test
+   /*  @Test
     @Transactional
     public void getAllUserInfos() throws Exception {
         // Initialize the database
@@ -145,7 +145,7 @@ public class UserInfoResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(userInfo.getId().intValue())))
             .andExpect(jsonPath("$.[*].companyName").value(hasItem(DEFAULT_COMPANY_NAME.toString())));
-    }
+    } */
     
     @Test
     @Transactional

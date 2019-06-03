@@ -270,7 +270,6 @@ public class UserResourceIntTest {
             .andExpect(jsonPath("$.[*].imageUrl").value(hasItem(DEFAULT_IMAGEURL)))
             .andExpect(jsonPath("$.[*].langKey").value(hasItem(DEFAULT_LANGKEY)));
     }
-
     @Test
     @Transactional
     public void getUser() throws Exception {

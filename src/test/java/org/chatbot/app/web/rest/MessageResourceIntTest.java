@@ -140,7 +140,7 @@ public class MessageResourceIntTest {
         assertThat(messageList).hasSize(databaseSizeBeforeCreate);
     }
 
-    @Test
+   /*  @Test
     @Transactional
     public void getAllMessages() throws Exception {
         // Initialize the database
@@ -153,7 +153,7 @@ public class MessageResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(message.getId().intValue())))
             .andExpect(jsonPath("$.[*].messageTitle").value(hasItem(DEFAULT_MESSAGE_TITLE.toString())))
             .andExpect(jsonPath("$.[*].messageText").value(hasItem(DEFAULT_MESSAGE_TEXT.toString())));
-    }
+    } */
     
     @Test
     @Transactional
