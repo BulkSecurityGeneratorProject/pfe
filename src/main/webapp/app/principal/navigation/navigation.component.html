@@ -45,9 +45,9 @@
           </nav>
         </li><!-- nav-item -->
       </ul><!-- nav -->
-      <ul class="nav">
-        <li (click)="messagesDisp=messages" class="nav-label">Annotations <span class="badge badge-dark">{{annotations.length}}</span></li>
-        <li>
+      <ul class="nav" *ngIf="annotations">
+        <li (click)="messagesDisp=messages" class="nav-label">Annotations <span class="badge badge-dark">{{annotations?.length}}</span></li>
+        <li *ngIf="annotationGrouped">
           <div><span *ngFor="let a of annotationGrouped|slice:0:annotationGrouped.length"
             (click)="filterByAnnotation(a[0])">
                 <p> {{a[0]}} <span class="badge badge-dark">{{a[1]}}</span></p>
@@ -104,12 +104,12 @@
                 <span>Premium Member</span>
               </div><!-- az-header-profile -->
 
-              <a routerLink="settings" class="dropdown-item"><i class="typcn typcn-user-outline"></i> My Profile</a>
-              <a routerLink="password" class="dropdown-item"><i class="typcn typcn-edit"></i> Password</a>
+              <a routerLink="/settings" class="dropdown-item"><i class="typcn typcn-user-outline"></i> My Profile</a>
+              <a routerLink="/password" class="dropdown-item"><i class="typcn typcn-edit"></i> Password</a>
               <a  class="dropdown-item"><i class="typcn typcn-time"></i> Activity Logs</a>
               <a  class="dropdown-item"><i class="typcn typcn-cog-outline"></i> Account Settings</a>
               <a (click)=" logout()" class="dropdown-item"><i class="typcn typcn-power-outline"></i> Sign Out</a>
-            </div><!-- dropdown-menu -->
+            </div><!-- dropdown-menu --> 
           </div>
         </div><!-- az-header-right -->
       </div><!-- container -->
@@ -139,14 +139,18 @@
                     </div>
                     <p class="messageText">{{ellipsis(message.messageText)}}</p>
                     <p>
-                      <div><span *ngFor="let a of annotations">
+                      <div class="annotationN"><span *ngFor="let a of annotations">
                           <span *ngIf="a.message.id===message.id"><span
                               class="badge badge-pill badge-success">{{a.annotationData}}</span></span>
                         </span></div>
+                        <!-- <div><span *ngFor="let a of ellipsisA(message)">
+                         <span
+                              class="badge badge-pill badge-success">{{a.annotationData}}</span></span>
+                        </div> -->
                     </p>
                   </div><!-- media-body -->
                 </div><!-- media -->
-                <div class="media"  *ngIf="messagesDisp.length==0">
+                <div class="media"  *ngIf="messagesDisp?.length==0">
                     <div class="media-body">
                         <div class="media-contact-name">No message !!!</div>
                     </div>
@@ -156,19 +160,19 @@
             <div class=" az-content-body-chat">
               <div class="az-chat-header" id="headerOfCur">
                 <div class="row">
-                    <div class="az-img-user"><img src="{{'./../../../content/images/small/' + currentMessage.channel.source.logoUrl}}" alt="logo of the channel"></div>
+                    <div class="az-img-user"><img src="{{'./../../../content/images/small/' + currentMessage?.channel.source.logoUrl}}" alt="logo of the channel"></div>
                     <div class="az-chat-msg-name">
-                      <h6>{{currentMessage.messageTitle}}</h6>
+                      <h6>{{currentMessage?.messageTitle}}</h6>
                       <small>
-                      <span *ngIf="currentMessage.user==null">Not assigned
+                      <span *ngIf="currentMessage?.user==null">Not assigned
                       </span>
-                      <span *ngIf="currentMessage.user!=null">assigned to <strong>{{currentMessage.user.login}}</strong></span>
+                      <span *ngIf="currentMessage?.user!==null">assigned to <strong>{{currentMessage?.user.login}}</strong></span>
                       </small>
                     </div>
                 </div>
                 <div id="createdDate">
-                    {{currentMessage.createdAt| date }}<br>
-                    {{currentMessage.createdAt| date : 'shortTime' }}
+                    {{currentMessage?.createdAt| date }}<br>
+                    {{currentMessage?.createdAt| date : 'shortTime' }}
                 </div>
                 <div>
                     <nav class="nav">
@@ -186,7 +190,7 @@
                     <div class="media-body">
                       <div class="az-msg-wrapper" id="messageDetails">
                         <h6>Message</h6>
-                        {{currentMessage.messageText}}
+                        {{currentMessage?.messageText}}
                         <hr>
                 <!--         <h6>channel : </h6>
                         {{currentMessage.channel.channelName}}
@@ -199,7 +203,7 @@
                             <a class="dropdown-item"></a>
                             <a class="dropdown-item" 
                             [ngClass]="{
-                              'active': userOption.id==currentMessage.user?.id
+                              'active': userOption.id==currentMessage?.user?.id
                             }"
                             *ngFor="let userOption of users;"
                             (click)="currentMessage.user=userOption;save();">{{userOption.login}}</a>
@@ -237,7 +241,7 @@
                           <hr>
                           <h6>Annotations</h6>
                         <h6><span *ngFor="let a of annotations">
-                            <span *ngIf="a.message.id===currentMessage.id">
+                            <span *ngIf="a.message.id===currentMessage?.id">
                               <span class="badge badge-pill badge-info">{{a.annotationData}}
                               </span></span></span></h6>
                               <jhi-addannotation [msg]="currentMessage" (addingEvent)="receiveAddAnnotation($event)"></jhi-addannotation>

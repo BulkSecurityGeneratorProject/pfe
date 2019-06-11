@@ -9,8 +9,8 @@
             "entities": {
                 "main": "Entités",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
-                "team": "team",
-                "channel": "channel",
+                "team": "équipe",
+                "channel": "canal",
                 "message": "message",
                 "annotation": "annotation",
                 "userInfo": "userInfo",

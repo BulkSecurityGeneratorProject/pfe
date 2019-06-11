@@ -65,7 +65,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
         });
     }
     ngOnDestroy(): void {
-        throw new Error('Method not implemented.');
+        // throw new Error('Method not implemented.');
         this.newAnnotations.unsubscribe();
         this.newMessages.unsubscribe();
     }
@@ -136,9 +136,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
             )
             .subscribe(
                 (res: any[]) => {
-                    console.log('ok');
                     this.annotationGrouped = res;
-                    console.log(res);
                 },
                 (response: HttpErrorResponse) => {
                     console.log('error req ' + response.message);
@@ -208,6 +206,13 @@ export class NavigationComponent implements OnInit, OnDestroy {
             result += ' ...';
         }
         return result;
+    }
+    ellipsisA(message: IMessage): IAnnotation[] {
+        let t: IAnnotation[] = [];
+        t = this.annotations.filter((annotation: IAnnotation) => {
+            annotation.message.id == message.id;
+        });
+        return t;
     }
     save() {
         if (this.currentMessage.id !== undefined) {
