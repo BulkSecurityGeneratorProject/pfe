@@ -15,7 +15,6 @@ export class ArchivemessageComponent implements OnInit {
     ngOnInit() {}
     archive() {
         this.msg.archived = true;
-        console.log('archiving');
         this.messageService.update(this.msg).subscribe(
             (res: HttpResponse<IMessage>) => {
                 this.archimessageEvent.emit('message archived successfully');

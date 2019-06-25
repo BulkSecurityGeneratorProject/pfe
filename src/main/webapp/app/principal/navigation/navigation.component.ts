@@ -207,13 +207,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
         }
         return result;
     }
-    ellipsisA(message: IMessage): IAnnotation[] {
-        let t: IAnnotation[] = [];
-        t = this.annotations.filter((annotation: IAnnotation) => {
-            annotation.message.id == message.id;
-        });
-        return t;
-    }
     save() {
         if (this.currentMessage.id !== undefined) {
             this.messageService.update(this.currentMessage).subscribe((res: HttpResponse<IMessage>) => {
@@ -230,6 +223,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
     }
     receiveAddAnnotation($event) {
         this.annotations.push($event);
+        this.loadGroupedAnnotations();
     }
     receiveAddedTeam($event) {
         this.teams.push($event);
@@ -240,6 +234,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
     receiveArchiveMsg($event) {
         this.loadAllMessages();
         this.loadAllAnnotations();
+        this.loadGroupedAnnotations();
         this.currentMessage = this.messages[0];
     }
     /*     filteringAnnotations() {

@@ -126,12 +126,13 @@ public class AccountResource {
 
             Message m1=new Message();
             m1.setMessageTitle("frustration");
-            m1.setMessageText("I just wanted to let you know that all of your help with getting endeavors. Keep in touch.");
+            m1.setMessageText("I just wanted to let you know that all of your help with getting (your business) off the ground is very much appreciated. Your support and efforts for our new venture certainly contributed to our success, and I want to thank you for that. Good luck in all of your endeavors. Keep in touch.");
             m1.setChannel(c.get(0));
             m1.setUser(user);
             m1.setArchived(false);
             m1.setCreatedAt(Instant.now());
             m.add(m1);
+
             m1=new Message();
             m1.setMessageTitle("Thanks a lot");
             m1.setMessageText("I can’t believe that you billed me without letting me know ahead of time! I was not expecting a charge at all, let alone one that was SO EXPENSIVE. How can you guys get away with this!?!?");
@@ -153,6 +154,37 @@ public class AccountResource {
             m1.setArchived(false);
             m1.setCreatedAt(Instant.now());
             m.add(m1);
+            m1=new Message();
+            m1.setMessageTitle("security");
+            m1.setMessageText("Could you share a bit more information with me so that we can get to the bottom of this? For example, would you mind sending me the username associated with your account along with the date that you received the charge? Using that, I can take a look in our system and see how we can get this fixed for you.");
+            m1.setChannel(c.get(0));
+            m1.setUser(user);
+            m1.setArchived(false);
+            m1.setCreatedAt(Instant.now());
+            m.add(m1);
+            m1=new Message();
+            m1.setMessageTitle("disappointed");
+            m1.setMessageText("I thought everything was sorted, but when I went to go back and follow Mark’s advice it didn’t actually work. Feeling really disappointed. I’ll probably just stop using this product.");
+            m1.setChannel(c.get(1));
+            m1.setArchived(false);
+            m1.setCreatedAt(Instant.now());
+            m.add(m1);
+            m1=new Message();
+            m1.setMessageTitle("Acknowledge");
+            m1.setMessageText("I noticed that you left a review on your interaction with me that mentioned that the solution I’d offered didn’t work for you, so I wanted to reach out and see if we could get it fixed.");
+            m1.setChannel(c.get(0));
+            m1.setArchived(false);
+            m1.setCreatedAt(Instant.now());
+            m.add(m1);
+
+            m1=new Message();
+            m1.setMessageTitle("Thanks");
+            m1.setMessageText("Our management would like to thank you for patronizing our products and also thank you for the opportunity to serve you. Truly, it is our pleasure. You are a valued customer to us.");
+            m1.setChannel(c.get(0));
+            m1.setArchived(false);
+            m1.setCreatedAt(Instant.now());
+            m.add(m1);
+
             m=messageRepository.saveAll(m);
 
             Annotation a1=new Annotation();
@@ -200,6 +232,56 @@ public class AccountResource {
             a1.setAnnotationType(0);
             a1.setAnnotationData("Joy");
             a1.setMessage(m.get(3));
+            a.add(a1);
+
+            a1=new Annotation();
+            a1.setAnnotationType(0);
+            a1.setAnnotationData("unhappy");
+            a1.setMessage(m.get(4));
+            a.add(a1);
+            a1=new Annotation();
+            a1.setAnnotationType(0);
+            a1.setAnnotationData("urgent");
+            a1.setMessage(m.get(4));
+            a.add(a1);
+            a1=new Annotation();
+            a1.setAnnotationType(0);
+            a1.setAnnotationData("Issue");
+            a1.setMessage(m.get(4));
+            a.add(a1);
+
+            a1=new Annotation();
+            a1.setAnnotationType(0);
+            a1.setAnnotationData("unhappy");
+            a1.setMessage(m.get(5));
+            a.add(a1);
+            a1=new Annotation();
+            a1.setAnnotationType(0);
+            a1.setAnnotationData("urgent");
+            a1.setMessage(m.get(5));
+            a.add(a1);
+            a1=new Annotation();
+            a1.setAnnotationType(0);
+            a1.setAnnotationData("disappointed");
+            a1.setMessage(m.get(5));
+            a.add(a1);
+
+            a1=new Annotation();
+            a1.setAnnotationType(0);
+            a1.setAnnotationData("unhappy");
+            a1.setMessage(m.get(6));
+            a.add(a1);
+            a1=new Annotation();
+            a1.setAnnotationType(0);
+            a1.setAnnotationData("sad");
+            a1.setMessage(m.get(6));
+            a.add(a1);
+
+
+            a1=new Annotation();
+            a1.setAnnotationType(0);
+            a1.setAnnotationData("happy");
+            a1.setMessage(m.get(7));
             a.add(a1);
 
             a=annotationRepository.saveAll(a);

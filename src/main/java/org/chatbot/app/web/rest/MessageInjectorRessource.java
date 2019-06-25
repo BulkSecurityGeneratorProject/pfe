@@ -63,7 +63,7 @@ public class MessageInjectorRessource {
             SendModelRequest request3=new SendModelRequest(url3,result,annotationRepository,applicationProperties.getModel().getProblemThreshold());
             //request3.start();
         } 
-        /* String url1=applicationProperties.getModel().getEmotion();
+         String url1=applicationProperties.getModel().getEmotion();
         if(url1.length()!=0){
             SendModelRequest request1=new SendModelRequest(url1,result,annotationRepository,applicationProperties.getModel().getEmotionThreshold());
             request1.start();
@@ -78,7 +78,7 @@ public class MessageInjectorRessource {
         if(url4.length()!=0){
             SendModelRequest request4=new SendModelRequest(url4,result,annotationRepository,applicationProperties.getModel().getUrgenceThreshold());
             request4.start(); 
-        } */
+        } 
         return new ResponseEntity<String>("{\"message\" : \"received\"}",org.springframework.http.HttpStatus.OK);
     }
 }

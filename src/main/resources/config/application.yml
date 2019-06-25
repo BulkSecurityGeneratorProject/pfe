@@ -143,11 +143,11 @@ jhipster:
 application:
     model:
         dburl:
-        emotion: http://0ee92c75.ngrok.io/prediction/
+        emotion: https://dfa3a3e2.ngrok.io/prediction/
         emotionThreshold: 0
-        sentiment: https://34c4683f.ngrok.io/prediction_sentiment/
+        sentiment: https://8403489b.ngrok.io/prediction_sentiment/
         sentimentThreshold: 0
-        problem: http://d120479e.ngrok.io/prediction/
+        problem: http://621a08fe.ngrok.io/prediction/
         problemThreshold: 0
-        urgence: https://689a02e2.ngrok.io/prediction_urgence/
+        urgence: https://dfea887b.ngrok.io/prediction_urgence/
         urgenceThreshold: 0
